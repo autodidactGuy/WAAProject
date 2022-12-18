@@ -32,7 +32,7 @@ const AdvEdit = (props) => {
         <>
         <Row>
              <Col span={12} offset={6}>
-            <h1 style={{textAlign: 'center'}}>  {true ? "Add " : "Update "}  Job advertisement </h1>
+            <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  Job advertisement </h1>
 
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['adv', 'Title']} label="Job Title" rules={[{ required: true }]}>
@@ -53,7 +53,7 @@ const AdvEdit = (props) => {
 
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                     <Button type="primary" htmlType="submit">
-                    Submit
+                        { props.isAdd ? "Add " : "Update " }
                     </Button>
                 </Form.Item>
         </Form>
