@@ -12,7 +12,6 @@ const { Meta } = Card;
 function Navbar() {
     return (
         <div>
-
             <div
                 style={{
                     float: 'left',
@@ -30,8 +29,8 @@ function Navbar() {
                     { label: <div>home</div>, key: "1" },
                     { label: <div>Student</div>, key: "2" },
                     { label: <div>Jobs</div>, key: "3" },
-                    { label: <div>Login</div>, key: "4" },
-                    { label: <div>Register</div>, key: "5" },
+                    { label: <div >Login</div>, key: "4" },
+                    { label: <div >Register</div>, key: "5" },
                 ]}
             />
         </div>
