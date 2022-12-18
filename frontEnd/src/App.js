@@ -7,7 +7,9 @@ import { Avatar, Card } from 'antd';
 
 import TenLastJobAdv from './Components/Dashboards/TenLastJobAdv'
 import WorkExperienceList from './Components/WorkExperience/WorkExperienceList'
-import Login from './Components/Connection/Login';
+import Login from './Components/Connection/Login'
+import Register from './Components/Connection/Register'
+
 
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
@@ -44,6 +46,7 @@ const App = () => {
             <TenLastJobAdv />
             <WorkExperienceList/>
             <Login/>
+            <Register/>
 
             {/*<Content className="site-layout" style={{ padding: '0 50px' }}>*/}
             {/*    <Breadcrumb style={{ margin: '16px 0' }}>*/}

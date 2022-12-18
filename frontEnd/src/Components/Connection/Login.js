@@ -9,8 +9,6 @@ const Login = () => {
   return (
     <Row>
       <Col span={12} offset={6}>
-
-
     <Form
       name="normal_login"
       className="login-form"
