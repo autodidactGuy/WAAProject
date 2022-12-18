@@ -55,7 +55,6 @@ const WorkExperienceEdit = (props) => {
                 <Form.Item name={['workExperience', 'IsCurrentPosition']}  label="IsCurrentPosition">
                     <Checkbox>IsCurrentPosition</Checkbox>
                 </Form.Item>
- 
                 <Form.Item name={['workExperience', 'State']} label="State" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
