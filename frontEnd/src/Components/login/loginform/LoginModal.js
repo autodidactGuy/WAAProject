@@ -12,12 +12,19 @@ const LoginModal = () => {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+  
   return (
     <>
       <Button type="primary" onClick={showModal}>
         Login
       </Button>
-      <Modal title="Login" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      
+      <Modal title="Login" open={isModalOpen}  onCancel={handleCancel}
+      footer={[
+          <Button key="cancelLogin" onClick={handleCancel}>
+            Cancel
+          </Button>]}
+      >
         <LoginForm/>
       </Modal>
     </>

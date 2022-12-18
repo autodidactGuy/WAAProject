@@ -17,7 +17,12 @@ const RegisterModal = () => {
       <Button type="primary" onClick={showModal}>
         Register
       </Button>
-      <Modal title="Register" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      < Modal title="Register" open={isModalOpen}  onCancel={handleCancel}
+      footer={[
+          <Button key="cancelregister" onClick={handleCancel}>
+            Cancel
+          </Button>]}
+      >
         <RegisterForm/>
       </Modal>
     </>
