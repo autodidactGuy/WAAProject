@@ -31,8 +31,7 @@ const App = () => {
 
             <TenLastJobAdv />
             <WorkExperienceList/>
-             
-            <Register/>
+         
 
             {/*<Content className="site-layout" style={{ padding: '0 50px' }}>*/}
             {/*    <Breadcrumb style={{ margin: '16px 0' }}>*/}
