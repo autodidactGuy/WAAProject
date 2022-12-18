@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Modal } from 'antd';
-import LoginForm from './LoginForm';
-const LoginModal = () => {
+import RegisterForm from './RegisterForm';
+const RegisterModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -15,12 +15,12 @@ const LoginModal = () => {
   return (
     <>
       <Button type="primary" onClick={showModal}>
-        Login
+        Register
       </Button>
-      <Modal title="Login" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
-        <LoginForm/>
+      <Modal title="Register" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <RegisterForm/>
       </Modal>
     </>
   );
 };
-export default LoginModal;
+export default RegisterModal;

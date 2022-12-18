@@ -3,6 +3,9 @@ import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import LoginModal from '../login/loginform/LoginModal';
+import RegisterModal from '../register/registerform/RegisterModal';
+import Login from '../Connection/Login';
+import Register from '../Connection/Register';
 
 
 
@@ -30,8 +33,8 @@ function Navbar() {
                     { label: <div>home</div>, key: "1" },
                     { label: <div>Student</div>, key: "2" },
                     { label: <div>Jobs</div>, key: "3" },
-                    { label:  <LoginModal/>, key: "4" },
-                    { label: <div >Register</div>, key: "5" },
+                    { label:  <Login/>, key: "4" },
+                    { label: <Register/>, key: "5" },
                 ]}
             />
         </div>
