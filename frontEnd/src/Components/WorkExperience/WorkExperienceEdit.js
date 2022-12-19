@@ -1,6 +1,7 @@
-import React from 'react';
-import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber   } from 'antd';
-import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
+import React, { useEffect, useState } from 'react';
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, RangePicker, Checkbox } from 'antd';
+const count = 3;
+const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
 
 const layout = {
@@ -24,7 +25,8 @@ const layout = {
     },
   };
 
-const AdvEdit = (props) => {
+const WorkExperienceEdit = (props) => {
+
     const onFinish = (values) => {
         console.log(values);
         if(props.isAdd)
@@ -41,22 +43,28 @@ const AdvEdit = (props) => {
         <>
         <Row>
              <Col span={12} offset={6}>
-            <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  Job advertisement </h1>
+            <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  work experience </h1>
 
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-                <Form.Item name={['adv', 'Title']} label="Job Title" rules={[{ required: true }]}>
+                <Form.Item name={['workExperience', 'JobTitle']} label="Job Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={['adv', 'State']} label="State" rules={[{ required: true }]}>
+                <Form.Item name={['workExperience', 'FromTo']} label="From To" rules={[{ required: true }]}>
+                    <RangePicker picker="month" bordered={false} />
+                </Form.Item>
+                <Form.Item name={['workExperience', 'IsCurrentPosition']}  label="IsCurrentPosition">
+                    <Checkbox>IsCurrentPosition</Checkbox>
+                </Form.Item>
+                <Form.Item name={['workExperience', 'State']} label="State" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={['adv', 'City']} label="City" rules={[{ required: true }]}>
+                <Form.Item name={['workExperience', 'City']} label="City" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={['adv', 'CompanyName']} label="CompanyName" rules={[{ required: true }]}>
+                <Form.Item name={['workExperience', 'CompanyName']} label="CompanyName" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={['adv', 'Description']} label="Description" rules={[{ required: true }]}>
+                <Form.Item name={['workExperience', 'Details']} label="Details" rules={[{ required: true }]}>
                     <Input.TextArea />
                 </Form.Item>
 
@@ -70,8 +78,5 @@ const AdvEdit = (props) => {
         </Row>
         </>
     );
-}
-
-
-export default AdvEdit;
-
+};
+export default WorkExperienceEdit;
