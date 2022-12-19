@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/user/signup").permitAll()
+                .antMatchers("/user/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

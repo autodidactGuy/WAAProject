@@ -75,5 +75,8 @@ public class User {
         this.gender = gender;
         this.nickName = nickName;
         this.phoneNumber = pohoneNumber;
+        this.isLockoutEnd=false;
+        this.isActivated=true;
+        this.isDeleted=false;
     }
 }
