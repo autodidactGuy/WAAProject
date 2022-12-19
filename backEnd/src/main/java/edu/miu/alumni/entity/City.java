@@ -6,20 +6,19 @@ import javax.persistence.*;
 @Table(name="cities")
 public class City {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private long cityId;
-    private String citiName;
+    @EmbeddedId
+    private CityId id;
     @ManyToOne
-    @JoinColumn(name = "state_code")
+    @JoinColumns({
+            @JoinColumn(name="stateCode", referencedColumnName="stateCode")
+    })
+    @MapsId("stateCode")
     private State state;
-
 
     private int zipCode;
 
-    private  double latitude;
-    private double longitude;
+    private  String latitude;
+    private String longitude;
 
-    private String county;
 
 }

@@ -23,9 +23,9 @@ public class SignupRequest {
 
     private String role;
 
-    private long cityCode;
+    private String cityName;
 
-    private long stateCode;
+    private String stateCode;
 
 
 }

@@ -119,11 +119,9 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        City userCity = cityRepository.findByCityId(signUpRequest.getCityCode());
-
+        City userCity = cityRepository.findById_CityNameAndId_StateCode(signUpRequest.getCityName(),signUpRequest.getStateCode());
         State state = stateRepository.findById(signUpRequest.getStateCode()).get();
         user.setRole(roles);
-        user.setState(state);
         user.setCity(userCity);
 
         userRepository.save(user);
