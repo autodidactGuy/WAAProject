@@ -73,9 +73,9 @@ public class UserServiceImpl implements UserService {
         // Create new user's account
         User user =  new User(signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getFirstName(),signUpRequest.getLastName(),
+                signUpRequest.getFirstname(),signUpRequest.getLastname(),
                 signUpRequest.getBirthday(),signUpRequest.getGender(),
-                signUpRequest.getNickName(),signUpRequest.getPohoneNumber()
+                signUpRequest.getNickname(),signUpRequest.getPhone()
         );;
 
         String role = signUpRequest.getRole();
@@ -95,9 +95,9 @@ public class UserServiceImpl implements UserService {
                         roles.add(userRole);
                         user =  new Student(signUpRequest.getEmail(),
                                 encoder.encode(signUpRequest.getPassword()),
-                                signUpRequest.getFirstName(),signUpRequest.getLastName(),
+                                signUpRequest.getFirstname(),signUpRequest.getLastname(),
                                 signUpRequest.getBirthday(),signUpRequest.getGender(),
-                                signUpRequest.getNickName(),signUpRequest.getPohoneNumber()
+                                signUpRequest.getNickname(),signUpRequest.getPhone()
                         );
                         break;
 
@@ -106,9 +106,9 @@ public class UserServiceImpl implements UserService {
                         roles.add(facultyRole);
                         user =  new Faculty(signUpRequest.getEmail(),
                                 encoder.encode(signUpRequest.getPassword()),
-                                signUpRequest.getFirstName(),signUpRequest.getLastName(),
+                                signUpRequest.getFirstname(),signUpRequest.getLastname(),
                                 signUpRequest.getBirthday(),signUpRequest.getGender(),
-                                signUpRequest.getNickName(),signUpRequest.getPohoneNumber()
+                                signUpRequest.getNickname(),signUpRequest.getPhone()
                         );
                         break;
                     default:
@@ -119,7 +119,7 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        City userCity = cityRepository.findById_CityNameAndId_StateCode(signUpRequest.getCityName(),signUpRequest.getStateCode());
+        City userCity = cityRepository.findById_CityNameAndId_StateCode(signUpRequest.getCityCode(),signUpRequest.getStateCode());
         State state = stateRepository.findById(signUpRequest.getStateCode()).get();
         user.setRole(roles);
         user.setCity(userCity);
