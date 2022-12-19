@@ -6,12 +6,15 @@ import javax.persistence.*;
 @Table(name="cities")
 public class City {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long cityId;
     private String citiName;
     @ManyToOne
     @JoinColumn(name = "state_code")
     private State state;
 
-    @Id
+
     private int zipCode;
 
     private  double latitude;

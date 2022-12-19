@@ -15,8 +15,17 @@ public class SignupRequest {
 
     private String lastName;
 
-    private Set<String> role;
+    private String birthday;
 
+    private String nickName;
+    private String pohoneNumber;
+    private String gender;
+
+    private String role;
+
+    private long cityCode;
+
+    private long stateCode;
 
 
 }
