@@ -98,9 +98,9 @@ const RegisterForm = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const onFinish = (values) => {
-
+  const newuser = {...values,stateCode:values.residence[0],cityCode:values.residence[1]}
     console.log('Received values of form: ', values);
-    dispatch(registerUser(values));
+    dispatch(registerUser(newuser));
 
   };
   
