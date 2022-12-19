@@ -58,7 +58,7 @@ public class SecurityConfiguration {
                 .antMatchers("/city/*").permitAll()
                 .antMatchers("/role").permitAll()
                 .antMatchers("/*").permitAll()
-                .antMatchers("/student/*").permitAll()
+                .antMatchers("/*/*").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
