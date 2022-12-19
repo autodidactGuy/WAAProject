@@ -123,7 +123,7 @@ const RegisterForm = () => {
   }));
   return (
     <Row>
-    <Col span={12} offset={6}>
+    <Col span={24} offset={0}>
     <Form
       {...formItemLayout}
       form={form}
