@@ -19,34 +19,46 @@ const { Option } = Select;
 
 const residences = [
   {
-    value: 'zhejiang',
-    label: 'Zhejiang',
+    value: 'AK',
+    label: 'Alaska',
     children: [
       {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
+        value: 'Adak',
+        label: 'Adak',
+      },
+      {
+        value: 'Akiachak',
+        label: 'Akiachak',
+      },
+      {
+        value: 'Bettles Field',
+        label: 'Bettles Field',
+      },
+      {
+        value: 'Central',
+        label: 'Central',
       },
     ],
   },
   {
-    value: 'jiangsu',
-    label: 'Jiangsu',
+    value: 'IA',
+    label: 'Iowa',
     children: [
       {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
+        value: 'Clearfield',
+        label: 'Clearfield',
+      },
+      {
+        value: 'Fairfield',
+        label: 'Fairfield',
+      },
+      {
+        value: 'Farley',
+        label: 'Farley',
+      },
+      {
+        value: 'Gowrie',
+        label: 'Gowrie',
       },
     ],
   },
@@ -86,35 +98,12 @@ const RegisterForm = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const onFinish = (values) => {
-
+  const newuser = {...values,stateCode:values.residence[0],cityCode:values.residence[1]}
     console.log('Received values of form: ', values);
-    dispatch(registerUser(values));
+    dispatch(registerUser(newuser));
 
   };
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const suffixSelector = (
-    <Form.Item name="suffix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
-      </Select>
-    </Form.Item>
-  );
+  
   const [autoCompleteResult, setAutoCompleteResult] = useState([]);
   const onWebsiteChange = (value) => {
     if (!value) {
@@ -127,6 +116,9 @@ const RegisterForm = () => {
     label: website,
     value: website,
   }));
+  const filter = (inputValue, path) =>
+  path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+
   return (
     <Row>
     <Col span={24} offset={0}>
@@ -136,8 +128,8 @@ const RegisterForm = () => {
       name="register"
       onFinish={onFinish}
       initialValues={{
-        residence: ['zhejiang', 'hangzhou', 'xihu'],
-        prefix: '86',
+        residence: ['state', 'city'],
+        
       }}
       scrollToFirstError
     >
@@ -221,7 +213,7 @@ const RegisterForm = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item name="date-picker" label="Birthday" 
+      <Form.Item name="birthday" label="Birthday" 
           rules= { [
             {
               type: 'object',
@@ -260,7 +252,12 @@ const RegisterForm = () => {
           },
         ]}
       >
-        <Cascader options={residences} />
+        <Cascader options={residences} 
+        
+        showSearch={{
+          filter,
+        }}
+        />
       </Form.Item>
 
       <Form.Item
@@ -274,7 +271,7 @@ const RegisterForm = () => {
         ]}
       >
         <Input
-          addonBefore={prefixSelector}
+           
           style={{
             width: '100%',
           }}
@@ -295,7 +292,6 @@ const RegisterForm = () => {
         <Select placeholder="select your gender">
           <Option value="male">Male</Option>
           <Option value="female">Female</Option>
-          <Option value="other">Other</Option>
         </Select>
       </Form.Item>
 
