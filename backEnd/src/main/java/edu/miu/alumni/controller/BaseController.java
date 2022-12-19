@@ -7,7 +7,23 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+/**
+ *
+ * @useage
+ * public class CityController extends BaseController<City,CityDto, CityId>{
+ *
+ *     @Autowired
+ *     public CityController(CityService<City, CityDto, CityId> bs) {
+ *         super(bs);
+ *     }
+ * }
+ *
+ *
+ *
+ * @param <T> is the Entity type
+ * @param <H> is the Dto type
+ * @param <A> is the primary key type in entity
+ */
 public class BaseController<T,H,A> implements BasicControllerInterface<T,H,A>{
 
     public BasicService<T,H,A> bs ;
