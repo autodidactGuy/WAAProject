@@ -1,7 +1,7 @@
 import React from 'react';
 import { Avatar, List } from 'antd';
-import WorkExperience from './WorkExperience';
 import { educationData } from '../../Data/EducationData'
+import Education from './Education';
 
 const EducationList = () => (
     <div style={{ marginLeft:'5px' }}>
@@ -10,7 +10,7 @@ const EducationList = () => (
         itemLayout="horizontal"
             dataSource={educationData}
             renderItem={(item) => (
-                <WorkExperience item={ item } />
+                <Education item={ item } />
 
         )}
         />
