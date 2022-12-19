@@ -22,6 +22,7 @@ const RegisterModal = () => {
           <Button key="cancelregister" onClick={handleCancel}>
             Cancel
           </Button>]}
+        width='40%'
       >
         <RegisterForm/>
       </Modal>
