@@ -14,6 +14,11 @@ public class Comment {
 
     private String comment;
 
+    @OneToOne
+    private Faculty writedBy;
+
+    @OneToOne
+    private Student toStudent;
 //    @ManyToMany
 //    private List<Student> toStudent;
 //

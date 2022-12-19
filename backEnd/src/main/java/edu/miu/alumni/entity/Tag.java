@@ -11,23 +11,8 @@ public class Tag {
     private Long id;
 
 
-    @ManyToOne
-    @JoinColumn(name = "publisher_id")
-    private User publisher;
-
-    @ManyToOne
-    private User subscriber;
-
-
     private String tagDetails;
 
-    public User getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(User publisher) {
-        this.publisher = publisher;
-    }
 
     public Long getId() {
         return id;

@@ -57,8 +57,7 @@ public class User {
 
     private String nickName;
 
-    @OneToMany
-    private List<Tag> subscribedTags;
+
     @OneToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;
