@@ -17,16 +17,13 @@ public class JobAdvertisement {
     @JoinColumn(name = "poster_stu_id")
     private Student poster;
 
-    @ManyToOne
-    @JoinColumn(name = "applier_id")
-    private Student applier;
-
-
+//    @ManyToOne
+//    @JoinColumn(name = "applier_id")
+//    private Student applier;
+//
     @OneToMany
     @JoinColumn(name="id_jobAd")
     private List<Tag> tags;
-
-
 
 
     private LocalDate publicationDate;

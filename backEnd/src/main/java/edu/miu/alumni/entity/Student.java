@@ -22,6 +22,9 @@ public class Student extends User{
     @OneToMany(mappedBy = "poster")
     private List<JobAdvertisement> postJobAds;
 
+
+    @OneToMany(mappedBy ="student" )
+    private List<UserApplication> userApplications;
 //    @OneToMany
 //    private List<JobAdvertisement> appliedAds;
     public Student(String email, String encode, String firstName, String lastName, String birthday, String gender, String nickName, String pohoneNumber,String marjor) {
