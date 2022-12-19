@@ -1,5 +1,6 @@
 package edu.miu.alumni.controller;
 
+import edu.miu.alumni.model.LoginRequest;
 import edu.miu.alumni.model.SignupRequest;
 import edu.miu.alumni.service.UserService;
 import lombok.AllArgsConstructor;
@@ -17,5 +18,11 @@ public class UserController {
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
         var signUpResponse = uaaService.signUp(signUpRequest);
         return ResponseEntity.ok().body(signUpResponse);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> registerUser(@RequestBody LoginRequest loginRequest) {
+        var loginResponse = uaaService.login(loginRequest);
+        return ResponseEntity.ok().body(loginResponse);
     }
 }

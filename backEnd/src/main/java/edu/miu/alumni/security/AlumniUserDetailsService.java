@@ -21,7 +21,7 @@ public class AlumniUserDetailsService  implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(username);
+        User user = userRepo.findUserByEmailEquals(username);
         var userDetails = new AlumniUserDetails(user);
         return userDetails;
     }
