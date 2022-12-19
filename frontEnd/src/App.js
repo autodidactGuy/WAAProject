@@ -10,7 +10,13 @@ import WorkExperienceList from './Components/WorkExperience/WorkExperienceList'
 import Login from './Components/Connection/Login'
 import Register from './Components/Connection/Register'
 import Navbar from './Components/Navbar/Navbar';
-
+import {Routes, Route } from "react-router-dom";
+import MyProfile from './Components/pages/myprofile/MyProfile';
+import MySubmittedAdvertisements from './Components/pages/mysubmittedadvertisements/MySubmittedAdvertisements';
+import MyAppliedJobs from './Components/pages/myappliedjobs/MyAppliedJobs';
+import Home from './Components/pages/home/Home';
+import Searchjob from './Components/pages/searchjob/Searchjob';
+import Searchstudent from './Components/pages/searchstudent/Searchstudent';
 
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
@@ -26,11 +32,24 @@ const App = () => {
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
                 
             <Navbar/>
-                
+    
             </Header>
 
-            <TenLastJobAdv />
-            <WorkExperienceList/>
+<Routes>
+        <Route path={"/home"} element={<Home/>} /> 
+        <Route path={"/myprofile"} element={<MyProfile/>} /> 
+        <Route path={"/mysubmittedadv"} element={<MySubmittedAdvertisements/>} />
+        <Route path={"/myappliedjobs"} element={<MyAppliedJobs/>} /> 
+        <Route path={"/searchJobs"} element={<Searchjob/>} /> 
+        <Route path={"/searchstudent"} element={<Searchstudent/>} /> 
+        
+
+
+
+
+</Routes>
+            
+            
          
 
             {/*<Content className="site-layout" style={{ padding: '0 50px' }}>*/}
