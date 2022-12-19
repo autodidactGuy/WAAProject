@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { registerUser } from '../../../redux/userReducer';
+import { useDispatch } from "react-redux";
 import {
   AutoComplete,
   Button,
@@ -82,8 +84,12 @@ const tailFormItemLayout = {
 
 const RegisterForm = () => {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
   const onFinish = (values) => {
+
     console.log('Received values of form: ', values);
+    dispatch(registerUser(values));
+
   };
   const prefixSelector = (
     <Form.Item name="prefix" noStyle>
