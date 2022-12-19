@@ -52,18 +52,25 @@ public class User {
     private boolean isDeleted;
 
 
+    private String nickName;
     @OneToOne
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
-    public User(String email, String password, String firstName, String lastName) {
+
+    public User() {
+
+    }
+
+    public User(String email, String password, String firstName, String lastName, String birthday, String gender, String nickName, String pohoneNumber) {
+
         this.email = email;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
-    }
-
-    public User() {
-
+        this.birthday = birthday;
+        this.gender = gender;
+        this.nickName = nickName;
+        this.phoneNumber = pohoneNumber;
     }
 }
