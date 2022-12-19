@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/jobExperienceController")
+@RequestMapping("/jobExperience")
 public class JobExperienceController extends BaseController<JobExperience, JobExperienceDto,Long>{
     public JobExperienceController(JobExperienceService<JobExperience, JobExperienceDto, Long> bs) {
         super(bs);

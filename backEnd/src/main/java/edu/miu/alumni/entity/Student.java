@@ -15,9 +15,9 @@ public class Student extends User{
 
     private String marjor;
 
-    @OneToMany
-    @JoinColumn(name="id_inter_stu")
-    private List<Tag> interstedTags;
+//    @OneToMany
+//    @JoinColumn(name="id_inter_stu")
+//    private List<Tag> interstedTags;
 
     @OneToMany(mappedBy = "poster")
     private List<JobAdvertisement> postJobAds;

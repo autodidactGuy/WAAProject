@@ -22,7 +22,7 @@ public class JobAdvertisement {
 //    private Student applier;
 //
     @OneToMany
-    @JoinColumn(name="id_jobAd")
+    @JoinTable(name="advertisment_tags")
     private List<Tag> tags;
 
 
@@ -34,7 +34,7 @@ public class JobAdvertisement {
 
     private String description;
 
-    private String profil;
+    private String profile;
 
 
     @OneToOne

@@ -1,7 +1,7 @@
 package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.entity.Tag;
-import edu.miu.alumni.entity.TagDto;
+import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.repository.TagRepository;
 import edu.miu.alumni.service.TagService;
 import org.modelmapper.ModelMapper;
