@@ -1,11 +1,16 @@
 import React from 'react'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Row, Col } from 'antd';
+import { loginUser } from '../../../redux/userReducer';
+import { useDispatch } from "react-redux";
+import Moment from 'moment'
 
 
 function LoginForm() {
+  const dispatch = useDispatch();
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
+        dispatch(loginUser(values));
       };
   return (
     <Row>
