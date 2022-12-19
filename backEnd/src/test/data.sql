@@ -1,0 +1,1 @@
+insert into roles(id,is_deleted,name) values (1,false,'ADMIN');
