@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../../redux/userReducer';
 import { useDispatch } from "react-redux";
+import Moment from 'moment'
 import {
   AutoComplete,
   Button,
@@ -98,8 +99,23 @@ const RegisterForm = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const onFinish = (values) => {
-  const newuser = {...values,stateCode:values.residence[0],cityCode:values.residence[1]}
-    console.log('Received values of form: ', values);
+  const newuser =
+  {
+    major:values.major,
+    firstname: values.fristname,
+    lastname: values.lastname,
+    email: values.email,
+    password: values.password,
+    nickname: values.nickname,
+    phone: values.phone,
+    gender: values.gender,
+    role: values.role,
+    birthday: Moment(values.birthday).format("YYYY-MM-DD"),
+    stateCode:values.residence[0],
+    cityCode: values.residence[1]
+}
+  
+    console.log('Received values of form: ', newuser);
     dispatch(registerUser(newuser));
 
   };
@@ -133,6 +149,23 @@ const RegisterForm = () => {
       }}
       scrollToFirstError
     >
+      
+      <Form.Item
+        name="major"
+        label="Major"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your major!',
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+    
+
+
     <Form.Item
         name="firstname"
         label="First name"
@@ -306,8 +339,8 @@ const RegisterForm = () => {
         ]}
       >
         <Select placeholder="select your role">
-          <Option value="student">Student</Option>
-          <Option value="faculty">Faculty</Option>
+          <Option value="STUDENT">Student</Option>
+          <Option value="FACULT">Faculty</Option>
         </Select>
       </Form.Item>
 
