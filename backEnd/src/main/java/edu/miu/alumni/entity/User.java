@@ -20,13 +20,16 @@ public class User {
     private String lastName;
 
     private String email;
-    @ManyToOne
-    @JoinColumn(name = "state_code")
-    private State state;
+//    @ManyToOne
+//    @JoinColumn(name = "state_code")
+//    private State state;
 
 
     @ManyToOne
-    @JoinColumn(name = "city_zip_code")
+    @JoinColumns({
+            @JoinColumn(name="cityName"),
+            @JoinColumn(name="stateCode")
+    })
     private City city;
 
 
