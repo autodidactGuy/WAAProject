@@ -46,7 +46,7 @@ public class User {
 
     private int accessFailedCount;
 
-    private String marjor;
+
 
     private boolean isLockoutEnd;
 

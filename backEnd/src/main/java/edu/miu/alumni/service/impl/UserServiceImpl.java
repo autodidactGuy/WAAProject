@@ -41,12 +41,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository repository;
 
-
     @Autowired
     private CityRepository cityRepository;
 
     @Autowired
     private StateRepository stateRepository;
+
 
 
     @Override
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
                                 encoder.encode(signUpRequest.getPassword()),
                                 signUpRequest.getFirstname(),signUpRequest.getLastname(),
                                 signUpRequest.getBirthday(),signUpRequest.getGender(),
-                                signUpRequest.getNickname(),signUpRequest.getPhone()
+                                signUpRequest.getNickname(),signUpRequest.getPhone(),signUpRequest.getMarjor()
                         );
                         break;
 
@@ -138,4 +138,6 @@ public class UserServiceImpl implements UserService {
         }
         return new LoginResponse();
     }
+
+
 }

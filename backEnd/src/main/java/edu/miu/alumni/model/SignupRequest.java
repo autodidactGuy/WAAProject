@@ -2,6 +2,7 @@ package edu.miu.alumni.model;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.lang.Nullable;
 
 import java.util.Set;
 
@@ -26,4 +27,7 @@ public class SignupRequest {
     private String cityCode;
 
     private String stateCode;
+
+    @Nullable
+    private String marjor;
 }

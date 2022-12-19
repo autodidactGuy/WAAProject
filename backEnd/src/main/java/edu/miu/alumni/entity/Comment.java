@@ -1,9 +1,12 @@
 package edu.miu.alumni.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Data
 @Table(name="comments")
 public class Comment {
     @Id

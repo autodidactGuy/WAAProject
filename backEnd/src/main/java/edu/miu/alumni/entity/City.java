@@ -1,8 +1,11 @@
 package edu.miu.alumni.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name="cities")
 public class City {
 
@@ -15,7 +18,7 @@ public class City {
     @MapsId("stateCode")
     private State state;
 
-    private int zipCode;
+    private String zipCode;
 
     private  String latitude;
     private String longitude;
