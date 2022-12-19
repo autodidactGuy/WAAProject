@@ -102,7 +102,7 @@ const RegisterForm = () => {
   const newuser =
   {
     major:values.major,
-    firstname: values.fristname,
+    firstname: values.firstname,
     lastname: values.lastname,
     email: values.email,
     password: values.password,
