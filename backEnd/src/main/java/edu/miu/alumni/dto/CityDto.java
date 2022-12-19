@@ -22,7 +22,11 @@ public class CityDto {
     public void setCityName(String cityName) {
         this.cityName = this.id.getCityName();
     }
-    public void stateCode(String stateCode) {
-        this.stateCode = this.id.getStateCode();
+
+    public String getCityName() {
+         return this.id.getCityName();
+    }
+    public String stateCode() {
+        return this.id.getStateCode();
     }
 }

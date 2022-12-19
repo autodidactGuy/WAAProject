@@ -45,7 +45,7 @@ public class StudentDto {
 
     private String nickName;
 
-    private String major;
+    private String marjor;
 
 
 //    private Profile profile;

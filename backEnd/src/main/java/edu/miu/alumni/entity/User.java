@@ -25,7 +25,7 @@ public class User {
 //    private State state;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumns({
             @JoinColumn(name="cityName"),
             @JoinColumn(name="stateCode")
