@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 @Embeddable
 @Data
-@NoArgsConstructor
 public class CityId implements Serializable {
 
     private String cityName;

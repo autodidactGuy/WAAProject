@@ -41,7 +41,7 @@ public class User {
 
     private String gender;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "users")
     private List<Role> role;
 
     private int accessFailedCount;

@@ -2,16 +2,39 @@ package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.dto.StudentDto;
 import edu.miu.alumni.entity.Student;
+import edu.miu.alumni.model.SearchStudentRequest;
 import edu.miu.alumni.repository.StudentRepository;
-import edu.miu.alumni.service.StudentService;
+import edu.miu.alumni.repository.UserRepository;import edu.miu.alumni.service.StudentService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentServiceImpl extends BasicServiceImpl<Student, StudentDto,Long, StudentRepository>
 implements StudentService<Student, StudentDto,Long>
 {
-    public StudentServiceImpl(StudentRepository repository, ModelMapper modelMapper) {
+//    private StudentRepository repository;
+    public StudentServiceImpl(StudentRepository repository, ModelMapper modelMapper,
+                              StudentRepository studentRepository) {
         super(repository, modelMapper);
+//        this.repository = studentRepository;
+    }
+
+
+    @Override
+    public List<StudentDto> getStudentsByFirstNameOrLastNameContainsAndMarjorEqualsAndIdAndCity_IdAndCityState(SearchStudentRequest searchReq ) {
+
+
+       var res =   repository.getStudentsByFirstNameOrLastNameContainsAndMarjorEqualsAndCity_IdAndCityStateAndIdEquals(
+                    searchReq.getMajor(),searchReq.getCity(),searchReq.getStudentId()==null?null: Long.parseLong(searchReq.getStudentId()),searchReq.getState(),searchReq.getName() );
+
+        List<StudentDto> collect = res.stream().map(x -> {
+            return modelMapper.map(x, StudentDto.class);
+        }).collect(Collectors.toList());
+
+        return collect;
     }
 }

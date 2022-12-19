@@ -23,9 +23,9 @@ import java.util.List;
  */
 @NoArgsConstructor
 public abstract  class BasicServiceImpl<T,H,A, D extends CrudRepository>  implements BasicService<T, H,A> {
-    private D repository;
+    public D repository;
 
-    private ModelMapper modelMapper;
+    public ModelMapper modelMapper;
 
     public BasicServiceImpl(D repository, ModelMapper modelMapper) {
         this.repository = repository;
