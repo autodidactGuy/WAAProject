@@ -213,7 +213,7 @@ const RegisterForm = () => {
         <Input.Password />
       </Form.Item>
 
-      <Form.Item name="date-picker" label="Birthday" 
+      <Form.Item name="birthday" label="Birthday" 
           rules= { [
             {
               type: 'object',
