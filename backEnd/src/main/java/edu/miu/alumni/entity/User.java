@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
     private String firstName;
@@ -42,9 +42,10 @@ public class User {
 
     private String gender;
 
-    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
-    private List<Role> role;
 
+    @ManyToMany(cascade = CascadeType.DETACH,fetch = FetchType.EAGER)
+    @JoinTable
+    private List<Role> role;
     private int accessFailedCount;
 
 

@@ -16,5 +16,4 @@ public class RoleDto {
 
     private Boolean  isDeleted;
 
-    private List<User> users;
 }
