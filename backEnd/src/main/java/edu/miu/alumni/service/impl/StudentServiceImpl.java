@@ -3,6 +3,8 @@ package edu.miu.alumni.service.impl;
 import edu.miu.alumni.dto.StudentDto;
 import edu.miu.alumni.entity.Student;
 import edu.miu.alumni.model.SearchStudentRequest;
+import edu.miu.alumni.model.echarts.StudentsNumberPerCity;
+import edu.miu.alumni.model.echarts.StudentsNumberPerState;
 import edu.miu.alumni.repository.StudentRepository;
 import edu.miu.alumni.repository.UserRepository;import edu.miu.alumni.service.StudentService;
 import org.modelmapper.ModelMapper;
@@ -17,8 +19,7 @@ public class StudentServiceImpl extends BasicServiceImpl<Student, StudentDto,Lon
 implements StudentService<Student, StudentDto,Long>
 {
 //    private StudentRepository repository;
-    public StudentServiceImpl(StudentRepository repository, ModelMapper modelMapper,
-                              StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
 //        this.repository = studentRepository;
     }
@@ -37,4 +38,17 @@ implements StudentService<Student, StudentDto,Long>
 
         return collect;
     }
+
+    @Override
+    public List<StudentsNumberPerState> getStudentsNumberPerState() {
+//        return repository.getStudentsNumberPerState();
+        return null;
+    }
+
+    @Override
+    public List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode) {
+        return null;
+//        return repository.getStudentsNumberPerCity(stateCode);
+    }
+
 }
