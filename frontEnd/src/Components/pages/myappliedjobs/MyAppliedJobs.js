@@ -1,7 +1,7 @@
 import React from 'react'
 import { appliedjobs } from '../../../Data/appliedAdvertisements'
  
-import { Col, Row } from 'antd';
+ 
 import { Space, Table, Tag } from 'antd';
 
 
