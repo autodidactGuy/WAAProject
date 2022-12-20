@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { registerUser } from '../../../redux/userReducer';
+import React, { useEffect, useState } from 'react';
+import { getLocations, registerUser } from '../../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
 import Moment from 'moment'
 import {
@@ -19,52 +19,7 @@ import {
 
 const { Option } = Select;
 
-const residences = [
-  {
-    value: 'AK',
-    label: 'Alaska',
-    children: [
-      {
-        value: 'Adak',
-        label: 'Adak',
-      },
-      {
-        value: 'Akiachak',
-        label: 'Akiachak',
-      },
-      {
-        value: 'Bettles Field',
-        label: 'Bettles Field',
-      },
-      {
-        value: 'Central',
-        label: 'Central',
-      },
-    ],
-  },
-  {
-    value: 'IA',
-    label: 'Iowa',
-    children: [
-      {
-        value: 'Clearfield',
-        label: 'Clearfield',
-      },
-      {
-        value: 'Fairfield',
-        label: 'Fairfield',
-      },
-      {
-        value: 'Farley',
-        label: 'Farley',
-      },
-      {
-        value: 'Gowrie',
-        label: 'Gowrie',
-      },
-    ],
-  },
-];
+
 const formItemLayout = {
   labelCol: {
     xs: {
@@ -97,10 +52,15 @@ const tailFormItemLayout = {
 };
 
 const RegisterForm = () => {
+  const locations = useSelector((state)=>state.userReducer.locations)
+  const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const registerstatus = useSelector((state) => state.userReducer.registerstatus);
-  
+  useEffect(()=>{
+    dispatch(getLocations());
+
+  })
   const onFinish = (values) => {
   const newuser =
   {
@@ -138,7 +98,7 @@ const RegisterForm = () => {
   const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
-  if(registerstatus==="pending")
+  if(registerstatus==="pending" || getLocationStatus==="pending")
         return(
           <Spin tip="Loading" size="large">
           <div className="content" />
@@ -295,7 +255,7 @@ const RegisterForm = () => {
           },
         ]}
       >
-        <Cascader options={residences} 
+        <Cascader options={locations} 
         
         showSearch={{
           filter,
