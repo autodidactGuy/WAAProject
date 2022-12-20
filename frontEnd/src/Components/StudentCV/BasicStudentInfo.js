@@ -1,6 +1,7 @@
 import { MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button } from 'antd'
 import React from 'react'
+import BasicStudentInfoModal from './BasicStudentInfoModal'
 
 
 function BasicStudentInfo() {
@@ -11,7 +12,7 @@ function BasicStudentInfo() {
       <div>age : 29</div>
       <div><PhoneOutlined />phone number : 1234 </div>
       <div><MailOutlined />email : test@gmail.com </div>
-      <Button>edit short profile</Button>
+      <BasicStudentInfoModal/>
 
     </div>
   )

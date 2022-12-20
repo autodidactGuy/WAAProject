@@ -60,7 +60,7 @@ const RegisterForm = () => {
   useEffect(()=>{
     dispatch(getLocations());
 
-  })
+  },[locations])
   const onFinish = (values) => {
   const newuser =
   {
