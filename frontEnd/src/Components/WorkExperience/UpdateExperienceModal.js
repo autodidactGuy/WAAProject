@@ -19,8 +19,8 @@ function UpdateExperienceModal(props) {
     
     return (
       <>
-        <Button type="primary" onClick={showModal}>
-          Add WorkExperience
+        <Button size='small' type="primary" onClick={showModal}>
+          Edit
         </Button>
         
         <Modal title="Add exeprience" open={isModalOpen}  onCancel={handleCancel}

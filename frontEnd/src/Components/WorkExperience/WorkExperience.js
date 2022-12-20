@@ -19,6 +19,9 @@ const WorkExperience = (props) => {
                     <div>Company {props.item.Company} </div>
                     <div>{props.item.Details} </div>
                     <UpdateExperienceModal isAdd={false} jobToUpdate={props.item}/>
+                    <Button size='small' type="primary" danger onClick={()=>alert('to implement')}>
+                    delete
+                    </Button>
                 </>}
             />
         </List.Item>
