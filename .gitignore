@@ -33,3 +33,8 @@ yarn-error.log*
 # backend class file should be filted
 /backEed/*.class
 
+backEnd/target/
+backEnd/target
+backEnd/target/classes/edu/miu/alumni/repository/JobAdvertisementRepository.class
+backEnd/target/classes/edu/miu/alumni/repository/JobAdvertisementRepository.class
+backEnd/target/classes/edu/miu/alumni/security/SecurityConfiguration.class

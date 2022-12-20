@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { registerUser } from '../../../redux/userReducer';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Moment from 'moment'
 import {
   AutoComplete,
@@ -13,7 +13,8 @@ import {
   InputNumber,
   Row,
   Select,
-  DatePicker
+  DatePicker,
+  Spin
 } from 'antd';
 
 const { Option } = Select;
@@ -98,6 +99,8 @@ const tailFormItemLayout = {
 const RegisterForm = () => {
   const [form] = Form.useForm();
   const dispatch = useDispatch();
+  const registerstatus = useSelector((state) => state.userReducer.registerstatus);
+  
   const onFinish = (values) => {
   const newuser =
   {
@@ -135,6 +138,13 @@ const RegisterForm = () => {
   const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
+  if(registerstatus==="pending")
+        return(
+          <Spin tip="Loading" size="large">
+          <div className="content" />
+         </Spin>
+        );
+        else
   return (
     <Row>
     <Col span={24} offset={0}>
