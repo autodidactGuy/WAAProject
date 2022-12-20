@@ -6,25 +6,15 @@ import { useDispatch ,useSelector} from "react-redux";
 const LoginModal = () => {
   const loginstatus = useSelector((state) => state.userReducer.loginstatus);
    
-  const [messageApi, contextHolder] = message.useMessage();
+ 
   useEffect(()=>{
     if(loginstatus==="success")
     {
       setIsModalOpen(false);
-      messageApi.open({
-        type: 'success',
-        content: 'Welcome, you are loggedin',
-        duration: 3,
-      });
+      
     }
-    else if(loginstatus==="rejected"){
-      messageApi.open({
-        type: 'error',
-        content: 'Error, please try again',
-        duration: 3,
-      });
+    
 
-    }
   },[loginstatus])
   const [isModalOpen, setIsModalOpen] = useState(false);
  
@@ -40,7 +30,7 @@ const LoginModal = () => {
   
   return (
     <>
-   {contextHolder}
+
       <Button type="primary" onClick={showModal}>
         Login
       </Button>
