@@ -25,6 +25,8 @@
     "start:Dev": "env-cmd -f .env.dev npm start start",
     "start:Prod": "env-cmd -f .env.prod npm start start",
     "build": "react-scripts build",
+    "build:Dev": "env-cmd -f .env.dev npm run build",
+    "build:Prod": "env-cmd -f .env.prod npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
