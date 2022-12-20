@@ -41,5 +41,17 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'waafrontend'
     publishLocation: 'Container'
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'rm -rf /opt/WAA/frontend/caddy/caddy_html/*'
+    readyTimeout: '20000'
 
-    
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    contents: '**'
+    targetFolder: '/opt/WAA/frontend/caddy/caddy_html/'
+    readyTimeout: '20000'
