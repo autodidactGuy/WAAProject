@@ -24,5 +24,5 @@ steps:
   inputs:
     command: 'custom'
     workingDir: '$(System.DefaultWorkingDirectory)/frontEnd/'
-    customCommand: 'run build'
+    customCommand: 'run build:Prod'
   displayName: 'Npm build'
