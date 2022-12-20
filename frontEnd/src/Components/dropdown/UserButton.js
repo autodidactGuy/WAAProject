@@ -1,12 +1,13 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { Button, Dropdown, message } from 'antd'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from '../../redux/userReducer';
+
 function UserButton() {
   const dispatch=useDispatch();
- 
+  const navigate = useNavigate();
   return (
     <>
  
@@ -19,6 +20,7 @@ function UserButton() {
             {key:'3', label:<Link to="/mysubmittedadv">SubmittedAdvertisements</Link>},
             {key:'4', label:<div onClick={()=>{
               dispatch(logout());
+              navigate('home');
               
              
             }

@@ -138,6 +138,7 @@ const userSlice = createSlice({
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
             state.isLogged=isLogged()
+            
             message.success("Logout success! See you soon")
         }
     },
