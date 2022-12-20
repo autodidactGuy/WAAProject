@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://waa.db.bhtechnology.fr:5432/final_project</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="final_project@localhost" uuid="aa49ef68-d7be-4ad5-a098-dc942758960b">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/final_project</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

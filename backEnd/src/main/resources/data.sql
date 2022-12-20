@@ -20,18 +20,18 @@ VALUES ('Akiachak', 'AK', '03203', '34.090573', '-118.378753',false);
 
 INSERT INTO users
 (user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
-VALUES('Student', 2, 0, '2022-01-01', '111@gmail.com', 'user', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
-VALUES('Student',1,  0, '2022-01-01', '111@gmail.com', 'user', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
+VALUES('Student', 2, 0, '2022-01-01', '111@gmail.com', 'user', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);--123
 
 INSERT INTO users
 (user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
-VALUES('Student', 1, 0, '2022-01-01', '111@gmail.com', 'userabc', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
-VALUES('Student',2,  0, '2022-01-01', '111@gmail.com', 'userabc', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
+VALUES('Student', 1, 0, '2022-01-01', '222@gmail.com', 'userabc', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);--123
 
 insert into users_role(users_id, role_id)
 values (1,1);
 insert into users_role(users_id, role_id)
 values (2,2);
+insert into users_role(users_id, role_id)
+values (2,3);
 
 INSERT INTO profiles(id)
 VALUES(1);

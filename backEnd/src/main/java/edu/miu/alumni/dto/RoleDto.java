@@ -14,6 +14,5 @@ public class RoleDto {
 
     private String name;
 
-    private Boolean  isDeleted;
 
 }

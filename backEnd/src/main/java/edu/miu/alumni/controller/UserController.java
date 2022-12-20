@@ -1,5 +1,6 @@
 package edu.miu.alumni.controller;
 
+import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
 import edu.miu.alumni.model.LoginRequest;
@@ -9,6 +10,7 @@ import edu.miu.alumni.service.LoginService;
 import edu.miu.alumni.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import  java.util.*;
 @RestController
@@ -40,6 +42,7 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     }
 
     @GetMapping("/getAllStudentAndFacultyByAdmin")
+    @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_ADMIN +"')")
     public List<UserDto> getAllStudentAndFacultyByAdmin(){
       return   bs.getAllStudentAndFacultyByAdmin();
     }
@@ -49,6 +52,7 @@ public class UserController   extends BaseController<User, UserDto,Long> {
      * @param password
      * @param id
      */
+    @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_ADMIN +"')")
     @PostMapping("/{id}/resetPassword")
     public void  resetPassword(@RequestBody String password,@PathVariable int id){
          bs.resetPassword(password,id);

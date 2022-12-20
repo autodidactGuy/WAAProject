@@ -3,6 +3,7 @@ package edu.miu.alumni.service.impl;
 import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
+import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
 import edu.miu.alumni.model.*;
 import edu.miu.alumni.repository.*;
 import edu.miu.alumni.security.JWTHelper;
@@ -53,6 +54,8 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
+
+
         try {
             var result = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
@@ -60,6 +63,7 @@ public class LoginServiceImpl implements LoginService {
             );
         } catch (BadCredentialsException e) {
             log.info("Bad Credentials");
+            throw new InvalideUserOperationExceptions(Consts.INVALIE_USER_OR_PASSWORD);
         }
 
         final String accessToken = jwtHelper.generateToken(loginRequest.getEmail());
@@ -73,9 +77,15 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public SignupResponse signUp(SignupRequest signUpRequest) {
+        String email = signUpRequest.getEmail();
+
+        User userByEmailEquals = userRepository.findUserByEmailEquals(email);
+        if(userByEmailEquals!=null){
+            return new SignupResponse(Consts.THIS_USER_EMAIL_NOT_VALID);
+        }
 
         // Create new user's account
-        User user =  new User(signUpRequest.getEmail(),
+        User user =  new User(email,
                 encoder.encode(signUpRequest.getPassword()),
                 signUpRequest.getFirstname(),signUpRequest.getLastname(),
                 signUpRequest.getBirthday(),signUpRequest.getGender(),
@@ -97,7 +107,7 @@ public class LoginServiceImpl implements LoginService {
                     case Consts.ROLE_STUDENT:
                         Role userRole = repository.findRoleByName(Consts.ROLE_STUDENT);
                         roles.add(userRole);
-                        user =  new Student(signUpRequest.getEmail(),
+                        user =  new Student(email,
                                 encoder.encode(signUpRequest.getPassword()),
                                 signUpRequest.getFirstname(),signUpRequest.getLastname(),
                                 signUpRequest.getBirthday(),signUpRequest.getGender(),
@@ -108,7 +118,7 @@ public class LoginServiceImpl implements LoginService {
                     case Consts.ROLE_FACULT:
                         Role facultyRole = repository.findRoleByName(Consts.ROLE_FACULT);
                         roles.add(facultyRole);
-                        user =  new Faculty(signUpRequest.getEmail(),
+                        user =  new Faculty(email,
                                 encoder.encode(signUpRequest.getPassword()),
                                 signUpRequest.getFirstname(),signUpRequest.getLastname(),
                                 signUpRequest.getBirthday(),signUpRequest.getGender(),
@@ -133,7 +143,7 @@ public class LoginServiceImpl implements LoginService {
         user.setProfile(save);
         userRepository.save(user);
 
-        return new SignupResponse("User registered successfully!");
+        return new SignupResponse(Consts.USER_REGIST_SUCCESS);
     }
 
     @Override

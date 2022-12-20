@@ -45,10 +45,10 @@ public class AlumniUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
-           return  roles.stream().map(role->{
-                    return new SimpleGrantedAuthority("ROLE_"+role.getName().toUpperCase(Locale.ROOT));
-            }).collect(Collectors.toList());
+        var userRoles =roles.stream().map(role->{
+            return new SimpleGrantedAuthority("ROLE_"+role.getName().toUpperCase(Locale.ROOT));
+        }).collect(Collectors.toList());
+        return  userRoles;
     }
 
     @Override
