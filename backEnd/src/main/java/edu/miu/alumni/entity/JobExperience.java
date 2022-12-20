@@ -10,6 +10,7 @@ import java.util.Date;
 @Table(name="job_experiences")
 public class JobExperience {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private long id;
 
     private String jobTitle;
@@ -28,4 +29,5 @@ public class JobExperience {
 
     private String companyName;
     private String details;
+
 }

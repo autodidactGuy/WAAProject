@@ -3,10 +3,7 @@ package edu.miu.alumni.service.impl;
 import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.model.*;
-import edu.miu.alumni.repository.CityRepository;
-import edu.miu.alumni.repository.RoleRepository;
-import edu.miu.alumni.repository.StateRepository;
-import edu.miu.alumni.repository.UserRepository;
+import edu.miu.alumni.repository.*;
 import edu.miu.alumni.security.JWTHelper;
 import edu.miu.alumni.service.UserService;
 import lombok.Builder;
@@ -28,6 +25,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private ProfileRepository profileRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -124,7 +123,11 @@ public class UserServiceImpl implements UserService {
         user.setRole(roles);
         user.setCity(userCity);
 
+        Profile pf = new Profile();
+        Profile save = profileRepository.save(pf);
+        user.setProfile(save);
         userRepository.save(user);
+
         return new SignupResponse("User registered successfully!");
     }
 

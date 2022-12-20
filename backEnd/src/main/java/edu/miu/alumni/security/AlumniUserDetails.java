@@ -37,7 +37,7 @@ public class AlumniUserDetails implements UserDetails {
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.isActivated = user.isActivated();
-        this.isLockedUser = !user.isLockoutEnd();
+        this.isLockedUser = user.isLockoutEnd();
         this.isDeletedUser = user.isDeleted();
 
     }

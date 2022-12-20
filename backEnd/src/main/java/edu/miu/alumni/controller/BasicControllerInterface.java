@@ -11,7 +11,7 @@ import java.util.List;
 public interface BasicControllerInterface<T,H,A> {
     List<H> findAll();
     void save(H t);
-    void update(H t, int id);
+    void update(H t, A id);
 
     H findById(A id);
 

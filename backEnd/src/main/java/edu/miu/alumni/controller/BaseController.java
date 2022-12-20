@@ -45,9 +45,10 @@ public class BaseController<T,H,A> implements BasicControllerInterface<T,H,A>{
         bs.save(t);
     }
 
+
     @Override
     @PutMapping("/{id}")
-    public void update(@RequestBody H t,  @PathVariable  int id) {
+    public void update(@RequestBody H t,  @PathVariable  A id) {
 
             bs.update(t,id);
     }

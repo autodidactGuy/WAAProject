@@ -20,16 +20,18 @@ VALUES ('Akiachak', 'AK', '03203', '34.090573', '-118.378753');
 
 INSERT INTO users
 (user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
-VALUES('Student', 2, 0, '2022-01-01', '111@gmail.com', 'user', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
+VALUES('Student',1,  0, '2022-01-01', '111@gmail.com', 'user', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
 
 INSERT INTO users
 (user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
-VALUES('Student', 1, 0, '2022-01-01', '111@gmail.com', 'userabc', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
+VALUES('Student',2,  0, '2022-01-01', '111@gmail.com', 'userabc', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);
 
 
 
 INSERT INTO profiles(id)
 VALUES(1);
+INSERT INTO profiles(id)
+VALUES(2);
 
 INSERT INTO job_experiences
 (id, company_name, details, end_time, from_time, job_title, city_city_name, city_state_code, profile_id)

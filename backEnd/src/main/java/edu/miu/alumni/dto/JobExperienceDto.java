@@ -1,9 +1,8 @@
 package edu.miu.alumni.dto;
 
-import edu.miu.alumni.entity.City;
-import lombok.Data;
 
-import java.util.Date;
+import edu.miu.alumni.entity.CityId;
+import lombok.Data;
 
 @Data
 public class JobExperienceDto {
@@ -11,14 +10,13 @@ public class JobExperienceDto {
 
     private String jobTitle;
 
-    private Date fromTime;
 
-    private Date endTime;
+    private String fromTime;
 
-
-
-    private CityDto city;
+    private String endTime;
 
     private String companyName;
     private String details;
+    private BasicCityDto city;
+
 }

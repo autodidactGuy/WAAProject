@@ -1,6 +1,7 @@
 package edu.miu.alumni.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.List;
@@ -41,7 +42,7 @@ public class User {
 
     private String gender;
 
-    @ManyToMany(mappedBy = "users")
+    @ManyToMany(mappedBy = "users",fetch = FetchType.EAGER)
     private List<Role> role;
 
     private int accessFailedCount;
@@ -77,7 +78,7 @@ public class User {
         this.gender = gender;
         this.nickName = nickName;
         this.phoneNumber = pohoneNumber;
-        this.isLockoutEnd=false;
+        this.isLockoutEnd=true;
         this.isActivated=true;
         this.isDeleted=false;
     }

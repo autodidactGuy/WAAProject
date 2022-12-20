@@ -15,4 +15,6 @@ public class JobExperienceController extends BaseController<JobExperience, JobEx
     public JobExperienceController(JobExperienceService<JobExperience, JobExperienceDto, Long> bs) {
         super(bs);
     }
+
+
 }

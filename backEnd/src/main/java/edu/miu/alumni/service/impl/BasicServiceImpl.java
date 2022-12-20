@@ -45,7 +45,7 @@ public abstract  class BasicServiceImpl<T,H,A, D extends CrudRepository>  implem
     }
 
     @Override
-    public void update(H ad, int id) {
+    public void update(H ad, A id) {
         T entity = modelMapper.map(ad, getEntityClassName());
         repository.save(entity);
     }
