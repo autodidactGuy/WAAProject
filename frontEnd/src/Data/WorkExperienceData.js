@@ -2,7 +2,7 @@ export var workExperienceData =
 	[{
 		Id: "1",
 		UserId: "1",
-		JobTitle: "JobTitle",
+		JobTitle: "11JobTitle",
 		From: "12/01/2022",
 		To: "14/01/2022",
 		IsCurrentPosition : false,
@@ -12,7 +12,7 @@ export var workExperienceData =
 	{
 		Id: "2",
 		UserId: "1",
-		JobTitle: "JobTitle",
+		JobTitle: "222JobTitle",
 		From: "12/01/2022",
 		To: "12/01/2022",
 		IsCurrentPosition: true,
@@ -22,7 +22,7 @@ export var workExperienceData =
 		{
 			Id: "3",
 			UserId: "1",
-			JobTitle: "JobTitle",
+			JobTitle: "333JobTitle",
 			From: "12/01/2022",
 			To: "12/01/2022",
 			IsCurrentPosition: true,
@@ -32,7 +32,7 @@ export var workExperienceData =
 		{
 			Id: "4",
 			UserId: "1",
-			JobTitle: "JobTitle",
+			JobTitle: "4444JobTitle",
 			From: "12/01/2022",
 			To: "12/01/2022",
 			IsCurrentPosition: true,

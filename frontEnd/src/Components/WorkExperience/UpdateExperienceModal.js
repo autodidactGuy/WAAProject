@@ -4,8 +4,8 @@ import { Button, Modal } from 'antd';
  
 import WorkExperienceEdit from './WorkExperienceEdit';
 
-function AddExperienceModal() {
-  
+function UpdateExperienceModal(props) {
+   
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);
@@ -29,11 +29,11 @@ function AddExperienceModal() {
               Cancel
             </Button>]}
         >
-          <WorkExperienceEdit isAdd={true}/>
+          <WorkExperienceEdit workExperience={props.jobToUpdate} isAdd={false}/>
           
         </Modal>
       </>
     );
 }
 
-export default AddExperienceModal
+export default UpdateExperienceModal

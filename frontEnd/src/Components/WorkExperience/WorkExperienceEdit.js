@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, RangePicker, Checkbox } from 'antd';
-const count = 3;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox } from 'antd';
 
+import { addJobExperience, updateJobExperience } from '../../redux/userReducer';
+import { useDispatch } from "react-redux";
+const { RangePicker } = DatePicker;
 
 const layout = {
     labelCol: {
@@ -26,26 +27,41 @@ const layout = {
   };
 
 const WorkExperienceEdit = (props) => {
+    useEffect(()=>{onFill()},[])
+    const [form] = Form.useForm();
+    const onFill = () => {
+        console.log("value: props:",props);
+        form.setFieldsValue(props);
+      };
+
+    const dispatch = useDispatch();
 
     const onFinish = (values) => {
         console.log(values);
         if(props.isAdd)
         {
             //Add
+            const newJob=values.workExperience;
+         
+            dispatch(addJobExperience(newJob));
         }
         else 
         {
             //Update
+            const updatedjob={...values.workExperience, Id:props.workExperience.Id};
+            
+            dispatch(updateJobExperience(updatedjob))
+             
         }
 
       };
     return (
         <>
         <Row>
-             <Col span={12} offset={6}>
+             <Col span={24} offset={0}>
             <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  work experience </h1>
 
-            <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+            <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['workExperience', 'JobTitle']} label="Job Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
