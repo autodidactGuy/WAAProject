@@ -7,4 +7,6 @@ import java.util.List;
 public interface JobAdvertisementService <T,H,A> extends BasicService<T,H,A>{
 
     List<H> searchJob(SearchJobRequest sj);
+
+    List<H> getCurUserAllPosted();
 }

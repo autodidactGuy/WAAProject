@@ -15,9 +15,6 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
             "(:companyName is null or c.company_name = :companyName) " +
             "and (:cityName is null or c.city_city_name = :cityName)" +
             "and (:stateCode is null or c.city_state_code = :stateCode)"
-//            +
-//            "and (:listTagId is null or c.id = at2.job_advertisement_id)"+
-//            "and (:listTagId is null or at2.tags_id in :listTagId)"
             ,nativeQuery = true
     )
    public  ArrayList<JobAdvertisement> findByContidtions(
@@ -26,6 +23,10 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
             String stateCode
 //            List<Long> listTagId
     );
-//        public  List<JobAdvertisement> findByCompanyNameOr
+
+    @Query(value = "SELECT * FROM job_advertisements c WHERE " +
+            " c.postUserId = poster_stu_id :postUserId" ,nativeQuery = true
+    )
+    public List<JobAdvertisement> getAllByPoster(Long postUserId);
 
 }

@@ -29,5 +29,12 @@ public class JobAdvertisementController extends BaseController<JobAdvertisement,
        return  bs.searchJob(sj);
     }
 
+    @GetMapping("/postedByme")
+    public List<JobAdvertisementDto> getUserPostedAdvertisement(){
+        //get all related user Advertisement by user id
+
+        return bs.getCurUserAllPosted();
+    }
+
 
 }
