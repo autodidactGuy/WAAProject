@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.miu.alumni.model.echarts.JobAdvertisementsPerLocation;
 @Service
 public class JobAdvertisementServiceImpl
         extends BasicServiceImpl<JobAdvertisement, JobAdvertisementDto,Long, JobAdvertisementRepository>
@@ -72,6 +73,12 @@ public class JobAdvertisementServiceImpl
         return repository.findTop10JobAd().stream().map(x->
             modelMapper.map(x,JobAdvertisementDto.class)
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<JobAdvertisementsPerLocation> getJobAdvertisementPerLocation() {
+        return repository.getJobAdvertisementPerLocation();
+
     }
 
 
