@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { workExperienceData } from '../Data/WorkExperienceData'
-const baseurl = process.env.REACT_APP_API_URL;;
+//const baseurl = process.env.REACT_APP_API_URL;
+const baseurl ="http://localhost:8080"
 export const registerUser = createAsyncThunk('user/registerUser', async (user) => {
     const response = await axios.post(baseurl+'/user/signup',user); 
     console.log("response", response);
@@ -11,11 +12,43 @@ export const registerUser = createAsyncThunk('user/registerUser', async (user) =
 export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
     const response = await axios.post(baseurl+'/user/login',user); 
     console.log("response", response);
+
     return response.data;
 })
 
 export const addJobExperience = createAsyncThunk('user/addJobExperience', async (jobExperience) => {
-    //const response = await axios.post(baseurl+'/users/addjob',jobExperience); 
+    const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImlhdCI6MTY3MTUwNjc4MywiZXhwIjoxNjcxNTA3NjgzfQ.k6d_uN04bILp1UN8yxDvstVeJFXMQ6YYWy4hzdNhwGhMONljGWrmcfEl-9rr2t53zdmjoxOwkpp9qdcY3orkSQ"
+    const jobExperience2={
+        "jobTitle": "QQQADDDADEdddd",
+
+        "fromTime": "2022-12-19",
+    
+        "endTime": "2022-12-19",
+    
+        "companyName": "abc",
+    
+        "details": "abc",
+    
+        "city": {
+    
+            "id": {
+    
+                    "cityName": "Akiachak",
+    
+                    "stateCode": "AK"
+    
+                }
+    
+        }
+    }
+    const responsetemp = await axios.post(baseurl+'/jobExperience',jobExperience2,
+     {
+        headers: {
+          'Authorization': `Bearer ${token}` 
+        }
+      }
+    );
+
     //console.log("response", response);
     //return response.data;
    
