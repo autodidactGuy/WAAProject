@@ -3,8 +3,9 @@ import { message } from "antd";
 import axios from "axios";
 import { locations } from "../Data/statecityData";
 import { workExperienceData } from '../Data/WorkExperienceData'
-//const baseurl = process.env.REACT_APP_API_URL;
-const baseurl ="http://localhost:8080"
+//use command :  'npm run start:Dev'  instead of 'npm start'
+const baseurl = process.env.REACT_APP_API_URL;
+//const baseurl ="http://localhost:8080"
 const sleepFunction=()=>{
     new Promise(resolve => setTimeout(resolve, 10000)).then();
 }
