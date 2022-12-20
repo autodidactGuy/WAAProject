@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name="cities")
-public class City {
+public class City extends SoftDeleteBaseClass{
 
     @EmbeddedId
     private CityId id;
@@ -22,6 +22,8 @@ public class City {
 
     private  String latitude;
     private String longitude;
+
+    private boolean isDeleted;
 
 
 }

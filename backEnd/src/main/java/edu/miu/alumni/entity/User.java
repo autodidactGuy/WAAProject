@@ -11,7 +11,7 @@ import java.util.List;
 @DiscriminatorColumn(name = "user_type")
 @Table(name="users")
 @Data
-public class User {
+public class User extends SoftDeleteBaseClass{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;

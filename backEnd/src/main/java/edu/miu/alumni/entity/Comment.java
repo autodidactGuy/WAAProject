@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="comments")
-public class Comment {
+public class Comment extends SoftDeleteBaseClass{
     @Id
     private long id;
 
@@ -19,9 +19,8 @@ public class Comment {
 
     @OneToOne
     private Student toStudent;
-//    @ManyToMany
-//    private List<Student> toStudent;
-//
-//    @ManyToMany
-//    private List<Faculty> fromFaculty;
+
+    private boolean isDeleted;
+
+
 }

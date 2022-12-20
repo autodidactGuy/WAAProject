@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name="job_experiences")
-public class JobExperience {
+public class JobExperience extends SoftDeleteBaseClass{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -30,4 +30,5 @@ public class JobExperience {
     private String companyName;
     private String details;
 
+    private boolean isDeleted;
 }

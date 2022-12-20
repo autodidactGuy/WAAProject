@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="states")
-public class State {
+public class State extends SoftDeleteBaseClass{
     @Id
     private String stateCode;
 
@@ -20,4 +20,8 @@ public class State {
 
     @OneToMany(mappedBy="state")
     private List<City> cityList;
+
+    private boolean isDeleted;
+
+
 }

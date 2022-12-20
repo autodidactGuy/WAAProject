@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Data
-public class UserApplication {
+public class UserApplication extends SoftDeleteBaseClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

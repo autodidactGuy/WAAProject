@@ -1,6 +1,7 @@
 package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.dto.CityDto;
+import edu.miu.alumni.entity.SoftDeleteBaseClass;
 import edu.miu.alumni.service.BasicService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.lang.reflect.ParameterizedType;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,7 +24,7 @@ import java.util.List;
  *  @param <A> is ID type
  */
 @NoArgsConstructor
-public abstract  class BasicServiceImpl<T,H,A, D extends CrudRepository>  implements BasicService<T, H,A> {
+public abstract  class BasicServiceImpl<T  extends SoftDeleteBaseClass ,H,A, D extends CrudRepository>  implements BasicService<T, H,A > {
     public D repository;
 
     public ModelMapper modelMapper;
@@ -51,8 +53,10 @@ public abstract  class BasicServiceImpl<T,H,A, D extends CrudRepository>  implem
     }
 
     @Override
+    @Transactional
     public void delete(A id) {
-        repository.delete(id);
+        T h = (T) repository.findById(id).stream().findFirst().get();
+        h.setDeleted(true);
     }
 
     @Override
@@ -60,7 +64,10 @@ public abstract  class BasicServiceImpl<T,H,A, D extends CrudRepository>  implem
         Iterator<T> iterator = repository.findAll().iterator();
         List<H> dtos = new ArrayList<H>();
         while (iterator.hasNext()){
-            dtos.add(modelMapper.map(iterator.next(), getDToClassName()));
+            T next = iterator.next();
+            if(!next.isDeleted()){
+                dtos.add(modelMapper.map(next, getDToClassName()));
+            }
         }
         return dtos;
     }

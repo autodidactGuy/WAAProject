@@ -8,7 +8,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name="educations")
-public class Education {
+public class Education extends SoftDeleteBaseClass{
 
     @Id
     private long id;
@@ -21,5 +21,9 @@ public class Education {
 
     private String unversityName;
     private String details;
-    
+
+    private boolean isDeleted;
+
+
+
 }
