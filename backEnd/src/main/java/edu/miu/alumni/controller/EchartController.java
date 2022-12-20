@@ -49,7 +49,7 @@ public class EchartController {
      * Number of students per city. (User should select the state.)
      */
     @GetMapping("/getStudentsNumberPerCity")
-    public List<StudentsNumberPerCity> getStudentsNumberPerCity(@PathVariable String stateCode){
+    public List<StudentsNumberPerCity> getStudentsNumberPerCity(@RequestParam String stateCode){
         return stuServer.getStudentsNumberPerCity(stateCode);
     }
 

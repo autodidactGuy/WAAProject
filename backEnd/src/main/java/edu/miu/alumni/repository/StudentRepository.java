@@ -38,8 +38,26 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
             String stateCode,
             String searchName
     );
-//    List<StudentsNumberPerState> getStudentsNumberPerState();
-//
-//    List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode);
-//
+
+    /**
+     * Number of student per state
+     * @return
+     */
+    @Query(value = "SELECT new edu.miu.alumni.model.echarts.StudentsNumberPerState(s.city.id.stateCode,count(*))" +
+            " FROM Student AS s " +
+            "GROUP BY  s.city.id.stateCode"
+    )
+    List<StudentsNumberPerState> getStudentsNumberPerState();
+
+    /**
+     * Number of student per city
+     * @return
+     */
+    @Query(value = "SELECT new edu.miu.alumni.model.echarts.StudentsNumberPerCity(s.city.id.cityName,count(*))" +
+            " FROM Student AS s " +
+            "where s.city.id.stateCode=:stateCode " +
+            "GROUP BY  s.city.id.cityName"
+    )
+    List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode);
+
 }

@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl extends BasicServiceImpl<Student, StudentDto,Long, StudentRepository>
 implements StudentService<Student, StudentDto,Long>
 {
-//    private StudentRepository repository;
+    private StudentRepository repository;
     public StudentServiceImpl(StudentRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
-//        this.repository = studentRepository;
+        this.repository = repository;
     }
 
 
@@ -41,14 +41,13 @@ implements StudentService<Student, StudentDto,Long>
 
     @Override
     public List<StudentsNumberPerState> getStudentsNumberPerState() {
-//        return repository.getStudentsNumberPerState();
-        return null;
+        return repository.getStudentsNumberPerState();
+
     }
 
     @Override
     public List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode) {
-        return null;
-//        return repository.getStudentsNumberPerCity(stateCode);
+        return repository.getStudentsNumberPerCity(stateCode);
     }
 
 }
