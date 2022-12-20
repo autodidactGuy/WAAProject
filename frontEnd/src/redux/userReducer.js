@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
 import axios from "axios";
+import { locations } from "../Data/statecityData";
 import { workExperienceData } from '../Data/WorkExperienceData'
 //const baseurl = process.env.REACT_APP_API_URL;
 const baseurl ="http://localhost:8080"
@@ -41,6 +42,7 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
 })
 
 export const addJobExperience = createAsyncThunk('user/addJobExperience', async (jobExperience) => {
+     
     const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImlhdCI6MTY3MTUwNjc4MywiZXhwIjoxNjcxNTA3NjgzfQ.k6d_uN04bILp1UN8yxDvstVeJFXMQ6YYWy4hzdNhwGhMONljGWrmcfEl-9rr2t53zdmjoxOwkpp9qdcY3orkSQ"
     const jobExperience2={
         "jobTitle": "QQQADDDADEdddd",
@@ -65,7 +67,7 @@ export const addJobExperience = createAsyncThunk('user/addJobExperience', async 
     
         }
     }
-    const responsetemp = await axios.post(baseurl+'/jobExperience',jobExperience2,
+    const responsetemp = await axios.post(baseurl+'/jobExperience',jobExperience,
      {
         headers: {
           'Authorization': `Bearer ${token}` 
@@ -119,6 +121,15 @@ export const getJobExperienceList = createAsyncThunk('user/getJobExperienceList'
 })
 
 
+export const getLocations = createAsyncThunk('user/getLocations', async () => {
+    //const response = await axios.post(baseurl+'/users/getjobexperiencelist',jobExperience); 
+    //return response.data;
+    
+    const response = locations;
+
+    return response;
+})
+
 
  
 
@@ -130,7 +141,9 @@ const userSlice = createSlice({
     updatejobtatus:'idle', 
     getJobExperienceListstatus:'idle',
     jobExperienceList:[],
-    isLogged:isLogged()
+    isLogged:isLogged(),
+    locations:[],
+    getLocationStatus:'idle'
     },
     
     reducers:{
@@ -231,6 +244,19 @@ const userSlice = createSlice({
         });
         builder.addCase(getJobExperienceList.rejected, (state, action) => {
             state.getJobExperienceListstatus = 'rejected'
+        });
+
+        //getLocations
+        builder.addCase(getLocations.fulfilled, (state, action) => {
+            state.getLocationStatus = 'success';
+            state.locations=action.payload;
+            
+        });
+        builder.addCase(getLocations.pending, (state, action) => {
+            state.getLocationStatus = 'pending'
+        });
+        builder.addCase(getLocations.rejected, (state, action) => {
+            state.getLocationStatus = 'rejected'
         });
 
     }

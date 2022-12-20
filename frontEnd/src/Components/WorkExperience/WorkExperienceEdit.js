@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox } from 'antd';
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader } from 'antd';
 
-import { addJobExperience, updateJobExperience } from '../../redux/userReducer';
-import { useDispatch } from "react-redux";
+import { addJobExperience, getLocations, updateJobExperience } from '../../redux/userReducer';
+import { useDispatch, useSelector } from "react-redux";
+
 const { RangePicker } = DatePicker;
+ 
 
+ 
 const layout = {
     labelCol: {
       span: 8,
@@ -27,14 +30,25 @@ const layout = {
   };
 
 const WorkExperienceEdit = (props) => {
-    useEffect(()=>{onFill()},[])
+
+  const locations = useSelector((state)=>state.userReducer.locations)
+  const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+  const dispatch = useDispatch();
+  const filter = (inputValue, path) =>
+  path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+
+    useEffect(()=>{
+      onFill();
+    if(locations===[] || locations.length==0) dispatch(getLocations());
+    console.log(locations);
+    },[locations])
     const [form] = Form.useForm();
     const onFill = () => {
         console.log("value: props:",props);
         form.setFieldsValue(props);
       };
 
-    const dispatch = useDispatch();
+    
 
     const onFinish = (values) => {
         console.log(values);
@@ -42,14 +56,14 @@ const WorkExperienceEdit = (props) => {
         {
             //Add
             const newJob=values.workExperience;
-         
+            console.log("job to add:",newJob)
             dispatch(addJobExperience(newJob));
         }
         else 
         {
             //Update
             const updatedjob={...values.workExperience, Id:props.workExperience.Id};
-            
+            console.log("the object to update : ",updatedjob)
             dispatch(updateJobExperience(updatedjob))
              
         }
@@ -68,16 +82,30 @@ const WorkExperienceEdit = (props) => {
                 <Form.Item name={['workExperience', 'FromTo']} label="From To" rules={[{ required: true }]}>
                     <RangePicker picker="month" bordered={false} />
                 </Form.Item>
-                <Form.Item name={['workExperience', 'IsCurrentPosition']}  label="IsCurrentPosition">
+                <Form.Item  name={['workExperience', 'IsCurrentPosition']}  label="IsCurrentPosition">
                     <Checkbox>IsCurrentPosition</Checkbox>
                 </Form.Item>
-                <Form.Item name={['workExperience', 'State']} label="State" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name={['workExperience', 'City']} label="City" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name={['workExperience', 'CompanyName']} label="CompanyName" rules={[{ required: true }]}>
+                
+                <Form.Item
+        name={['workExperience', 'location']}
+        label="location"
+        rules={[
+          {
+            type: 'array',
+            required: true,
+            message: 'Please select the location',
+          },
+        ]}
+      >
+        <Cascader options={locations} 
+        
+        showSearch={{
+          filter,
+        }}
+        />
+      </Form.Item>
+                
+                 <Form.Item name={['workExperience', 'Company']} label="CompanyName" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
                 <Form.Item name={['workExperience', 'Details']} label="Details" rules={[{ required: true }]}>
