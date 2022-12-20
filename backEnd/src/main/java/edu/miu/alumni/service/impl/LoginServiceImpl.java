@@ -1,6 +1,7 @@
 package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.consts.Consts;
+import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.model.*;
 import edu.miu.alumni.repository.*;
@@ -8,6 +9,7 @@ import edu.miu.alumni.security.JWTHelper;
 import edu.miu.alumni.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -31,6 +33,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     PasswordEncoder encoder;
+
+    @Autowired
+    private ModelMapper modelMapper;
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final JWTHelper jwtHelper;
@@ -59,7 +64,9 @@ public class LoginServiceImpl implements LoginService {
 
         final String accessToken = jwtHelper.generateToken(loginRequest.getEmail());
         final String refreshToken = jwtHelper.generateRefreshToken(loginRequest.getEmail());
-        var loginResponse = new LoginResponse(accessToken, refreshToken);
+        User userByEmailEquals = userRepository.findUserByEmailEquals(loginRequest.getEmail());
+        UserDto currentLoginUserInfo = modelMapper.map(userByEmailEquals, UserDto.class);
+        var loginResponse = new LoginResponse(accessToken, refreshToken,currentLoginUserInfo);
         return loginResponse;
     }
 

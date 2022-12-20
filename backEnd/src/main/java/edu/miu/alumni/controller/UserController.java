@@ -42,6 +42,28 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     @GetMapping("/getAllStudentAndFacultyByAdmin")
     public List<UserDto> getAllStudentAndFacultyByAdmin(){
       return   bs.getAllStudentAndFacultyByAdmin();
+    }
 
+    /**
+     * this function is for admin reset the password of user
+     * @param password
+     * @param id
+     */
+    @PostMapping("/{id}/resetPassword")
+    public void  resetPassword(@RequestBody String password,@PathVariable int id){
+         bs.resetPassword(password,id);
+    }
+
+    /**
+     * this function is for user reset themself password
+     */
+    @PostMapping("/resetPassword")
+    public void  resetselfPassword(@RequestBody String password){
+        bs.resetPassword(password);
+    }
+
+    @PostMapping("/{id}/changeActiveStatu")
+    public void  changeActiveStatu(@PathVariable long id){
+        bs.changeActiveStatu(id);
     }
 }
