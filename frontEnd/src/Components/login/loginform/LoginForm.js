@@ -1,20 +1,33 @@
 import React from 'react'
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Row, Col } from 'antd';
+import { Button, Checkbox, Form, Input, Row, Col, Spin } from 'antd';
 import { loginUser } from '../../../redux/userReducer';
-import { useDispatch } from "react-redux";
+import { useDispatch ,useSelector} from "react-redux";
 import Moment from 'moment'
 
 
 function LoginForm() {
   const dispatch = useDispatch();
+  const loginstatus = useSelector((state) => state.userReducer.loginstatus);
+   
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
         dispatch(loginUser(values));
       };
+      if(loginstatus==="pending")
+        return(
+          <Spin tip="Loading" size="large">
+          <div className="content" />
+         </Spin>
+        );
+        else
   return (
+    
     <Row>
     <Col span={12} offset={6}>
+      
+      
+      
   <Form
     name="normal_login"
     className="login-form"

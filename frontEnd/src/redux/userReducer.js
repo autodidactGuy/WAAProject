@@ -3,16 +3,40 @@ import axios from "axios";
 import { workExperienceData } from '../Data/WorkExperienceData'
 //const baseurl = process.env.REACT_APP_API_URL;
 const baseurl ="http://localhost:8080"
+ 
+const getAccessToken=()=>{
+    return localStorage.getItem('accessToken');
+     
+}
+const getRefreshToken=()=>{
+    return localStorage.getItem('refreshToken');
+}
+const setAccessToken=(accesstoken)=>{
+    localStorage.setItem('accessToken', accesstoken);
+    
+}
+const setRefreshToken=(refreshtoken)=>{
+    
+    localStorage.setItem('refreshToken', refreshtoken);
+}
+const logOut=()=>{
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+}
+
+const isLogged=()=>{
+    return localStorage.getItem('accessToken')!=null
+}
 export const registerUser = createAsyncThunk('user/registerUser', async (user) => {
     const response = await axios.post(baseurl+'/user/signup',user); 
-    console.log("response", response);
+     
     return response.data;
 })
 
 export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
-    const response = await axios.post(baseurl+'/user/login',user); 
-    console.log("response", response);
 
+    const response = await axios.post(baseurl+'/user/login',user); 
+    
     return response.data;
 })
 
@@ -49,10 +73,6 @@ export const addJobExperience = createAsyncThunk('user/addJobExperience', async 
       }
     );
 
-    //console.log("response", response);
-    //return response.data;
-   
-    console.log(jobExperience);
     
     const response= {
         Id: "1",
@@ -64,19 +84,16 @@ export const addJobExperience = createAsyncThunk('user/addJobExperience', async 
 		Company: jobExperience.Company,
 		Details: jobExperience.Details,
     }
-    console.log('before promise');
-     await new Promise(resolve => setTimeout(resolve, 3)).then();
-     console.log("before return");
+    
+     
+      
      return response;
 })
 
 
 export const updateJobExperience = createAsyncThunk('user/updateJobExperience', async (jobExperience) => {
-    //const response = await axios.post(baseurl+'/users/updatejob',jobExperience); 
-    //console.log("response", response);
-    //return response.data;
     
-    console.log('object to update : ',jobExperience);
+    
     const response= {
         Id: jobExperience.Id,
 			UserId: jobExperience.UserId,
@@ -87,9 +104,8 @@ export const updateJobExperience = createAsyncThunk('user/updateJobExperience', 
 			Company: "jfjf",
 			Details: "Description",
     }
-    console.log('before promise');
-     await new Promise(resolve => setTimeout(resolve, 3000)).then();
-     console.log("before return");
+  
+ 
      return response;
 })
 
@@ -98,7 +114,7 @@ export const getJobExperienceList = createAsyncThunk('user/getJobExperienceList'
     //return response.data;
     
     const response = workExperienceData;
-//    console.log("response", response);
+
     return response;
 })
 
@@ -113,7 +129,8 @@ const userSlice = createSlice({
     addjobtatus:'idle', 
     updatejobtatus:'idle', 
     getJobExperienceListstatus:'idle',
-    jobExperienceList:[] 
+    jobExperienceList:[],
+    isLogged:isLogged()
     },
     reducers: {
 
@@ -124,39 +141,39 @@ const userSlice = createSlice({
             
         });
         builder.addCase(registerUser.pending, (state, action) => {
-            state.registerstatus = 'pending;'
+            state.registerstatus = 'pending'
         });
         builder.addCase(registerUser.rejected, (state, action) => {
-            state.registerstatus = 'rejected;'
+            state.registerstatus = 'rejected'
         });
 
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loginstatus = 'success';
-            alert(action.payload)
-            console.log(action.payload)
+             
+             
+            setAccessToken(action.payload.accessToken)
+            setRefreshToken(action.payload.refreshToken)
             
         });
         builder.addCase(loginUser.pending, (state, action) => {
-            state.loginstatus = 'pending;'
+            state.loginstatus = 'pending'
         });
         builder.addCase(loginUser.rejected, (state, action) => {
-            state.loginstatus = 'rejected;'
+            state.loginstatus = 'rejected'
         });
 
 
         //add job
         builder.addCase(addJobExperience.fulfilled, (state, action) => {
             state.addjobtatus = 'success';
-            console.log("value of list in add",state.jobExperienceList);
             state.jobExperienceList=[...state.jobExperienceList , action.payload];
-            console.log("new array : ",state.jobExperienceList);
             
         });
         builder.addCase(addJobExperience.pending, (state, action) => {
-            state.addjobtatus = 'pending;'
+            state.addjobtatus = 'pending'
         });
         builder.addCase(addJobExperience.rejected, (state, action) => {
-            state.addjobtatus = 'rejected;'
+            state.addjobtatus = 'rejected'
         });
 
         //update job
@@ -166,9 +183,7 @@ const userSlice = createSlice({
             const obj = action.payload;
            
             const id =obj.Id;
-            console.log("obj:",obj)
-            console.log("id:",id);
-            console.log('the list : ',state.jobExperienceList)
+             
             let newState=[...state.jobExperienceList]
              
             for(let i =0 ;i <newState.length;i++){
@@ -186,10 +201,10 @@ const userSlice = createSlice({
             
         });
         builder.addCase(updateJobExperience.pending, (state, action) => {
-            state.updatejobtatus = 'pending;'
+            state.updatejobtatus = 'pending'
         });
         builder.addCase(updateJobExperience.rejected, (state, action) => {
-            state.updatejobtatus = 'rejected;'
+            state.updatejobtatus = 'rejected' 
         });
 
 
@@ -200,10 +215,10 @@ const userSlice = createSlice({
             
         });
         builder.addCase(getJobExperienceList.pending, (state, action) => {
-            state.getJobExperienceListstatus = 'pending;'
+            state.getJobExperienceListstatus = 'pending'
         });
         builder.addCase(getJobExperienceList.rejected, (state, action) => {
-            state.getJobExperienceListstatus = 'rejected;'
+            state.getJobExperienceListstatus = 'rejected'
         });
 
     }
