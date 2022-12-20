@@ -19,10 +19,7 @@ const setRefreshToken=(refreshtoken)=>{
     
     localStorage.setItem('refreshToken', refreshtoken);
 }
-const logOut=()=>{
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-}
+ 
 
 const isLogged=()=>{
     return localStorage.getItem('accessToken')!=null
@@ -132,8 +129,12 @@ const userSlice = createSlice({
     jobExperienceList:[],
     isLogged:isLogged()
     },
-    reducers: {
-
+    
+    reducers:{
+        logout:(state)=>{
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            state.isLogged=isLogged()}
     },
     extraReducers: (builder) => {
         builder.addCase(registerUser.fulfilled, (state, action) => {
@@ -150,9 +151,10 @@ const userSlice = createSlice({
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loginstatus = 'success';
              
-             
             setAccessToken(action.payload.accessToken)
             setRefreshToken(action.payload.refreshToken)
+            state.isLogged=isLogged()
+
             
         });
         builder.addCase(loginUser.pending, (state, action) => {
@@ -226,3 +228,4 @@ const userSlice = createSlice({
 
 
 export default userSlice.reducer;
+export const { logout } = userSlice.actions;
