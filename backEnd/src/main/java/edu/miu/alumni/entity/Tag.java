@@ -8,7 +8,7 @@ import java.security.PrivateKey;
 
 @Entity
 @Data
-public class Tag {
+public class Tag extends SoftDeleteBaseClass{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -17,6 +17,7 @@ public class Tag {
     private String title;
 
     private boolean isDeleted;
+
 
     @ManyToMany
     private java.util.List<JobAdvertisement> jobAdvertisement;

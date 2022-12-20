@@ -8,7 +8,7 @@ import java.util.*;
 @Entity
 @Data
 @Table(name="job_advertisements")
-public class JobAdvertisement {
+public class JobAdvertisement extends SoftDeleteBaseClass{
     @Id
     long id;
 
@@ -44,7 +44,7 @@ public class JobAdvertisement {
 
     String companyName;
 
-    Boolean isDeleted;
+    private boolean isDeleted;
 
 
     @OneToMany

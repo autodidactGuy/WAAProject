@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name="profiles")
-public class Profile {
+public class Profile extends SoftDeleteBaseClass{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
