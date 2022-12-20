@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Button, message, Modal } from 'antd';
-import RegisterForm from './RegisterForm';
 import { useSelector } from 'react-redux';
-const RegisterModal = () => {
+import EditBasicInfoForm from './EditBasicInfoForm';
+const BasicStudentInfoModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
  
-  const registerstatus = useSelector((state) => state.userReducer.registerstatus);
-   
-  useEffect(()=>{
-    if(registerstatus==="success")
-    {
-      setIsModalOpen(false);
-       console.log("again")
-    }
-     
-  },[registerstatus])
+ 
+ 
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -28,19 +20,19 @@ const RegisterModal = () => {
     <>
  
       <Button type="primary" onClick={showModal}>
-        Register
+        edit profile
       </Button>
-      < Modal title="Register" open={isModalOpen}  onCancel={handleCancel}
+      < Modal title="edit profile" open={isModalOpen}  onCancel={handleCancel}
       footer={[
-          <Button key="cancelregister" onClick={handleCancel}>
+          <Button key="canceleditprofile" onClick={handleCancel}>
             Cancel
           </Button>]}
         width='40%'
       >
         
-        <RegisterForm/>
+        <EditBasicInfoForm/>
       </Modal>
     </>
   );
 };
-export default RegisterModal;
+export default BasicStudentInfoModal;

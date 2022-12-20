@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations, registerUser } from '../../../redux/userReducer';
+import { getLocations } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
 import Moment from 'moment'
 import {
@@ -19,94 +19,76 @@ import {
 
 const { Option } = Select;
 
-
 const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
+    labelCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 8,
+      },
     },
-    sm: {
-      span: 8,
+    wrapperCol: {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: 16,
+      },
     },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
-const RegisterForm = () => {
-  const locations = useSelector((state)=>state.userReducer.locations)
-  const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
-  const [form] = Form.useForm();
-  const dispatch = useDispatch();
-  const registerstatus = useSelector((state) => state.userReducer.registerstatus);
-  useEffect(()=>{
-    dispatch(getLocations());
-
-  },[locations])
-  const onFinish = (values) => {
-  const newuser =
-  {
-    major:values.major,
-    firstname: values.firstname,
-    lastname: values.lastname,
-    email: values.email,
-    password: values.password,
-    nickname: values.nickname,
-    phone: values.phone,
-    gender: values.gender,
-    role: values.role,
-    birthday: Moment(values.birthday).format("YYYY-MM-DD"),
-    stateCode:values.residence[0],
-    cityCode: values.residence[1]
-}
-  
-    console.log('Received values of form: ', newuser);
-    dispatch(registerUser(newuser));
-
   };
-  
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
-    }
+  const tailFormItemLayout = {
+    wrapperCol: {
+      xs: {
+        span: 24,
+        offset: 0,
+      },
+      sm: {
+        span: 16,
+        offset: 8,
+      },
+    },
   };
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
-  const filter = (inputValue, path) =>
+
+function EditBasicInfoForm() {
+    const [form] = Form.useForm();
+    const dispatch = useDispatch();
+    const locations = useSelector((state)=>state.userReducer.locations)
+    const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+    useEffect(()=>{
+        dispatch(getLocations());
+    
+      })
+      const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
-  if(registerstatus==="pending" || getLocationStatus==="pending")
-        return(
-          <Spin tip="Loading" size="large">
-          <div className="content" />
-         </Spin>
-        );
-        else
+
+    const onFinish = (values) => {
+        const newuser =
+        {
+          major:values.major,
+          firstname: values.firstname,
+          lastname: values.lastname,
+          email: values.email,
+          password: values.password,
+          nickname: values.nickname,
+          phone: values.phone,
+          gender: values.gender,
+          role: values.role,
+          birthday: Moment(values.birthday).format("YYYY-MM-DD"),
+          stateCode:values.residence[0],
+          cityCode: values.residence[1]
+      }
+        
+    
+      
+        };
+
+        
+        
   return (
-    <Row>
+    <div>
+      <Row>
     <Col span={24} offset={0}>
     <Form
       {...formItemLayout}
@@ -338,6 +320,8 @@ const RegisterForm = () => {
     </Form>
     </Col>
     </ Row>
-  );
-};
-export default RegisterForm;
+    </div>
+  )
+}
+
+export default EditBasicInfoForm
