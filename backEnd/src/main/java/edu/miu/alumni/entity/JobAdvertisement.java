@@ -10,29 +10,29 @@ import java.util.*;
 @Table(name="job_advertisements")
 public class JobAdvertisement {
     @Id
-    private long id;
+    long id;
 
     @ManyToOne
     @JoinColumn(name = "poster_stu_id")
-    private Student poster;
+    Student poster;
 
-//    @ManyToOne
+    //    @ManyToOne
 //    @JoinColumn(name = "applier_id")
-//    private Student applier;
+//     Student applier;
 //
     @ManyToMany(mappedBy = "jobAdvertisement")
-    private List<Tag> tags;
+    List<Tag> tags;
 
 
-    private Date publicationDate;
+    Date publicationDate;
 
-    private String Workload;
+    String workload;
 
-    private String Contract;
+    String contract;
 
-    private String description;
+    String description;
 
-    private String profile;
+    String profile;
 
 
     @OneToOne
@@ -40,14 +40,14 @@ public class JobAdvertisement {
             @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
             @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
     })
-    private City city;
+    City city;
 
-    private String CompanyName;
+    String companyName;
 
-    private Boolean isDeleted;
+    Boolean isDeleted;
 
 
     @OneToMany
     @JoinColumn(name="id_job_advertisements")
-    private List<Files> listFiles;
+    List<Files> listFiles;
 }

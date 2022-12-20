@@ -1,6 +1,8 @@
 package edu.miu.alumni.repository;
 
 import edu.miu.alumni.entity.Student;
+import edu.miu.alumni.model.echarts.StudentsNumberPerCity;
+import edu.miu.alumni.model.echarts.StudentsNumberPerState;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -36,5 +38,26 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
             String stateCode,
             String searchName
     );
+
+    /**
+     * Number of student per state
+     * @return
+     */
+    @Query(value = "SELECT new edu.miu.alumni.model.echarts.StudentsNumberPerState(s.city.id.stateCode,count(*))" +
+            " FROM Student AS s " +
+            "GROUP BY  s.city.id.stateCode"
+    )
+    List<StudentsNumberPerState> getStudentsNumberPerState();
+
+    /**
+     * Number of student per city
+     * @return
+     */
+    @Query(value = "SELECT new edu.miu.alumni.model.echarts.StudentsNumberPerCity(s.city.id.cityName,count(*))" +
+            " FROM Student AS s " +
+            "where s.city.id.stateCode=:stateCode " +
+            "GROUP BY  s.city.id.cityName"
+    )
+    List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode);
 
 }

@@ -3,6 +3,7 @@ package edu.miu.alumni.service.impl;
 import edu.miu.alumni.dto.JobAdvertisementDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.model.SearchJobRequest;
+import edu.miu.alumni.model.echarts.AdertisementsPerTag;
 import edu.miu.alumni.repository.JobAdvertisementRepository;
 import edu.miu.alumni.repository.UserRepository;
 import edu.miu.alumni.service.JobAdvertisementService;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import edu.miu.alumni.model.echarts.JobAdvertisementsPerLocation;
 @Service
 public class JobAdvertisementServiceImpl
         extends BasicServiceImpl<JobAdvertisement, JobAdvertisementDto,Long, JobAdvertisementRepository>
@@ -72,6 +74,18 @@ public class JobAdvertisementServiceImpl
         return repository.findTop10JobAd().stream().map(x->
             modelMapper.map(x,JobAdvertisementDto.class)
         ).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<JobAdvertisementsPerLocation> getJobAdvertisementPerLocation() {
+        return repository.getJobAdvertisementPerLocation();
+
+    }
+
+    @Override
+    public List<AdertisementsPerTag> getAdertisementsPerTag() {
+        return null;
+//        return repository.getAdertisementsPerTag();
     }
 
 

@@ -1,6 +1,8 @@
 package edu.miu.alumni.repository;
 
 import edu.miu.alumni.entity.JobAdvertisement;
+import edu.miu.alumni.model.echarts.AdertisementsPerTag;
+import edu.miu.alumni.model.echarts.JobAdvertisementsPerLocation;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -32,4 +34,22 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
     @Query(value = "SELECT * FROM job_advertisements order by publication_date desc limit 10" ,nativeQuery = true
     )
     public List<JobAdvertisement> findTop10JobAd();
+
+
+    /**
+     * Number of job advertisements per location.
+     * @return
+     */
+    @Query(value = "SELECT new edu.miu.alumni.model.echarts.JobAdvertisementsPerLocation(s.city.id.cityName,s.city.id.stateCode,count(*))" +
+            " FROM JobAdvertisement AS s " +
+            "GROUP BY  s.city.id.cityName,s.city.id.stateCode"
+    )
+    public List<JobAdvertisementsPerLocation> getJobAdvertisementPerLocation();
+
+
+//    @Query(value = "SELECT new edu.miu.alumni.model.echarts.AdertisementsPerTag(s.city.id.cityName,s.city.id.stateCode,count(*))" +
+//            " FROM JobAdvertisement AS s " +
+//            "GROUP BY  s.city.id.cityName,s.city.id.stateCode"
+//    )
+//    List<AdertisementsPerTag> getAdertisementsPerTag();
 }

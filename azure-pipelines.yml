@@ -24,5 +24,34 @@ steps:
   inputs:
     command: 'custom'
     workingDir: '$(System.DefaultWorkingDirectory)/frontEnd/'
-    customCommand: 'run build'
+    customCommand: 'run build:Prod'
   displayName: 'Npm build'
+
+- task: ArchiveFiles@2
+  name: 'ArchiveTheBuild'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    includeRootFolder: false
+    archiveType: 'tar'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/waafrontend-$(Build.BuildId).tar'
+    replaceExistingArchive: true
+- task: PublishBuildArtifacts@1
+  name: 'PublishBuildToAzureDevops'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'waafrontend'
+    publishLocation: 'Container'
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'rm -rf /opt/WAA/frontend/caddy/caddy_html/*'
+    readyTimeout: '20000'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    contents: '**'
+    targetFolder: '/opt/WAA/frontend/caddy/caddy_html/'
+    readyTimeout: '20000'
