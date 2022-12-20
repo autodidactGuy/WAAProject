@@ -17,10 +17,12 @@ steps:
 - task: Npm@1
   inputs:
     command: 'install'
-    workingDir: '/frontEnd/'
+    workingDir: '$(System.DefaultWorkingDirectory)/frontEnd/'
+  displayName: 'npm install'
 
 - task: Npm@1
   inputs:
     command: 'custom'
-    workingDir: '/frontEnd/'
-    customCommand: 'npm run build'
+    workingDir: '$(System.DefaultWorkingDirectory)/frontEnd/'
+    customCommand: 'run build'
+  displayName: 'Npm build'
