@@ -1,9 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { message } from "antd";
 import axios from "axios";
 import { workExperienceData } from '../Data/WorkExperienceData'
 //const baseurl = process.env.REACT_APP_API_URL;
 const baseurl ="http://localhost:8080"
- 
+const sleepFunction=()=>{
+    new Promise(resolve => setTimeout(resolve, 10000)).then();
+}
 const getAccessToken=()=>{
     return localStorage.getItem('accessToken');
      
@@ -134,11 +137,14 @@ const userSlice = createSlice({
         logout:(state)=>{
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
-            state.isLogged=isLogged()}
+            state.isLogged=isLogged()
+            message.success("Logout success! See you soon")
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(registerUser.fulfilled, (state, action) => {
             state.registerstatus = 'success';
+            message.success("Register success! Please login")
             
         });
         builder.addCase(registerUser.pending, (state, action) => {
@@ -146,14 +152,16 @@ const userSlice = createSlice({
         });
         builder.addCase(registerUser.rejected, (state, action) => {
             state.registerstatus = 'rejected'
+            message.error("Register error! Please try again")
         });
 
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loginstatus = 'success';
-             
+            
             setAccessToken(action.payload.accessToken)
             setRefreshToken(action.payload.refreshToken)
             state.isLogged=isLogged()
+            message.success("Login success! Welcome")
 
             
         });
@@ -162,6 +170,7 @@ const userSlice = createSlice({
         });
         builder.addCase(loginUser.rejected, (state, action) => {
             state.loginstatus = 'rejected'
+            message.error("Login Error! Please try again")
         });
 
 

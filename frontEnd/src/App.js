@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Breadcrumb, Layout, Menu, message, theme } from 'antd';
 import { jobAdvertisements } from './Data/JobAdvertisements'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
@@ -23,11 +23,14 @@ const { Meta } = Card;
 
 
 const App = () => {
+     
     const {
         token: { colorBgContainer },
     } = theme.useToken();
 
     return (
+        <>
+        
         <Layout>
             <Header style={{ position: 'sticky', top: 0, zIndex: 1, width: '100%' }}>
                 
@@ -80,7 +83,7 @@ const App = () => {
             {/*    </div>*/}
             {/*</Content>*/}
             <Footer style={{ textAlign: 'center' }}>Ant Design �2018 Created by Ant UED</Footer>
-        </Layout>
+        </Layout></>
     );
 };
 
