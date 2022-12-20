@@ -3,13 +3,13 @@ import axios from "axios";
 import { workExperienceData } from '../Data/WorkExperienceData'
 const baseurl = process.env.REACT_APP_API_URL;;
 export const registerUser = createAsyncThunk('user/registerUser', async (user) => {
-    const response = await axios.post(baseurl+'/users/signup',user); 
+    const response = await axios.post(baseurl+'/user/signup',user); 
     console.log("response", response);
     return response.data;
 })
 
 export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
-    const response = await axios.post(baseurl+'/users/login',user); 
+    const response = await axios.post(baseurl+'/user/login',user); 
     console.log("response", response);
     return response.data;
 })
@@ -99,6 +99,8 @@ const userSlice = createSlice({
 
         builder.addCase(loginUser.fulfilled, (state, action) => {
             state.loginstatus = 'success';
+            alert(action.payload)
+            console.log(action.payload)
             
         });
         builder.addCase(loginUser.pending, (state, action) => {
