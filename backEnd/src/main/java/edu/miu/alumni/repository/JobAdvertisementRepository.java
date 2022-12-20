@@ -29,4 +29,7 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
     )
     public List<JobAdvertisement> getAllByPoster(Long postUserId);
 
+    @Query(value = "SELECT * FROM job_advertisements order by publication_date desc limit 10" ,nativeQuery = true
+    )
+    public List<JobAdvertisement> findTop10JobAd();
 }

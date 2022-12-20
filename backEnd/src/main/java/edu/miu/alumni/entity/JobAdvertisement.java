@@ -3,8 +3,7 @@ package edu.miu.alumni.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Data
@@ -21,12 +20,11 @@ public class JobAdvertisement {
 //    @JoinColumn(name = "applier_id")
 //    private Student applier;
 //
-    @OneToMany
-    @JoinTable(name="advertisment_tags")
+    @ManyToMany(mappedBy = "jobAdvertisement")
     private List<Tag> tags;
 
 
-    private LocalDate publicationDate;
+    private Date publicationDate;
 
     private String Workload;
 

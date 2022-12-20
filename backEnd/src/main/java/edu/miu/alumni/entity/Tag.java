@@ -4,6 +4,7 @@ package edu.miu.alumni.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.security.PrivateKey;
 
 @Entity
 @Data
@@ -16,4 +17,7 @@ public class Tag {
     private String title;
 
     private boolean isDeleted;
+
+    @ManyToMany
+    private java.util.List<JobAdvertisement> jobAdvertisement;
 }
