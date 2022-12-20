@@ -26,3 +26,18 @@ steps:
     workingDir: '$(System.DefaultWorkingDirectory)/frontEnd/'
     customCommand: 'run build:Prod'
   displayName: 'Npm build'
+
+- task: ArchiveFiles@2
+  name: 'ArchiveTheBuild'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/build/'
+    includeRootFolder: false
+    archiveType: 'tar'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/waafrontend-$(Build.BuildId).tar'
+    replaceExistingArchive: true
+- task: PublishBuildArtifacts@1
+  name: 'PublishBuildToAzureDevops'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'waafrontend'
+    publishLocation: 'Container'
