@@ -41,3 +41,5 @@ steps:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'waafrontend'
     publishLocation: 'Container'
+
+    
