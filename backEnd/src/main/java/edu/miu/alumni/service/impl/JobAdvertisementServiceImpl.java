@@ -67,6 +67,12 @@ public class JobAdvertisementServiceImpl
         ).collect(Collectors.toList());
     }
 
+    @Override
+    public List<JobAdvertisementDto> getTop10LatestAdvertisement() {
+        return repository.findTop10JobAd().stream().map(x->
+            modelMapper.map(x,JobAdvertisementDto.class)
+        ).collect(Collectors.toList());
+    }
 
 
 }

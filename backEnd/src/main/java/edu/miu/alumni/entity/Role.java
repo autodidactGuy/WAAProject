@@ -16,6 +16,6 @@ public class Role {
 
     private Boolean  isDeleted;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "role",cascade = CascadeType.DETACH)
     private List<User> users;
 }

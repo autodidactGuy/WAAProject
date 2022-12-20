@@ -5,7 +5,6 @@ import edu.miu.alumni.model.SearchStudentRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 /**
  *
  * @param <T> is Entity type

@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name="profiles")
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

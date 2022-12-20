@@ -10,7 +10,7 @@ import java.util.LongSummaryStatistics;
 public class Files {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String fileUrl;

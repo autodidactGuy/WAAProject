@@ -11,8 +11,8 @@ public class UserApplicationDto {
 
     private JobAdvertisementDto ja;
 
-    private Student student;
+    private StudentDto student;
 
-    private String applicationDate;
+    private Date applicationDate;
 
 }

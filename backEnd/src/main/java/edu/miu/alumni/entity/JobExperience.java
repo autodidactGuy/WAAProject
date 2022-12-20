@@ -10,7 +10,7 @@ import java.util.Date;
 @Table(name="job_experiences")
 public class JobExperience {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String jobTitle;

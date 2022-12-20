@@ -1,12 +1,10 @@
 package edu.miu.alumni.service;
 
-import edu.miu.alumni.model.*;
+import edu.miu.alumni.dto.UserDto;
 
-public interface UserService {
+import java.util.List;
 
-    LoginResponse login(LoginRequest loginRequest);
-    public SignupResponse signUp(SignupRequest signUpRequest) ;
+public interface UserService <T,H,A> extends BasicService<T,H,A> {
 
-
-    LoginResponse refreshToken(RefreshTokenRequest refreshTokenRequest);
+    List<UserDto> getAllStudentAndFacultyByAdmin();
 }

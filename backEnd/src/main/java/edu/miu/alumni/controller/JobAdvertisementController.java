@@ -36,5 +36,9 @@ public class JobAdvertisementController extends BaseController<JobAdvertisement,
         return bs.getCurUserAllPosted();
     }
 
+    public List<JobAdvertisementDto> top10Advertisement(){
+        return bs.getTop10LatestAdvertisement();
+    }
+
 
 }
