@@ -14,8 +14,13 @@ steps:
   inputs:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
+- task: Npm@1
+  inputs:
+    command: 'install'
+    workingDir: '/frontEnd/'
 
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: '/frontEnd/'
+    customCommand: 'npm run build'
