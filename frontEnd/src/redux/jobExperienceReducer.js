@@ -37,30 +37,6 @@ export const addJobExperience = createAsyncThunk('jobExperience/addJobExperience
       }
     );
 
-    // const response= {
-    //     Id: jobExperience.Id,
-	// 		UserId: jobExperience.UserId,
-	// 		JobTitle: jobExperience.JobTitle,
-	// 		From: dateToString(jobExperience.FromTo[0]),
-	// 		To: dateToString(jobExperience.FromTo[1]),
-	// 		IsCurrentPosition: jobExperience.IsCurrentPosition,
-	// 		Company: jobExperience.Company,
-	// 		Details: jobExperience.Details,
-    //         State: jobExperience.location[0],
-    //         City: jobExperience.location[1]
-    // }
-
-    // const response= {
-    //     Id: "1",
-	// 	UserId: "1",
-	// 	JobTitle: jobExperience.JobTitle,
-	// 	From: "12/01/2022",
-	// 	To: "12/01/2022",
-	// 	IsCurrentPosition : jobExperience.IsCurrentPosition,
-	// 	Company: jobExperience.Company,
-	// 	Details: jobExperience.Details,
-    // }
-    
       
      return responseFromApi;
 })
@@ -68,10 +44,9 @@ export const addJobExperience = createAsyncThunk('jobExperience/addJobExperience
 
 export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExperience', async (jobExperience) => {
     
-    console.log('jobexperience', jobExperience);
-    
+    const token = getAccessToken();
     const response= {
-        Id: jobExperience.Id,
+            Id: jobExperience.Id,
 			UserId: jobExperience.UserId,
 			JobTitle: jobExperience.JobTitle,
 			From: dateToString(jobExperience.FromTo[0]),
@@ -83,7 +58,17 @@ export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExpe
             City: jobExperience.location[1]
     }
   
-    console.log(response);
+    const jobExperienceToSend = convertJobExperienceFrontToApi(response);
+
+    const responseFromApi = await axios.put(baseurl+'/jobExperience/'+jobExperience.Id,jobExperienceToSend,
+     {
+      headers: {
+          'Authorization': `Bearer ${token}` 
+       }
+     }
+   );
+    
+     
      return response;
 })
 
