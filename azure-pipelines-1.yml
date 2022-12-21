@@ -50,7 +50,7 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'localserver'
-    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
     contents: 'demo-0.0.1-SNAPSHOT.jar'
     targetFolder: '/opt/WAA/builds/backend/demo.jar'
     readyTimeout: '20000'
@@ -58,7 +58,7 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'localserver'
-    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
     contents: 'demo-0.0.1-SNAPSHOT.jar.original'
     targetFolder: '/opt/WAA/builds/backend/demo.jar.original'
     readyTimeout: '20000'
@@ -66,7 +66,7 @@ steps:
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'localserver'
-    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
     contents: 'Dockerfile'
     targetFolder: '/opt/WAA/builds/backend/Dockerfile'
     readyTimeout: '20000'
