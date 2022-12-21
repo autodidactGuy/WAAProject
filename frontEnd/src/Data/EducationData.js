@@ -4,7 +4,7 @@ export var educationData =
 		UserId: "1",
 		EducationTitle: "Education title",
 		Degree: "Master degree",
-		Year: "14/01/2022",
+		Year: "2022-01-14",
 		Description : '',
 		GPA: "2",
 	}

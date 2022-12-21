@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader } from 'antd';
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader, InputNumber } from 'antd';
 
 import { addJobExperience, getLocations, updateJobExperience } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
@@ -105,6 +105,9 @@ const EducationEdit = (props) => {
                 </Form.Item>
                 <Form.Item name={['education', 'Year']} label="Year" rules={[{ required: true }]}>
                   <DatePicker picker="year" />
+                </Form.Item>
+                <Form.Item name={['education', 'GPA']} label="GPA" rules={[{ required: true }]}>
+                  <InputNumber min={0} max={4}/>
                 </Form.Item>
                 <Form.Item name={['education', 'Description']} label="Description" rules={[{ required: true }]}>
                     <Input.TextArea />

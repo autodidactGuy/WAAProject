@@ -6,6 +6,7 @@
     <content url="file://$MODULE_DIR$/backEnd">
       <sourceFolder url="file://$MODULE_DIR$/backEnd/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/backEnd/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/backEnd/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/backEnd/target" />
     </content>
     <orderEntry type="jdk" jdkName="corretto-17" jdkType="JavaSDK" />
