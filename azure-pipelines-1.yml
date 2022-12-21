@@ -27,8 +27,46 @@ steps:
     Contents: '*.jar*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/backEnd/'
+    Contents: 'Dockerfile'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'springbootbuild'
     publishLocation: 'Container'
+
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'rm -rf /opt/WAA/builds/backend/*'
+    readyTimeout: '20000'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    contents: 'demo-0.0.1-SNAPSHOT.jar'
+    targetFolder: '/opt/WAA/builds/backend/demo.jar'
+    readyTimeout: '20000'
+    
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    contents: 'demo-0.0.1-SNAPSHOT.jar.original'
+    targetFolder: '/opt/WAA/builds/backend/demo.jar.original'
+    readyTimeout: '20000'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    sourceFolder: '$(System.DefaultWorkingDirectory)/frontEnd/build/'
+    contents: 'Dockerfile'
+    targetFolder: '/opt/WAA/builds/backend/Dockerfile'
+    readyTimeout: '20000'
