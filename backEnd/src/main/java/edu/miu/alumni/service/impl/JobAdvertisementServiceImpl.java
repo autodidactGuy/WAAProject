@@ -7,6 +7,7 @@ import edu.miu.alumni.model.SearchJobRequest;
 import edu.miu.alumni.model.echarts.AdertisementsPerTag;
 import edu.miu.alumni.repository.CityRepository;
 import edu.miu.alumni.repository.JobAdvertisementRepository;
+import edu.miu.alumni.repository.StudentRepository;
 import edu.miu.alumni.repository.UserRepository;
 import edu.miu.alumni.service.JobAdvertisementService;
 import org.modelmapper.ModelMapper;
@@ -26,7 +27,8 @@ public class JobAdvertisementServiceImpl
 
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private StudentRepository studentRepostory;
     @Autowired
     private CityRepository cityRepository;
     public JobAdvertisementServiceImpl(JobAdvertisementRepository repository, ModelMapper modelMapper) {
@@ -93,16 +95,14 @@ public class JobAdvertisementServiceImpl
 //        return repository.getAdertisementsPerTag();
     }
 
-//    @Override
-//    public JobAdvertisementDto save(JobAdvertisementDto ad) {
-//        CityDto city = ad.getCity();
-//
-//        ad.setCity(null);
-//        JobAdvertisement ja = modelMapper.map(ad, JobAdvertisement.class);
-//        City byIdCityNameAndIdStateCode = cityRepository.findById_CityNameAndId_StateCode(city.getCityName(), city.getStateCode());
-//        ja.setCity(byIdCityNameAndIdStateCode);
-//        cityRepository.save(byIdCityNameAndIdStateCode);
-//        JobAdvertisement save = repository.save(ja);
-//        return modelMapper.map(save,JobAdvertisementDto.class);
-//    }
+    @Override
+    public JobAdvertisementDto save(JobAdvertisementDto ad) {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        JobAdvertisement ja = modelMapper.map(ad, JobAdvertisement.class);
+        Student studentByEmailEquals = studentRepostory.findStudentByEmailEquals(email);
+        ja.setPoster(studentByEmailEquals);
+        JobAdvertisement save = repository.save(ja);
+        return modelMapper.map(save,JobAdvertisementDto.class);
+    }
 }

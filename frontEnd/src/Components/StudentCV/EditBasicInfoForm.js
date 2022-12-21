@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations } from '../../redux/userReducer';
+import { getLocations } from '../../redux/locationReducer';
 import { useDispatch, useSelector } from "react-redux";
 import Moment from 'moment'
 import {
@@ -54,7 +54,7 @@ function EditBasicInfoForm() {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const locations = useSelector((state)=>state.userReducer.locations)
-    const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+    const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
     useEffect(()=>{
         dispatch(getLocations());
     

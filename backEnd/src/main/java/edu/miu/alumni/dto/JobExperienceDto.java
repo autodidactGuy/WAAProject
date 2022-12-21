@@ -18,7 +18,7 @@ public class JobExperienceDto {
     private String company;
     private String details;
 
-    private boolean isCurrentPosition;
+    private Boolean isCurrentPosition;
 
     private String hierachicalLevel;
 }

@@ -32,7 +32,7 @@ public class JobExperience extends SoftDeleteBaseClass{
 
     private boolean isDeleted;
 
-    private boolean isCurrentPosition;
+    private Boolean isCurrentPosition;
 
     private String hierachicalLevel;
 

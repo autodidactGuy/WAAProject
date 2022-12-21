@@ -35,9 +35,11 @@ const layout = {
 
 const EducationEdit = (props) => {
 
-
-  
-  const dispatch = useDispatch();
+  // const locations = useSelector((state)=>state.userReducer.locations)
+  // const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+  // const dispatch = useDispatch();
+  // const filter = (inputValue, path) =>
+  // path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
      useEffect(()=>{
       
@@ -74,7 +76,7 @@ const EducationEdit = (props) => {
             const newEducation=values.education;
             console.log("education to add:",newEducation)
             //todo
-            dispatch(addJobExperience(newEducation));
+            //dispatch(addJobExperience(newEducation));
         }
         else 
         {
