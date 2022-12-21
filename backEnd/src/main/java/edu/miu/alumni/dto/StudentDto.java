@@ -40,7 +40,7 @@ public class StudentDto {
 
     private boolean isActivated;
 
-    private boolean isDeleted;
+
 
 
     private String nickName;

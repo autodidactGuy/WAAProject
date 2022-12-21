@@ -12,9 +12,9 @@ public class CommentDto {
     private String comment;
 
 
-    private Faculty writedBy;
+    private FacultyDto writedBy;
 
-    private Student toStudent;
+    private StudentDto toStudent;
 
 
 

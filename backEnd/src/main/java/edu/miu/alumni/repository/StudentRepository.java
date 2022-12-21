@@ -1,5 +1,6 @@
 package edu.miu.alumni.repository;
 
+import edu.miu.alumni.entity.Faculty;
 import edu.miu.alumni.entity.Student;
 import edu.miu.alumni.model.echarts.StudentsNumberPerCity;
 import edu.miu.alumni.model.echarts.StudentsNumberPerState;
@@ -60,4 +61,6 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
     )
     List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode);
 
+
+    Student findStudentByEmailEquals(String facultyEmail);
 }

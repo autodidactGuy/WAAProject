@@ -1,11 +1,11 @@
 package edu.miu.alumni.controller;
 
+import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.CommentDto;
 import edu.miu.alumni.entity.Comment;
-import edu.miu.alumni.service.BasicService;
-import edu.miu.alumni.service.CityService;
+import edu.miu.alumni.model.CommentsResponse;
 import edu.miu.alumni.service.CommentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,21 +27,21 @@ public class CommentController extends BaseController<Comment, CommentDto,Long>
      * @return
      */
 //    @PreAuthorize("FACULT")
+    @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_FACULT +"')")
     @GetMapping("/getCommentsByStudentId/{id}")
-    public List<CommentDto> getCommentsByStudentId(@PathVariable String id){
+    public List<CommentsResponse> getCommentsByStudentId(@PathVariable long id){
 
-//       return  bs.getAllStudentComments();
-        return null;
+       return  bs.getAllStudentComments(id);
     }
 
     /**
      * this is the function for student to get all comments about himself
      * @return
      */
+    @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_STUDENT +"')")
     @GetMapping("/getAllCommentsBySelf")
-    public List<CommentDto> getAllCommentsBySelf(){
+    public List<CommentsResponse> getAllCommentsBySelf(){
        return  bs.getSelfAllComments();
-//        return null;
     }
 
 

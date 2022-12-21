@@ -32,7 +32,6 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
 
     @Override
     public JobExperienceDto save(JobExperienceDto ad) {
-
         JobExperience jde1 = modelMapper.map(ad, JobExperience.class);
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = userRepository.findUserByEmailEquals(name);
