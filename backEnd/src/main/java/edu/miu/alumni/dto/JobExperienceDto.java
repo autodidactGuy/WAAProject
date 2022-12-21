@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class JobExperienceDto {
-    private long id;
+    private Long id;
 
     private String jobTitle;
 

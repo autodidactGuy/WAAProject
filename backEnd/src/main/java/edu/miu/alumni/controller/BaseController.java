@@ -41,8 +41,9 @@ public class BaseController<T,H,A> implements BasicControllerInterface<T,H,A>{
 
     @Override
     @PostMapping
-    public void save(@RequestBody H t) {
-        bs.save(t);
+    public H save(@RequestBody H t) {
+        return bs.save(t);
+
     }
 
 

@@ -35,8 +35,10 @@ public abstract  class BasicServiceImpl<T  extends SoftDeleteBaseClass ,H,A, D e
     }
 
     @Override
-    public void save(H ad) {
-        repository.save(ad);
+    public H save(H ad) {
+        T save = (T) repository.save(ad);
+        return modelMapper.map(save, getDToClassName());
+
     }
 
     @Override

@@ -11,6 +11,8 @@ public class LoginResponse {
     private String accessToken;
     private String refreshToken;
     private UserDto userInfo;
+
+    private String errorMeg ;
     public LoginResponse(String accessToken, String refreshToken) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
