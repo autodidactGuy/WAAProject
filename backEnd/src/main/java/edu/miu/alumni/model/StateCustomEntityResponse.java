@@ -12,6 +12,4 @@ public class StateCustomEntityResponse {
     private String label;
     private java.util.List<CityChild> children;
 
-
-
 }
