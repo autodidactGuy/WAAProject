@@ -39,4 +39,3 @@ backEnd/target
 backEnd/target/classes/edu/miu/alumni/repository/JobAdvertisementRepository.class
 backEnd/target/classes/edu/miu/alumni/repository/JobAdvertisementRepository.class
 backEnd/target/classes/edu/miu/alumni/security/SecurityConfiguration.class
-backEnd/.idea/misc.xml
