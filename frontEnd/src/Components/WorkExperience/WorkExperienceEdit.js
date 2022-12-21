@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader } from 'antd';
 
-import { addJobExperience, getLocations, updateJobExperience } from '../../redux/userReducer';
+import { addJobExperience, updateJobExperience } from '../../redux/jobExperienceReducer';
+import {getLocations } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
 import { stringToDate } from '../../Utils/Utils';
 import { Moment } from 'moment';
