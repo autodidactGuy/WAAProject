@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface    FacultyRepository extends CrudRepository<Faculty,Long> {
+    Faculty findFacultyByEmailEquals(String facultyEmail);
 }

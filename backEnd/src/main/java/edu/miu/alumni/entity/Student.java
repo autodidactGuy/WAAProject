@@ -22,6 +22,8 @@ public class Student extends User{
     @OneToMany(mappedBy = "poster")
     private List<JobAdvertisement> postJobAds;
 
+    @OneToMany(mappedBy = "toStudent")
+    private List<Comment> gotComments;
 
     @OneToMany(mappedBy ="student" )
     private List<UserApplication> userApplications;

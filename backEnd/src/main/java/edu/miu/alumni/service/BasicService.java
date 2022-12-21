@@ -15,7 +15,7 @@ import java.util.List;
 public interface BasicService<T,H,A> {
 
 
-    void save(H ad);
+    H save(H ad);
     H getById(A id);
     void update(H ad,A id);
     void delete(A id);

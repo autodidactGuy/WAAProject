@@ -10,6 +10,7 @@ import java.util.List;
 @Table(name="comments")
 public class Comment extends SoftDeleteBaseClass{
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
     private String comment;
@@ -23,4 +24,13 @@ public class Comment extends SoftDeleteBaseClass{
     private boolean isDeleted;
 
 
+    public Comment(Student student, Faculty faculty, String s) {
+        this.toStudent = student;
+        this.writedBy = faculty;
+        this.comment = s;
+    }
+
+    public Comment() {
+
+    }
 }

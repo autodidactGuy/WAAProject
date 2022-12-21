@@ -18,25 +18,33 @@ VALUES ('West Hollywood', 'CA', '90069', '34.090573', '-118.378753',false);
 insert into cities (city_name, state_code, zip_code, latitude, longitude,is_deleted)
 VALUES ('Akiachak', 'AK', '03203', '34.090573', '-118.378753',false);
 
-INSERT INTO users
-(user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
-VALUES('Student', 2, 0, '2022-01-01', '111@gmail.com', 'user', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);--123
 
-INSERT INTO users
-(user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
-VALUES('Student', 1, 0, '2022-01-01', '222@gmail.com', 'userabc', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',null);--123
+
+INSERT INTO profiles(id) VALUES(1);
+INSERT INTO profiles(id) VALUES(2);
+INSERT INTO profiles(id) VALUES(3);
+
+INSERT INTO users(user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
+VALUES('Faculty', 1, 0, '2022-01-01', 'faculty@gmail.com', 'Faculty', 'male', true, false, true, 'lastnameabc', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',1);--123
+
+
+INSERT INTO users(user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
+VALUES('Student', 2, 0, '2022-01-01', 'student@gmail.com', 'student1', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',2);--123
+
+
+INSERT INTO users(user_type, id, access_failed_count, birthday, email, first_name, gender, is_activated, is_deleted, is_lockout_end, last_name, nick_name, "password", phone_number, marjor, city_name, state_code, profile_id)
+VALUES('USER', 3, 0, '2022-01-01', 'admin@gmail.com', 'admin1', 'male', true, false, true, 'lastname', 'nickname','$2a$10$DQUM8GNo2TmThxAHirwaGOf2tHld36A7y3aPIj.oE5VRFuJjaqq7K', '123', 'math', 'Akiachak', 'AK',3);--123
+
+
 
 insert into users_role(users_id, role_id)
-values (1,1);
-insert into users_role(users_id, role_id)
-values (2,2);
-insert into users_role(users_id, role_id)
-values (2,3);
+values (1,3);--give faculty user role faculty
 
-INSERT INTO profiles(id)
-VALUES(1);
-INSERT INTO profiles(id)
-VALUES(2);
+insert into users_role(users_id, role_id)
+values (2,2);--give student role student
+
+insert into users_role(users_id, role_id)
+values (3,1);--give admin role admin
 
 INSERT INTO job_experiences
 (id, company_name, details, end_time, from_time, job_title, city_city_name, city_state_code, profile_id,is_deleted)
@@ -77,3 +85,5 @@ VALUES(2, 2);
 INSERT INTO public.tag_job_advertisement
 (job_advertisement_id, tags_id)
 VALUES(2, 1);
+
+

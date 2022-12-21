@@ -16,10 +16,6 @@ public class JobAdvertisement extends SoftDeleteBaseClass{
     @JoinColumn(name = "poster_stu_id")
     Student poster;
 
-    //    @ManyToOne
-//    @JoinColumn(name = "applier_id")
-//     Student applier;
-//
     @ManyToMany(mappedBy = "jobAdvertisement")
     List<Tag> tags;
 

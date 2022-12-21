@@ -31,7 +31,7 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
     }
 
     @Override
-    public void save(JobExperienceDto ad) {
+    public JobExperienceDto save(JobExperienceDto ad) {
 
         JobExperience jde1 = modelMapper.map(ad, JobExperience.class);
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -40,7 +40,8 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
         List<JobExperience> jobExperienceList = profile1.getJobExperienceList();
         jobExperienceList.add(jde1);
         profile1.setJobExperienceList(jobExperienceList);
-        repository.save(jde1);
+        JobExperience save = repository.save(jde1);
         profileRepository.save(profile1);
+        return modelMapper.map(save,JobExperienceDto.class);
     }
 }
