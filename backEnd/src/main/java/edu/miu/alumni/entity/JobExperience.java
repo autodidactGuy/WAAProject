@@ -20,12 +20,12 @@ public class JobExperience extends SoftDeleteBaseClass{
     private Date toTime;
 
 
-//    @OneToOne
-//    @JoinColumns({
-//            @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
-//            @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
-//    })
-//    private City city;
+    @OneToOne
+    @JoinColumns({
+            @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
+            @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
+    })
+    private City city;
 
     private String company;
     private String details;

@@ -10,7 +10,6 @@ public class JobExperienceDto {
 
     private String jobTitle;
 
-
     private String fromTime;
 
     private String toTime;
@@ -21,4 +20,6 @@ public class JobExperienceDto {
     private Boolean isCurrentPosition;
 
     private String hierachicalLevel;
+
+    private CityDto city;
 }

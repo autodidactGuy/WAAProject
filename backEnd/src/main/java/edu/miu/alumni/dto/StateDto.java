@@ -7,4 +7,6 @@ public class StateDto {
     private String stateCode;
 
     private String state;
+
+    private CityDto cityDto;
 }
