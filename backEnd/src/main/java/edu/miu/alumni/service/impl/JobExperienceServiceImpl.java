@@ -50,10 +50,10 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
         return modelMapper.map(save,JobExperienceDto.class);
     }
 
-    @Override
-    public List<JobExperienceDto> getAll() {
-        List<JobExperienceDto> all = super.getAll();
-        return  null;
-
-    }
+//    @Override
+//    public List<JobExperienceDto> getAll() {
+//        List<JobExperienceDto> all = super.getAll();
+//
+//        all
+//    }
 }
