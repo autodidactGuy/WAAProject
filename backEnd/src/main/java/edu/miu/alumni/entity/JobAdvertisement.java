@@ -1,0 +1,50 @@
+package edu.miu.alumni.entity;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.*;
+
+@Entity
+@Data
+@Table(name="job_advertisements")
+public class JobAdvertisement extends SoftDeleteBaseClass{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "poster_stu_id")
+    private Student poster;
+
+    @ManyToMany(mappedBy = "jobAdvertisement")
+    private  List<Tag> tags;
+
+
+    private   Date publicationDate;
+
+    private  String workload;
+
+    private  String contract;
+
+    private  String description;
+
+    private  String profile;
+
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
+            @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
+    })
+    private  City city;
+
+    private String companyName;
+
+    private boolean isDeleted;
+
+
+    @OneToMany
+    @JoinColumn(name="id_job_advertisements")
+    private   List<Files> listFiles;
+}

@@ -1,0 +1,106 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger: none
+#- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Maven@4
+  inputs:
+    mavenPomFile: '$(System.DefaultWorkingDirectory)/backEnd/pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/backEnd/target/'
+    Contents: '*.jar*'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(System.DefaultWorkingDirectory)/'
+    Contents: 'Dockerfile'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'springbootbuild'
+    publishLocation: 'Container'
+
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'rm -rf /opt/WAA/builds/backend/*'
+    readyTimeout: '20000'
+
+- task: CopyFilesOverSSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    sourceFolder: '$(Build.ArtifactStagingDirectory)'
+    contents: '**'
+    targetFolder: '/opt/WAA/builds/backend/'
+    readyTimeout: '20000'
+    
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'cp /opt/WAA/builds/backend/waa-final-project-0.0.1-SNAPSHOT.jar /opt/WAA/builds/backend/demo.jar'
+    readyTimeout: '20000'
+  
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'cp /opt/WAA/builds/backend/waa-final-project-0.0.1-SNAPSHOT.jar.original /opt/WAA/builds/backend/demo.jar.original'
+    readyTimeout: '20000'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'podman stop waabackend'
+    readyTimeout: '20000'
+  displayName: 'Stop backend'
+  continueOnError: true
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'podman rmi waabackendimg'
+    readyTimeout: '20000'
+  displayName: 'Delete docker image'
+  continueOnError: true
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'podman build -t waabackendimg -f /opt/WAA/builds/backend/Dockerfile /opt/WAA/builds/backend/'
+    readyTimeout: '20000'
+  displayName: 'Build docker image'
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'podman run -dt -p 9080:8080 --name waabackend waabackendimg'
+    readyTimeout: '20000'
+  displayName: 'Run waabackend'
+
