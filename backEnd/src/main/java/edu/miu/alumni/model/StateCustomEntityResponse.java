@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class StateCustomEntityResponse {
     private String value;
     private String label;
-    private java.util.List<CityChild> child;
+    private java.util.List<CityChild> children;
 
 
 
