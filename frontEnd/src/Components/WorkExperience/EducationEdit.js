@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader } from 'antd';
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader, InputNumber } from 'antd';
 
 import { addJobExperience, getLocations, updateJobExperience } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
@@ -36,37 +36,33 @@ const layout = {
 const EducationEdit = (props) => {
 
   // const locations = useSelector((state)=>state.userReducer.locations)
-  // const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
+  // const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
   // const dispatch = useDispatch();
   // const filter = (inputValue, path) =>
   // path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
-  //   useEffect(()=>{
+     useEffect(()=>{
       
-  //     if(!props.isAdd)
-  //     {
-  //       onFill();
-  //     }
+       if(!props.isAdd)
+       {
+         onFill();
+       }
 
-
-  //   if(locations===[] || locations.length==0) dispatch(getLocations());
-  //   console.log(locations);
-  //   },[locations])
+     },[])
     const [form] = Form.useForm();
-    // const onFill = () => {
+     const onFill = () => {
       
-    //     let propsClone = {...props}
+         let propsClone = {...props}
 
-    //     let we = propsClone.workExperience;
-    //     let workExperience = {
-    //      ...we,
-    //       FromTo: [stringToDate(props.workExperience.From), stringToDate(props.workExperience.To)],
-    //       location: [props.workExperience.State, props.workExperience.City]
-    //     }
-    //     propsClone.workExperience = workExperience;
-    //     console.log("value: props:",workExperience);
-    //     form.setFieldsValue(propsClone);
-    //   };
+         let we = propsClone.education;
+         let education = {
+          ...we,
+           Year: stringToDate(props.education.Year),
+         }
+         propsClone.education = education;
+         console.log("value: props:",education);
+         form.setFieldsValue(propsClone);
+       };
 
     
 
@@ -77,16 +73,17 @@ const EducationEdit = (props) => {
         if(props.isAdd)
         {
             //Add
-            //const newJob=values.workExperience;
-            //console.log("job to add:",newJob)
-            //dispatch(addJobExperience(newJob));
+            const newEducation=values.education;
+            console.log("education to add:",newEducation)
+            //todo
+            //dispatch(addJobExperience(newEducation));
         }
         else 
         {
             //Update
-            //const updatedjob={...values.workExperience, Id:props.workExperience.Id};
-            //console.log("the object to update : ",updatedjob)
-            //dispatch(updateJobExperience(updatedjob))
+            const educationToUpdate={...values.education, Id:props.education.Id};
+            console.log("eduction to update : ",educationToUpdate)
+            //dispatch(updateJobExperience(educationToUpdate))
              
         }
 
@@ -103,15 +100,18 @@ const EducationEdit = (props) => {
                 <Form.Item name={['education', 'EducationTitle']} label="Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-
                 <Form.Item name={['education', 'Degree']} label="Degree" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-
+                <Form.Item name={['education', 'Year']} label="Year" rules={[{ required: true }]}>
+                  <DatePicker picker="year" />
+                </Form.Item>
+                <Form.Item name={['education', 'GPA']} label="GPA" rules={[{ required: true }]}>
+                  <InputNumber min={0} max={4}/>
+                </Form.Item>
                 <Form.Item name={['education', 'Description']} label="Description" rules={[{ required: true }]}>
                     <Input.TextArea />
                 </Form.Item>
-
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                     <Button type="primary" htmlType="submit">
                         { props.isAdd ? "Add " : "Update " }
