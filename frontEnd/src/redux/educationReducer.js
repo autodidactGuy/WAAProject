@@ -18,7 +18,7 @@ export const addEducation = createAsyncThunk('education/addEducation', async (ed
     }
  
 
-     const responseFromApi = await axios.post(baseurl+'/education',educationToSend,
+     const responseFromApi = await axios.post(baseurl+'/education',education,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
