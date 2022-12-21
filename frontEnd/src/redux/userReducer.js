@@ -45,6 +45,13 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
 })
  
 
+export const editProfile = createAsyncThunk('user/editProfile', async (user) => {
+
+    const response = await axios.post(baseurl+'/user/edit',user); 
+    
+    return response.data;
+})
+
  
 
  
@@ -54,6 +61,7 @@ const userSlice = createSlice({
     initialState: { 
     registerstatus: 'idle', 
     loginstatus:'idle', 
+    editprofilestatus:'idle', 
     isLogged:isLogged(),
  
     },
@@ -99,8 +107,21 @@ const userSlice = createSlice({
             message.error("Login Error! Please try again")
         });
 
+        //edit profile
 
+        builder.addCase(editProfile.fulfilled, (state, action) => {
+            state.editprofilestatus = 'success';
+            message.success("Update success! Welcome")
 
+            
+        });
+        builder.addCase(editProfile.pending, (state, action) => {
+            state.editprofilestatus = 'pending'
+        });
+        builder.addCase(editProfile.rejected, (state, action) => {
+            state.editprofilestatus = 'rejected'
+            message.error("Update Error! Please try again")
+        });
          
 
     }

@@ -10,7 +10,7 @@ const baseurl = process.env.REACT_APP_API_URL;
 //const baseurl ="http://localhost:8080"
  
 
-export const getLocations = createAsyncThunk('location/getLocations', async (substring) => {
+export const getLocations = createAsyncThunk('/state/getAllCitiesPerState', async (substring) => {
     //const response = await axios.post(baseurl+'/location/substring',jobExperience); 
     //return response.data;
     
@@ -19,6 +19,14 @@ export const getLocations = createAsyncThunk('location/getLocations', async (sub
     return response;
 })
 
+export const getLocationsWithSubstring = createAsyncThunk('/state/getLocationsWithSubstring', async (substring) => {
+    //const response = await axios.post(baseurl+'/getLocationsWithSubstring/substring',jobExperience); 
+    //return response.data;
+    
+    const response = locations;
+
+    return response;
+})
 
  
 
