@@ -51,22 +51,8 @@ steps:
   inputs:
     sshEndpoint: 'localserver'
     sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    contents: 'demo-0.0.1-SNAPSHOT.jar'
-    targetFolder: '/opt/WAA/builds/backend/demo.jar'
+    contents: '**'
+    targetFolder: '/opt/WAA/builds/backend/'
     readyTimeout: '20000'
     
-- task: CopyFilesOverSSH@0
-  inputs:
-    sshEndpoint: 'localserver'
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    contents: 'demo-0.0.1-SNAPSHOT.jar.original'
-    targetFolder: '/opt/WAA/builds/backend/demo.jar.original'
-    readyTimeout: '20000'
 
-- task: CopyFilesOverSSH@0
-  inputs:
-    sshEndpoint: 'localserver'
-    sourceFolder: '$(Build.ArtifactStagingDirectory)'
-    contents: 'Dockerfile'
-    targetFolder: '/opt/WAA/builds/backend/Dockerfile'
-    readyTimeout: '20000'
