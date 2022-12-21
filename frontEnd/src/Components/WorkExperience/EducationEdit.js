@@ -100,21 +100,15 @@ const EducationEdit = (props) => {
             <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  education </h1>
 
             <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
-                <Form.Item name={['education', 'JobTitle']} label="Job Title" rules={[{ required: true }]}>
+                <Form.Item name={['education', 'EducationTitle']} label="Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
 
-                
-                <Form.Item valuePropName="checked"   name={['education', 'IsCurrentPosition']}  label="IsCurrentPosition">
-                    <Checkbox>IsCurrentPosition</Checkbox>
-                </Form.Item>
-                
-                
-                
-                 <Form.Item name={['education', 'Company']} label="CompanyName" rules={[{ required: true }]}>
+                <Form.Item name={['education', 'Degree']} label="Degree" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={['education', 'Details']} label="Details" rules={[{ required: true }]}>
+
+                <Form.Item name={['education', 'Description']} label="Description" rules={[{ required: true }]}>
                     <Input.TextArea />
                 </Form.Item>
 
