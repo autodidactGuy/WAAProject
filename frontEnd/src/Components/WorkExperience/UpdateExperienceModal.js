@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
  
  
 import WorkExperienceEdit from './WorkExperienceEdit';
+import { EditOutlined } from '@ant-design/icons';
 
 function UpdateExperienceModal(props) {
    
@@ -19,7 +20,7 @@ function UpdateExperienceModal(props) {
     
     return (
       <>
-        <Button size='small' type="primary" onClick={showModal}>
+        <Button icon={<EditOutlined />} size='small' type="primary" onClick={showModal}>
           Edit
         </Button>
         

@@ -42,8 +42,8 @@ export const jobFromApi2Front=(job)=>{
 		IsCurrentPosition: job.isCurrentPosition,
 		Company: job.company,
 		Details: job.details,
-		State: job.stateCode,  
-		City: job.cityName
+		State: job.city.id.stateCode,
+		City: job.city.id.cityName
     }
 }
 export const jobListFromApi2Front=(list)=>{

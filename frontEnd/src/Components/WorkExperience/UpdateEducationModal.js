@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
  
  
 import EducationEdit from './EducationEdit';
+import { EditOutlined } from '@ant-design/icons';
 
 function UpdateEducationModal(props) {
    
@@ -19,7 +20,7 @@ function UpdateEducationModal(props) {
     
     return (
       <>
-        <Button size='small' type="primary" onClick={showModal}>
+        <Button icon={<EditOutlined />} size='small' type="primary" onClick={showModal}>
           Edit
         </Button>
         
