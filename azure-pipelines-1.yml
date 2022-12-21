@@ -29,7 +29,7 @@ steps:
 
 - task: CopyFiles@2
   inputs:
-    SourceFolder: '$(System.DefaultWorkingDirectory)/backEnd/'
+    SourceFolder: '$(System.DefaultWorkingDirectory)/'
     Contents: 'Dockerfile'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
