@@ -100,7 +100,7 @@ steps:
   inputs:
     sshEndpoint: 'localserver'
     runOptions: 'commands'
-    commands: 'podman run -dt -p 9080:8080 -name waabackend waabackendimg'
+    commands: 'podman run -dt -p 9080:8080 --name waabackend waabackendimg'
     readyTimeout: '20000'
   displayName: 'Run waabackend'
 
