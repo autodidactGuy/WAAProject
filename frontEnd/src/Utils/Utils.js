@@ -17,9 +17,11 @@ export const convertJobExperienceFrontToApi = (front) => {
     return {
         "jobTitle": front.JobTitle,
         "fromTime": front.From,
-        "endTime": front.To,
-        "companyName": front.Company,
+        "toTime": front.To,
+        "company": front.Company,
         "details": front.Details,
+        "isCurrentPosition":front.IsCurrentPosition,
+        "hierachicalLevel":"leader",
         "city": {
             "id": {
                     "cityName": front.City,

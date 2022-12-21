@@ -3,7 +3,7 @@ import { Avatar, Button, List } from 'antd';
 import WorkExperience from './WorkExperience';
 //import { workExperienceData } from '../../Data/WorkExperienceData'
 import AddExperienceModal from './AddExperienceModal';
-import { getJobExperienceList } from '../../redux/userReducer';
+import { getJobExperienceList } from '../../redux/jobExperienceReducer';
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -14,7 +14,7 @@ const WorkExperienceList = () =>
       },[]);
 
     const dispatch = useDispatch();
-    const workExperienceData = useSelector((state) => state.userReducer.jobExperienceList);
+    const workExperienceData = useSelector((state) => state.jobEReducer.jobExperienceList);
     console.log("workexperience 2:",workExperienceData);
     return (
     

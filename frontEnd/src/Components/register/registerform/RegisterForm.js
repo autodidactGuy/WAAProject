@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { getLocations, registerUser } from '../../../redux/userReducer';
+import {  registerUser } from '../../../redux/userReducer';
+import { getLocations } from '../../../redux/locationReducer';
 import { useDispatch, useSelector } from "react-redux";
 import Moment from 'moment'
 import {
@@ -52,8 +53,8 @@ const tailFormItemLayout = {
 };
 
 const RegisterForm = () => {
-  const locations = useSelector((state)=>state.userReducer.locations)
-  const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+  const locations = useSelector((state)=>state.locationReducer.locations)
+  const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
   const [form] = Form.useForm();
   const dispatch = useDispatch();
   const registerstatus = useSelector((state) => state.userReducer.registerstatus);
