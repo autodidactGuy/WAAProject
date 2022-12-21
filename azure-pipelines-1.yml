@@ -92,7 +92,7 @@ steps:
   inputs:
     sshEndpoint: 'localserver'
     runOptions: 'commands'
-    commands: 'podman build -t waabackendimg -f /opt/WAA/builds/backend/Dockerfile .'
+    commands: 'cd /opt/WAA/builds/backend/ | podman build -t waabackendimg -f Dockerfile .'
     readyTimeout: '20000'
   displayName: 'Build docker image'
 
