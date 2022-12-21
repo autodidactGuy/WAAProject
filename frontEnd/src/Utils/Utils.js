@@ -32,4 +32,26 @@ export const convertJobExperienceFrontToApi = (front) => {
     }
 }
 
+export const jobFromApi2Front=(job)=>{
+    return {
+        Id: job.id,
+		 
+		JobTitle: job.jobTitle,
+		From: job.fromTime,
+		To: job.toTime,
+		IsCurrentPosition: job.isCurrentPosition,
+		Company: job.company,
+		Details: job.details,
+		State: job.stateCode,  
+		City: job.cityName
+    }
+}
+export const jobListFromApi2Front=(list)=>{
+    var result =[]
+    console.log("list",list)
+    list.forEach(element => result.push(jobFromApi2Front(element)));
+    console.log("result",result)
+    return result;
+}
+
 

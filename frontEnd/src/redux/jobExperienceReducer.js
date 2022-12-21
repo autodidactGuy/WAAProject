@@ -4,7 +4,7 @@ import axios from "axios";
  
 import { workExperienceData } from '../Data/WorkExperienceData'
 import { Moment } from 'moment';
-import { convertJobExperienceFrontToApi, dateToString } from './../Utils/Utils';
+import { convertJobExperienceFrontToApi, dateToString,jobListFromApi2Front } from './../Utils/Utils';
 import { getAccessToken } from "./userReducer";
 //use command :  'npm run start:Dev'  instead of 'npm start'
 const baseurl = process.env.REACT_APP_API_URL;
@@ -88,12 +88,19 @@ export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExpe
 })
 
 export const getJobExperienceList = createAsyncThunk('jobExperience/getJobExperienceList', async () => {
-    const response = await axios.get(baseurl+'/jobExperience'); 
+    const token = getAccessToken();
+    const response = await axios.get(baseurl+'/jobExperience',
+    {
+        headers: {
+            'Authorization': `Bearer ${token}` 
+         }
+       }
+    ); 
     //return response.data;
     
     //const response = workExperienceData;
     console.log('job list experience : ',response);
-    return response.data;
+    return jobListFromApi2Front(response.data);
 })
 
 
