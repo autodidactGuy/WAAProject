@@ -10,44 +10,41 @@ import java.util.*;
 @Table(name="job_advertisements")
 public class JobAdvertisement extends SoftDeleteBaseClass{
     @Id
-    long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @ManyToOne
     @JoinColumn(name = "poster_stu_id")
-    Student poster;
+    private Student poster;
 
-    //    @ManyToOne
-//    @JoinColumn(name = "applier_id")
-//     Student applier;
-//
     @ManyToMany(mappedBy = "jobAdvertisement")
-    List<Tag> tags;
+    private  List<Tag> tags;
 
 
-    Date publicationDate;
+    private   Date publicationDate;
 
-    String workload;
+    private  String workload;
 
-    String contract;
+    private  String contract;
 
-    String description;
+    private  String description;
 
-    String profile;
+    private  String profile;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumns({
             @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
             @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
     })
-    City city;
+    private  City city;
 
-    String companyName;
+    private String companyName;
 
     private boolean isDeleted;
 
 
     @OneToMany
     @JoinColumn(name="id_job_advertisements")
-    List<Files> listFiles;
+    private   List<Files> listFiles;
 }

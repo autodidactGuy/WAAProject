@@ -18,9 +18,9 @@ public class JobAdvertisementDto {
 
     private Date publicationDate;
 
-    private String Workload;
+    private String workload;
 
-    private String Contract;
+    private String contract;
 
     private String description;
 
@@ -28,6 +28,6 @@ public class JobAdvertisementDto {
 
     private CityDto city;
 
-    private String CompanyName;
+    private String companyName;
 
 }

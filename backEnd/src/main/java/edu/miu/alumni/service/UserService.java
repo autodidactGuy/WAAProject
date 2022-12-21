@@ -13,4 +13,6 @@ public interface UserService <T,H,A> extends BasicService<T,H,A> {
     void resetPassword(String password);
 
     void changeActiveStatu(long id);
+
+    T getUserByEmail(String email);
 }

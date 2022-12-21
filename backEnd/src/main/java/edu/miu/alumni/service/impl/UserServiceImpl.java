@@ -75,5 +75,10 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
 
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        return repository.findUserByEmailEquals(email);
+    }
+
 
 }

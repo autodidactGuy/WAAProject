@@ -6,9 +6,5 @@ import edu.miu.alumni.service.FacultyService;
 import edu.miu.alumni.service.impl.BasicServiceImpl;
 import org.modelmapper.ModelMapper;
 
-public class FacultyDto extends BasicServiceImpl<Faculty, FacultyDto, Long, FacultyRepository>
-implements FacultyService<Faculty, FacultyDto, Long> {
-    public FacultyDto(FacultyRepository repository, ModelMapper modelMapper) {
-        super(repository, modelMapper);
-    }
+public class FacultyDto {
 }

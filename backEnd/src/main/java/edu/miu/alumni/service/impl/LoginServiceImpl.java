@@ -55,15 +55,15 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
 
-
         try {
             var result = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
                             loginRequest.getPassword())
+
             );
         } catch (BadCredentialsException e) {
             log.info("Bad Credentials");
-            throw new InvalideUserOperationExceptions(Consts.INVALIE_USER_OR_PASSWORD);
+//            throw new InvalideUserOperationExceptions(Consts.INVALIE_USER_OR_PASSWORD);
         }
 
         final String accessToken = jwtHelper.generateToken(loginRequest.getEmail());

@@ -47,7 +47,7 @@ public class UserDto {
 
 
 
-    private Profile profile;
+    private ProfileDto profile;
 
 
 }

@@ -52,7 +52,7 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
     }
 
     @Override
-    public void save(UserApplicationDto ad) {
+    public UserApplicationDto save(UserApplicationDto ad) {
         java.util.Date applicationDate = ad.getApplicationDate();
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = userRepository.findUserByEmailEquals(name);
@@ -69,6 +69,7 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
             userApplication.setStudent((Student) userByEmailEquals);
             repository.save(userApplication);
         }
+        return null;
     }
 
 

@@ -29,7 +29,7 @@ function AddExperienceModal() {
               Cancel
             </Button>]}
         >
-          <WorkExperienceEdit isAdd={true}/>
+          <WorkExperienceEdit isAdd={true}  />
           
         </Modal>
       </>

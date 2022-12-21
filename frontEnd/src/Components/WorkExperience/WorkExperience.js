@@ -17,6 +17,7 @@ const WorkExperience = (props) => {
                 description={
                 <>
                     <div>Company {props.item.Company} </div>
+                    <div>Location : {props.item.State}, {props.item.City} </div>
                     <div>{props.item.Details} </div>
                     <UpdateExperienceModal isAdd={false} jobToUpdate={props.item}/>
                     <Button size='small' type="primary" danger onClick={()=>alert('to implement')}>

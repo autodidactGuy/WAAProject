@@ -17,18 +17,24 @@ public class JobExperience extends SoftDeleteBaseClass{
 
     private Date fromTime;
 
-    private Date endTime;
+    private Date toTime;
 
 
-    @OneToOne
-    @JoinColumns({
-            @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
-            @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
-    })
-    private City city;
+//    @OneToOne
+//    @JoinColumns({
+//            @JoinColumn(name = "city_cityName", referencedColumnName = "cityName"),
+//            @JoinColumn(name = "city_stateCode", referencedColumnName = "stateCode")
+//    })
+//    private City city;
 
-    private String companyName;
+    private String company;
     private String details;
 
     private boolean isDeleted;
+
+    private boolean isCurrentPosition;
+
+    private String hierachicalLevel;
+
+
 }
