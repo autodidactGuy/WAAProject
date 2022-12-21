@@ -3,6 +3,10 @@ import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Chec
 
 import { addJobExperience, getLocations, updateJobExperience } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
+import { stringToDate } from '../../Utils/Utils';
+import { Moment } from 'moment';
+import dayjs from 'dayjs';
+import { dateToString } from './../../Utils/Utils';
 
 const { RangePicker } = DatePicker;
  
@@ -38,20 +42,38 @@ const WorkExperienceEdit = (props) => {
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
     useEffect(()=>{
-      onFill();
+      
+      if(!props.isAdd)
+      {
+        onFill();
+      }
+
+
     if(locations===[] || locations.length==0) dispatch(getLocations());
     console.log(locations);
     },[locations])
     const [form] = Form.useForm();
     const onFill = () => {
-        console.log("value: props:",props);
-        form.setFieldsValue(props);
+      
+        let propsClone = {...props}
+
+        let we = propsClone.workExperience;
+        let workExperience = {
+         ...we,
+          FromTo: [stringToDate(props.workExperience.From), stringToDate(props.workExperience.To)],
+          location: [props.workExperience.State, props.workExperience.City]
+        }
+        propsClone.workExperience = workExperience;
+        console.log("value: props:",workExperience);
+        form.setFieldsValue(propsClone);
       };
 
     
 
     const onFinish = (values) => {
+
         console.log(values);
+        
         if(props.isAdd)
         {
             //Add
@@ -68,6 +90,8 @@ const WorkExperienceEdit = (props) => {
              
         }
 
+
+
       };
     return (
         <>
@@ -80,9 +104,10 @@ const WorkExperienceEdit = (props) => {
                     <Input />
                 </Form.Item>
                 <Form.Item name={['workExperience', 'FromTo']} label="From To" rules={[{ required: true }]}>
-                    <RangePicker picker="month" bordered={false} />
+                    <RangePicker format='YYYY-MM' picker="month" bordered={false} />
                 </Form.Item>
-                <Form.Item  name={['workExperience', 'IsCurrentPosition']}  label="IsCurrentPosition">
+                
+                <Form.Item valuePropName="checked"   name={['workExperience', 'IsCurrentPosition']}  label="IsCurrentPosition">
                     <Checkbox>IsCurrentPosition</Checkbox>
                 </Form.Item>
                 

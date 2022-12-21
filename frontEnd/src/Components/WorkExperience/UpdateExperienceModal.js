@@ -23,9 +23,9 @@ function UpdateExperienceModal(props) {
           Edit
         </Button>
         
-        <Modal title="Add exeprience" open={isModalOpen}  onCancel={handleCancel}
+        <Modal title="Edit exeprience" open={isModalOpen}  onCancel={handleCancel}
         footer={[
-            <Button key="canceladdexperience" onClick={handleCancel}>
+            <Button key="canceleditexperience" onClick={handleCancel}>
               Cancel
             </Button>]}
         >

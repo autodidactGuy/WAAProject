@@ -3,6 +3,8 @@ import { message } from "antd";
 import axios from "axios";
 import { locations } from "../Data/statecityData";
 import { workExperienceData } from '../Data/WorkExperienceData'
+import { Moment } from 'moment';
+import { convertJobExperienceFrontToApi, dateToString } from './../Utils/Utils';
 //use command :  'npm run start:Dev'  instead of 'npm start'
 const baseurl = process.env.REACT_APP_API_URL;
 //const baseurl ="http://localhost:8080"
@@ -44,71 +46,79 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
 
 export const addJobExperience = createAsyncThunk('user/addJobExperience', async (jobExperience) => {
      
-    const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkB0ZXN0LmNvbSIsImlhdCI6MTY3MTUwNjc4MywiZXhwIjoxNjcxNTA3NjgzfQ.k6d_uN04bILp1UN8yxDvstVeJFXMQ6YYWy4hzdNhwGhMONljGWrmcfEl-9rr2t53zdmjoxOwkpp9qdcY3orkSQ"
-    const jobExperience2={
-        "jobTitle": "QQQADDDADEdddd",
-
-        "fromTime": "2022-12-19",
-    
-        "endTime": "2022-12-19",
-    
-        "companyName": "abc",
-    
-        "details": "abc",
-    
-        "city": {
-    
-            "id": {
-    
-                    "cityName": "Akiachak",
-    
-                    "stateCode": "AK"
-    
-                }
-    
-        }
-    }
-    const responsetemp = await axios.post(baseurl+'/jobExperience',jobExperience,
-     {
-        headers: {
-          'Authorization': `Bearer ${token}` 
-        }
-      }
-    );
-
-    
-    const response= {
-        Id: "1",
-		UserId: "1",
-		JobTitle: jobExperience.JobTitle,
-		From: "12/01/2022",
-		To: "12/01/2022",
-		IsCurrentPosition : jobExperience.IsCurrentPosition,
-		Company: jobExperience.Company,
-		Details: jobExperience.Details,
-    }
-    
-     
-      
-     return response;
-})
-
-
-export const updateJobExperience = createAsyncThunk('user/updateJobExperience', async (jobExperience) => {
-    
+    const token = getAccessToken();
     
     const response= {
         Id: jobExperience.Id,
 			UserId: jobExperience.UserId,
 			JobTitle: jobExperience.JobTitle,
-			From: "12/01/2022",
-			To: "12/01/2022",
-			IsCurrentPosition: true,
-			Company: "jfjf",
-			Details: "Description",
+			From: dateToString(jobExperience.FromTo[0]),
+			To: dateToString(jobExperience.FromTo[1]),
+			IsCurrentPosition: jobExperience.IsCurrentPosition,
+			Company: jobExperience.Company,
+			Details: jobExperience.Details,
+            State: jobExperience.location[0],
+            City: jobExperience.location[1]
+    }
+
+
+    const jobExperienceToSend = convertJobExperienceFrontToApi(response);
+
+     const responseFromApi = await axios.post(baseurl+'/jobExperience',jobExperienceToSend,
+      {
+       headers: {
+           'Authorization': `Bearer ${token}` 
+        }
+      }
+    );
+
+    // const response= {
+    //     Id: jobExperience.Id,
+	// 		UserId: jobExperience.UserId,
+	// 		JobTitle: jobExperience.JobTitle,
+	// 		From: dateToString(jobExperience.FromTo[0]),
+	// 		To: dateToString(jobExperience.FromTo[1]),
+	// 		IsCurrentPosition: jobExperience.IsCurrentPosition,
+	// 		Company: jobExperience.Company,
+	// 		Details: jobExperience.Details,
+    //         State: jobExperience.location[0],
+    //         City: jobExperience.location[1]
+    // }
+
+    // const response= {
+    //     Id: "1",
+	// 	UserId: "1",
+	// 	JobTitle: jobExperience.JobTitle,
+	// 	From: "12/01/2022",
+	// 	To: "12/01/2022",
+	// 	IsCurrentPosition : jobExperience.IsCurrentPosition,
+	// 	Company: jobExperience.Company,
+	// 	Details: jobExperience.Details,
+    // }
+    
+      
+     return responseFromApi;
+})
+
+
+export const updateJobExperience = createAsyncThunk('user/updateJobExperience', async (jobExperience) => {
+    
+    console.log('jobexperience', jobExperience);
+    
+    const response= {
+        Id: jobExperience.Id,
+			UserId: jobExperience.UserId,
+			JobTitle: jobExperience.JobTitle,
+			From: dateToString(jobExperience.FromTo[0]),
+			To: dateToString(jobExperience.FromTo[1]),
+			IsCurrentPosition: jobExperience.IsCurrentPosition,
+			Company: jobExperience.Company,
+			Details: jobExperience.Details,
+            State: jobExperience.location[0],
+            City: jobExperience.location[1]
     }
   
- 
+    console.log(response);
      return response;
 })
 
@@ -191,9 +201,10 @@ const userSlice = createSlice({
 
         //add job
         builder.addCase(addJobExperience.fulfilled, (state, action) => {
+            alert('Add job experience')
             state.addjobtatus = 'success';
             state.jobExperienceList=[...state.jobExperienceList , action.payload];
-            
+            console.log('length ', state.jobExperienceList.length);
         });
         builder.addCase(addJobExperience.pending, (state, action) => {
             state.addjobtatus = 'pending'
