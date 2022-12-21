@@ -97,7 +97,7 @@ const EducationEdit = (props) => {
         <>
         <Row>
              <Col span={24} offset={0}>
-            <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  work experience </h1>
+            <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  education </h1>
 
             <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['education', 'JobTitle']} label="Job Title" rules={[{ required: true }]}>
