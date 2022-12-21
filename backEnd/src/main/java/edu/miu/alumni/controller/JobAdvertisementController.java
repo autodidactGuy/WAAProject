@@ -36,6 +36,7 @@ public class JobAdvertisementController extends BaseController<JobAdvertisement,
         return bs.getCurUserAllPosted();
     }
 
+    @GetMapping("/top10Advertisement")
     public List<JobAdvertisementDto> top10Advertisement(){
         return bs.getTop10LatestAdvertisement();
     }
