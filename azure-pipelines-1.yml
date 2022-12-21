@@ -56,3 +56,16 @@ steps:
     readyTimeout: '20000'
     
 
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'cp /opt/WAA/builds/backend/waa-final-project-0.0.1-SNAPSHOT.jar /opt/WAA/builds/backend/demo.jar'
+    readyTimeout: '20000'
+  
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
+    commands: 'cp /opt/WAA/builds/backend/waa-final-project-0.0.1-SNAPSHOT.jar.original /opt/WAA/builds/backend/demo.jar.original'
+    readyTimeout: '20000'
