@@ -3,6 +3,7 @@ import jobEReducer from "./jobExperienceReducer";
 import userReducer from "./userReducer";
 import locationReducer from "./locationReducer";
 import educationReducer from "./educationReducer";
+import advertisementReducer from "./advertisementReducer";
  
 
 
@@ -11,7 +12,8 @@ const store = configureStore({
         userReducer: userReducer,
         jobEReducer:jobEReducer,
         locationReducer:locationReducer,
-        educationReducer:educationReducer
+        educationReducer:educationReducer,
+        advertisementReducer:advertisementReducer
     }
 });
 export default store;
