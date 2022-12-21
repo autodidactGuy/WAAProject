@@ -13,10 +13,12 @@ public class JobExperienceDto {
 
     private String fromTime;
 
-    private String endTime;
+    private String toTime;
 
-    private String companyName;
+    private String company;
     private String details;
-    private BasicCityDto city;
 
+    private boolean isCurrentPosition;
+
+    private String hierachicalLevel;
 }

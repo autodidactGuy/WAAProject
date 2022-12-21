@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CityRepository extends CrudRepository<City,CityId> {
 
+
     public City findById_CityNameAndId_StateCode(String cityName,String StateCode);
 }

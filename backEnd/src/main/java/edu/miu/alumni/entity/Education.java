@@ -11,15 +11,17 @@ import java.util.Date;
 public class Education extends SoftDeleteBaseClass{
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private long id;
 
-    private String jobTitle;
+    private String EducationTitle   ;
 
     private Date fromTime;
 
     private Date endTime;
 
-    private String unversityName;
+    private String School;
     private String details;
 
     private boolean isDeleted;

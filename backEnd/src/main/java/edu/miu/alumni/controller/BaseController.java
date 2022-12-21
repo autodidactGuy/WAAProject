@@ -36,6 +36,7 @@ public class BaseController<T,H,A> implements BasicControllerInterface<T,H,A>{
     @Override
     @GetMapping
     public List<H> findAll() {
+
         return bs.getAll();
     }
 
@@ -43,7 +44,6 @@ public class BaseController<T,H,A> implements BasicControllerInterface<T,H,A>{
     @PostMapping
     public H save(@RequestBody H t) {
         return bs.save(t);
-
     }
 
 

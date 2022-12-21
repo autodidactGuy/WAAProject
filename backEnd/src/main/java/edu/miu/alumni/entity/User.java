@@ -87,4 +87,6 @@ public class User extends SoftDeleteBaseClass{
         this.isActivated=true;
         this.isDeleted=false;
     }
+
+
 }

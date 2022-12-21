@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.criteria.CriteriaBuilder;
 
 @Repository
-public interface JobExperienceRepository extends CrudRepository<JobExperience,Integer> {
+public interface JobExperienceRepository extends CrudRepository<JobExperience,Long> {
 }

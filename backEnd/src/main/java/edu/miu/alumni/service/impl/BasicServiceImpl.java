@@ -36,7 +36,8 @@ public abstract  class BasicServiceImpl<T  extends SoftDeleteBaseClass ,H,A, D e
 
     @Override
     public H save(H ad) {
-        T save = (T) repository.save(ad);
+
+        T save = (T) repository.save(modelMapper.map(ad,getEntityClassName()));
         return
                 modelMapper.map(save, getDToClassName());
 
@@ -64,15 +65,20 @@ public abstract  class BasicServiceImpl<T  extends SoftDeleteBaseClass ,H,A, D e
 
     @Override
     public List<H> getAll() {
-        Iterator<T> iterator = repository.findAll().iterator();
-        List<H> dtos = new ArrayList<H>();
-        while (iterator.hasNext()){
-            T next = iterator.next();
-            if(!next.isDeleted()){
-                dtos.add(modelMapper.map(next, getDToClassName()));
-            }
-        }
-        return dtos;
+
+       try {
+           Iterator<T> iterator = repository.findAll().iterator();
+           List<H> dtos = new ArrayList<H>();
+           while (iterator.hasNext()) {
+               T next = iterator.next();
+               if (!next.isDeleted()) {
+                   dtos.add(modelMapper.map(next, getDToClassName()));
+               }
+           }
+           return dtos;
+       }catch (Exception e){
+           return null;
+       }
     }
 
     private Class<H> getDToClassName(){
