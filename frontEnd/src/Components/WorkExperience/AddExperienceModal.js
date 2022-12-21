@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
  
  
 import WorkExperienceEdit from './WorkExperienceEdit';
+import { PlusOutlined } from '@ant-design/icons';
 
 function AddExperienceModal() {
   
@@ -19,8 +20,8 @@ function AddExperienceModal() {
     
     return (
       <>
-        <Button type="primary" onClick={showModal}>
-          Add WorkExperience
+        <Button  icon={<PlusOutlined />}  type="primary" onClick={showModal} style={{float: 'right'}}>
+          Add
         </Button>
         
         <Modal title="Add exeprience" open={isModalOpen}  onCancel={handleCancel}

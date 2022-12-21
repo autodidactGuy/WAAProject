@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd';
  
  
 import EducationEdit from './EducationEdit';
+import { PlusOutlined } from '@ant-design/icons';
 
 function AddEducationModal() {
   
@@ -19,8 +20,8 @@ function AddEducationModal() {
     
     return (
       <>
-        <Button type="primary" onClick={showModal}>
-          Add Education
+        <Button  icon={<PlusOutlined />} type="primary" onClick={showModal} style={{float: 'right'}}>
+          Add
         </Button>
         
         <Modal title="Add education" open={isModalOpen}  onCancel={handleCancel}
