@@ -66,14 +66,14 @@ public class JobAdvertisementServiceImpl
 
     @Override
     public List<JobAdvertisementDto> getCurUserAllPosted() {
-        JobAdvertisementRepository repository1 = repository;
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
 
         User userByEmailEquals = userRepository.findUserByEmailEquals(name);
 
-       return repository1.getAllByPoster(userByEmailEquals.getId()).stream().map(x->
-             modelMapper.map(x,JobAdvertisementDto.class)
-        ).collect(Collectors.toList());
+        System.out.println(userByEmailEquals);
+        Long id = userByEmailEquals.getId();
+        System.out.println(id);
+        return null;
     }
 
     @Override

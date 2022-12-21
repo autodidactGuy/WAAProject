@@ -63,6 +63,9 @@ public class LoginServiceImpl implements LoginService {
             );
         } catch (BadCredentialsException e) {
             log.info("Bad Credentials");
+            LoginResponse loginResponse = new LoginResponse();
+            loginResponse.setErrorMeg(Consts.INVALIE_USER_OR_PASSWORD);
+            return loginResponse;
 //            throw new InvalideUserOperationExceptions(Consts.INVALIE_USER_OR_PASSWORD);
         }
 

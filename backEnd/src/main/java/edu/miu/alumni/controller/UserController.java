@@ -32,15 +32,16 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignupRequest signUpRequest) {
         var signUpResponse = uaaService.signUp(signUpRequest);
-        if(signUpResponse.equals(Consts.THIS_USER_EMAIL_NOT_VALID)){
-            return ResponseEntity.badRequest().body(signUpResponse);
-        }
+
         return ResponseEntity.ok().body(signUpResponse);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> registerUser(@RequestBody LoginRequest loginRequest) {
         var loginResponse = uaaService.login(loginRequest);
+        if(Consts.THIS_USER_EMAIL_NOT_VALID.equals(loginResponse.getErrorMeg())){
+            return ResponseEntity.badRequest().body(loginResponse.getErrorMeg());
+        }
         return ResponseEntity.ok().body(loginResponse);
     }
 
