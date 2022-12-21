@@ -1,13 +1,15 @@
 import React from 'react'
 import { submittedAdvertisements } from '../../../Data/submittedAdvertisementData'
-import { Space, Table, Tag } from 'antd';
+import { Space, Table, Tag, Button, Popconfirm } from 'antd';
+import AddEditJobAdvertisementModal from './AddEditJobAdvertisementModal';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const columns = [
   {
     title: 'Title',
     dataIndex: 'Title',
     key: 'Title',
-    render: (text) => <a>{text}</a>,
+    render: (text) => text,
   },
   {
     title: 'Company',
@@ -60,8 +62,11 @@ const columns = [
     key: 'action',
     render: (_, record) => (
       <Space size="middle">
-        <a>edit</a>
-        <a>Delete</a>
+        <AddEditJobAdvertisementModal isAdd = {false}   />
+        <Popconfirm title="Sure to delete?" onConfirm={() => alert("todo", record.key)}>
+          <Button icon={<DeleteOutlined/>} danger size='small'>Delete</Button>
+        </Popconfirm>
+        
       </Space>
     ),
   },
@@ -70,7 +75,7 @@ const columns = [
 function MySubmittedAdvertisements() {
   return (
     <div>
-    <h1 style={{margin:'15px'}}> Applied job </h1>
+    <h1 style={{margin:'15px'}}>My Advertisements <AddEditJobAdvertisementModal isAdd={true}/> </h1>
     <Table columns={columns} dataSource={submittedAdvertisements} />
     </div>
   )

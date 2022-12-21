@@ -40,7 +40,7 @@ const AdvEdit = (props) => {
     return (
         <>
         <Row>
-             <Col span={12} offset={6}>
+             <Col span={24} offset={0}>
             <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  Job advertisement </h1>
 
             <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
