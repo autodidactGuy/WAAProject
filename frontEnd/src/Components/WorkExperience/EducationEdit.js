@@ -36,7 +36,7 @@ const layout = {
 const EducationEdit = (props) => {
 
   // const locations = useSelector((state)=>state.userReducer.locations)
-  // const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+  // const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
   // const dispatch = useDispatch();
   // const filter = (inputValue, path) =>
   // path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);

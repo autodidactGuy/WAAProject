@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
 import axios from "axios";
-import { locations } from "../Data/statecityData";
+ 
 import { workExperienceData } from '../Data/WorkExperienceData'
 import { Moment } from 'moment';
 
@@ -45,15 +45,7 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
 })
  
 
-export const getLocations = createAsyncThunk('user/getLocations', async () => {
-    //const response = await axios.post(baseurl+'/users/getjobexperiencelist',jobExperience); 
-    //return response.data;
-    
-    const response = locations;
-
-    return response;
-})
-
+ 
 
  
 
@@ -63,8 +55,7 @@ const userSlice = createSlice({
     registerstatus: 'idle', 
     loginstatus:'idle', 
     isLogged:isLogged(),
-    locations:[],
-    getLocationStatus:'idle'
+ 
     },
     
     reducers:{
@@ -110,18 +101,7 @@ const userSlice = createSlice({
 
 
 
-        //getLocations
-        builder.addCase(getLocations.fulfilled, (state, action) => {
-            state.getLocationStatus = 'success';
-            state.locations=action.payload;
-            
-        });
-        builder.addCase(getLocations.pending, (state, action) => {
-            state.getLocationStatus = 'pending'
-        });
-        builder.addCase(getLocations.rejected, (state, action) => {
-            state.getLocationStatus = 'rejected'
-        });
+         
 
     }
 });

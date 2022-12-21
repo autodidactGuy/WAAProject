@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader } from 'antd';
 
 import { addJobExperience, updateJobExperience } from '../../redux/jobExperienceReducer';
-import {getLocations } from '../../redux/userReducer';
+import {getLocations } from '../../redux/locationReducer';
 import { useDispatch, useSelector } from "react-redux";
 import { stringToDate } from '../../Utils/Utils';
 import { Moment } from 'moment';
@@ -36,8 +36,8 @@ const layout = {
 
 const WorkExperienceEdit = (props) => {
 
-  const locations = useSelector((state)=>state.userReducer.locations)
-  const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
+  const locations = useSelector((state)=>state.locationReducer.locations)
+  const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
   const dispatch = useDispatch();
   const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
