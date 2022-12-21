@@ -4,6 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -65,9 +66,12 @@ public class User extends SoftDeleteBaseClass{
     private Profile profile;
 
 
+    private Date lockedTime;
+
     public User() {
 
     }
+
 
     public User(String email, String password, String firstName, String lastName, String birthday, String gender, String nickName, String pohoneNumber) {
 
