@@ -30,4 +30,5 @@ public class JobAdvertisementDto {
 
     private String companyName;
 
+
 }

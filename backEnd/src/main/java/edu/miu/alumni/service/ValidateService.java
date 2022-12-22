@@ -9,4 +9,5 @@ public interface ValidateService extends  BasicService<Validate, Validate,Long> 
 
     void sendValidationEmail(String appUrl, User userByEmail,String email);
 
+    void resetPasswordByResetToken(String token);
 }

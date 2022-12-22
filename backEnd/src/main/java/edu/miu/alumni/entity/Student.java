@@ -13,7 +13,7 @@ import java.util.List;
 @DiscriminatorValue("Student")
 public class Student extends User{
 
-    private String marjor;
+    private String major;
 
 //    @OneToMany
 //    @JoinColumn(name="id_inter_stu")
@@ -31,7 +31,7 @@ public class Student extends User{
 //    private List<JobAdvertisement> appliedAds;
     public Student(String email, String encode, String firstName, String lastName, String birthday, String gender, String nickName, String pohoneNumber,String marjor) {
         super(email,encode,firstName,lastName,birthday,gender,nickName,pohoneNumber);
-        this.marjor = marjor;
+        this.major = marjor;
     }
 
     public Student() {

@@ -18,7 +18,7 @@ public class Comment extends SoftDeleteBaseClass{
     @OneToOne
     private Faculty writedBy;
 
-    @OneToOne
+    @ManyToOne
     private Student toStudent;
 
     private boolean isDeleted;

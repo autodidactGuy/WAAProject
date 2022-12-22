@@ -20,4 +20,9 @@ public class Consts {
     public static final String THIS_USER_EMAIL_NOT_VALID = "the user email is not valid";
     public static final String INVALIE_USER_OR_PASSWORD = "your username/password is wrong ,please check it";
     public static final int MAX_FAILED_ATTEMPTS = 5;
+
+    public static final String  INITIAL_PASSWORD = "123";
+
+    public static final String DEFUALT_PORT = ":8080";
+
 }

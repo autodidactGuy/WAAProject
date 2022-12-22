@@ -55,7 +55,8 @@ public class SecurityConfiguration {
                 .antMatchers("/user/signup").permitAll()
                 .antMatchers("/user/login").permitAll()
                 .antMatchers("/state/getAllCitiesPerState").permitAll()
-                .antMatchers("/validate/sendValidationEmail").permitAll()
+                .antMatchers("/validate/*").permitAll()
+
                 .antMatchers("/jobAdvertisement/top10Advertisement").permitAll()
                 .antMatchers("/echart/*").permitAll()
                 .anyRequest()
