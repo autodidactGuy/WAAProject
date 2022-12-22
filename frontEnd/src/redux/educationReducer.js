@@ -31,7 +31,8 @@ export const updateEducation = createAsyncThunk('education/updateEducation', asy
     
  
     const token = getAccessToken();
-    const response=  await axios.put(baseurl+'/education/'+education.id,education,
+    const valueToAdd= {...educationFromFront2API(education),id:education.Id};
+    const response=  await axios.put(baseurl+'/education/'+education.Id,valueToAdd,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
@@ -71,7 +72,7 @@ export const geteducationList = createAsyncThunk('education/geteducationList', a
  
 
     console.log('education list  : ',response);
-    
+
     return response.data;
 })
 
