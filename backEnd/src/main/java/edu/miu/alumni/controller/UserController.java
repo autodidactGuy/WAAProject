@@ -102,8 +102,6 @@ public class UserController   extends BaseController<User, UserDto,Long> {
         }catch (Exception e){
             return ResponseEntity.internalServerError().body("contact to mae");
         }
-
-
     }
 
 
