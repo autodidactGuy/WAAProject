@@ -83,8 +83,7 @@ export const getJobExperienceList = createAsyncThunk('jobExperience/getJobExperi
     ); 
     //return response.data;
     
-    //const response = workExperienceData;
-    console.log('job list experience : ',response);
+
     return jobListFromApi2Front(response.data);
 })
 
@@ -96,6 +95,7 @@ const jobEReducer = createSlice({
     initialState: { 
     addjobEstatus:'idle', 
     updatejobtatus:'idle', 
+    deletejobtatus:'idle', 
     getJobExperienceListstatus:'idle',
     jobExperienceList:[],
     
@@ -110,13 +110,14 @@ const jobEReducer = createSlice({
         builder.addCase(addJobExperience.fulfilled, (state, action) => {
             state.addjobEstatus = 'success';
             state.jobExperienceList=[...state.jobExperienceList , action.payload];
-            console.log('length ', state.jobExperienceList.length);
+            message.success("added with success!")
         });
         builder.addCase(addJobExperience.pending, (state, action) => {
             state.addjobEstatus = 'pending'
         });
         builder.addCase(addJobExperience.rejected, (state, action) => {
             state.addjobEstatus = 'rejected'
+            message.success("error, please try again!")
         });
 
         //update job
@@ -140,7 +141,7 @@ const jobEReducer = createSlice({
             }  
              
             state.jobExperienceList=newState
-             
+            message.success("updated with success!") 
             
         });
         builder.addCase(updateJobExperience.pending, (state, action) => {
@@ -148,6 +149,7 @@ const jobEReducer = createSlice({
         });
         builder.addCase(updateJobExperience.rejected, (state, action) => {
             state.updatejobtatus = 'rejected' 
+            message.success("error, please try again!")
         });
 
 
