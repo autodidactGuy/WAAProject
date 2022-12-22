@@ -7,6 +7,7 @@ import { stringToDate } from '../../Utils/Utils';
 import { Moment } from 'moment';
 import dayjs from 'dayjs';
 import { dateToString } from '../../Utils/Utils';
+import { addEducation, updateEducation } from '../../redux/educationReducer';
 
 const { RangePicker } = DatePicker;
  
@@ -34,7 +35,7 @@ const layout = {
   };
 
 const EducationEdit = (props) => {
-
+  const dispatch = useDispatch();
   // const locations = useSelector((state)=>state.userReducer.locations)
   // const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
   // const dispatch = useDispatch();
@@ -76,14 +77,14 @@ const EducationEdit = (props) => {
             const newEducation=values.education;
             console.log("education to add:",newEducation)
             //todo
-            //dispatch(addJobExperience(newEducation));
+            dispatch(addEducation(newEducation));
         }
         else 
         {
             //Update
             const educationToUpdate={...values.education, Id:props.education.Id};
             console.log("eduction to update : ",educationToUpdate)
-            //dispatch(updateJobExperience(educationToUpdate))
+            dispatch(updateEducation(educationToUpdate))
              
         }
 

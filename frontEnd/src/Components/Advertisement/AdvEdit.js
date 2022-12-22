@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader   } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
-import { addAdvertisement } from '../../redux/advertisementReducer';
+import { addAdvertisement, updateAdvertisement } from '../../redux/advertisementReducer';
 import { getLocations } from '../../redux/locationReducer';
 
 
@@ -28,6 +28,7 @@ const layout = {
   };
 
 const AdvEdit = (props) => {
+  const userInfo= useSelector((state)=>state.userReducer.userInfo);
   const dispatch = useDispatch();
   const locations = useSelector((state)=>state.locationReducer.locations)
   const filter = 
@@ -46,12 +47,17 @@ const AdvEdit = (props) => {
         {
             //Add
             const newAdvertisement=values.adv;
-            console.log("newAdvertisement to add:",newAdvertisement)
+        
             dispatch(addAdvertisement(newAdvertisement));
         }
         else 
         {
             //Update
+            const advToUpdate={
+              ...values.adv,
+              id:props.item.id
+            };
+            dispatch(updateAdvertisement(advToUpdate));
         }
 
       };

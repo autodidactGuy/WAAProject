@@ -6,6 +6,12 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const columns = [
   {
+    title: 'Id',
+    dataIndex: 'Id',
+    key: 'Id',
+    visible: false
+  },
+  {
     title: 'Title',
     dataIndex: 'Title',
     key: 'Title',

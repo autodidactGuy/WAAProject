@@ -135,7 +135,7 @@ const jobEReducer = createSlice({
         });
         builder.addCase(addJobExperience.rejected, (state, action) => {
             state.addjobEstatus = 'rejected'
-            message.success("error, please try again!")
+            message.error("error, please try again!")
         });
 
         //update job
@@ -150,7 +150,7 @@ const jobEReducer = createSlice({
         });
         builder.addCase(updateJobExperience.rejected, (state, action) => {
             state.updatejobtatus = 'rejected' 
-            message.success("error, please try again!")
+            message.error("error, please try again!")
         });
 
 

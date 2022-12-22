@@ -56,3 +56,34 @@ export const jobListFromApi2Front=(list)=>{
 }
 
 
+export const educationFromFront2API=(education)=>{
+    return {
+        educationTitle:education.EducationTitle,
+        degree:education.Degree,
+        year:dayjs(education.Year).format("YYYY-MM") ,
+        description:education.Description,
+        gpa:+education.GPA,
+        schoolname:"MIU"
+    }
+}
+
+export const educationFromAPI2Front=(education)=>{
+    return {
+        Id: education.id,
+		
+		EducationTitle: education.educationTitle,
+		Degree: education.degree,
+		Year: education.year+"-01",
+		Description : education.description,
+		GPA: education.gpa,
+        SchoolName:education.schoolname
+    }
+}
+
+export const educListFromAPI2Front=(list)=>{
+    let result = [];
+    list.forEach(e=>{
+        result.push(educationFromAPI2Front(e));
+    })
+    return result;
+}
