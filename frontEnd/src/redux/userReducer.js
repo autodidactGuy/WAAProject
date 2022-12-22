@@ -54,7 +54,6 @@ export const editProfile = createAsyncThunk('user/editProfile', async (user) => 
 
  
 
- 
 
 const userSlice = createSlice({
     name: "user",
