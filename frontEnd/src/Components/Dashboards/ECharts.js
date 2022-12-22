@@ -63,7 +63,12 @@ function ECharts() {
 
 
   return (
-    <Row className='charts'>
+
+    
+        (isLoggedIn)
+        ?
+        
+        <Row className='charts'>
         <Col span={11}>
             <SampleEchart title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
         </Col>
@@ -74,6 +79,11 @@ function ECharts() {
         <SampleEchart title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
         </Col>
         </Row>
+        :
+        <>
+        </>
+    
+    
   )
 }
 
