@@ -5,9 +5,46 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background:#f5f5f5;
+
+  position: relative;        /* for the footer to move with the page size */
+    min-height: 100%;          /* for the footer to be at the bottom */
+    padding-bottom: 6rem; 
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+.logo{
+  float: left;
+  width: auto;
+  height: auto;
+  color: #fff!important;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.mt-20{
+  margin-top:50px!important;
+}
+
+.login-form-button{
+  float:right;
+}
+
+.search_student{
+  display:flex!important;
+}
+
+
+.footer{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  font-weight:bold;
+  color:#fff!important;
+  background-color: #001529!important;
 }

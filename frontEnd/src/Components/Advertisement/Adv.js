@@ -1,14 +1,15 @@
 import React from 'react';
 import { Card, Col, Row, Avatar  } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const Adv = (props) => (
     <>
         <Card title={<>
 
 
-                    <div> {props.adv.Title} </div>
-                    <div style={{ color: 'gray', fontSize: '12px' }}> <CalendarOutlined /> {props.adv.PublicationDate} </div>
+                    <div> {props.adv.profile} </div>
+                    <div style={{ color: 'gray', fontSize: '12px' }}> <CalendarOutlined /> {moment(props.adv.publicationDate).format("MM-DD-YYYY")} </div>
 
 
                     </>}
@@ -21,9 +22,9 @@ const Adv = (props) => (
                     icon={<UserOutlined />} />
                 </Col>
                 <Col style={{marginLeft:'5px'}}>
-                    <div> Campany : {props.adv.CompanyName} </div>
-                    <div> <EnvironmentOutlined /> {props.adv.State}, {props.adv.City} </div>
-                    <div> {props.adv.Description} </div>
+                    <div> Campany : {props.adv.companyName} </div>
+                    <div> <EnvironmentOutlined /> {props.adv.city.stateCode}, {props.adv.city.cityName} </div>
+                    <div> {props.adv.description} </div>
 
                 </Col>
             </Row>

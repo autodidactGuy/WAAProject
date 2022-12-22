@@ -82,7 +82,7 @@ const App = () => {
 
             {/*    </div>*/}
             {/*</Content>*/}
-            <Footer style={{ textAlign: 'center' }}>Ant Design �2018 Created by Ant UED</Footer>
+            <Footer style={{ textAlign: 'center' }} className="footer">Alumni Management Portal &copy; 2022 - All rights reserved</Footer>
         </Layout></>
     );
 };
