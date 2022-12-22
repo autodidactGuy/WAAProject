@@ -21,24 +21,26 @@ steps:
     mavenAuthenticateFeed: false
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
+  displayName: 'Maven build application'
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)/backEnd/target/'
     Contents: '*.jar*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
+  displayName: 'Copy jar file to publish folder'
 - task: CopyFiles@2
   inputs:
     SourceFolder: '$(System.DefaultWorkingDirectory)/'
     Contents: 'Dockerfile'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  displayName: 'Copy Docker file to publish folder'
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'springbootbuild'
     publishLocation: 'Container'
-
+  displayName: 'Publish build to AzureDevops Artefacts'
 
 - task: SSH@0
   inputs:
@@ -46,7 +48,7 @@ steps:
     runOptions: 'commands'
     commands: 'rm -rf /opt/WAA/builds/backend/*'
     readyTimeout: '20000'
-
+  displayName: 'Clean build folder in the production server'
 - task: CopyFilesOverSSH@0
   inputs:
     sshEndpoint: 'localserver'
@@ -54,6 +56,7 @@ steps:
     contents: '**'
     targetFolder: '/opt/WAA/builds/backend/'
     readyTimeout: '20000'
+  displayName: 'Copy build files to production server'
     
 
 - task: SSH@0
@@ -62,6 +65,7 @@ steps:
     runOptions: 'commands'
     commands: 'cp /opt/WAA/builds/backend/waa-final-project-0.0.1-SNAPSHOT.jar /opt/WAA/builds/backend/demo.jar'
     readyTimeout: '20000'
+  displayName: 'Prepare jar file'
   
 - task: SSH@0
   inputs:
@@ -69,14 +73,14 @@ steps:
     runOptions: 'commands'
     commands: 'cp /opt/WAA/builds/backend/waa-final-project-0.0.1-SNAPSHOT.jar.original /opt/WAA/builds/backend/demo.jar.original'
     readyTimeout: '20000'
-
+  displayName: 'Prepare jar.orignal file'
 - task: SSH@0
   inputs:
     sshEndpoint: 'localserver'
     runOptions: 'commands'
     commands: 'podman stop waabackend'
     readyTimeout: '20000'
-  displayName: 'Stop backend'
+  displayName: 'Stop backend docker container'
   continueOnError: true
 
 - task: SSH@0
@@ -85,7 +89,7 @@ steps:
     runOptions: 'commands'
     commands: 'podman rm waabackend'
     readyTimeout: '20000'
-  displayName: 'Delete docker container'
+  displayName: 'Delete old backend docker container'
   continueOnError: true
 
 - task: SSH@0
@@ -94,8 +98,9 @@ steps:
     runOptions: 'commands'
     commands: 'podman rmi waabackendimg'
     readyTimeout: '20000'
-  displayName: 'Delete docker image'
+  displayName: 'Delete old backend docker image'
   continueOnError: true
+
 
 - task: SSH@0
   inputs:
@@ -103,7 +108,7 @@ steps:
     runOptions: 'commands'
     commands: 'podman build -t waabackendimg -f /opt/WAA/builds/backend/Dockerfile /opt/WAA/builds/backend/'
     readyTimeout: '20000'
-  displayName: 'Build docker image'
+  displayName: 'Build backend docker image'
 
 - task: SSH@0
   inputs:
@@ -111,5 +116,5 @@ steps:
     runOptions: 'commands'
     commands: 'podman run -dt -p 9080:8080 --name waabackend waabackendimg'
     readyTimeout: '20000'
-  displayName: 'Run waabackend'
+  displayName: 'Run backend docker waabackend'
 
