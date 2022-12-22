@@ -9,7 +9,7 @@ import { getAccessToken } from "./userReducer";
 //use command :  'npm run start:Dev'  instead of 'npm start'
 const baseurl = process.env.REACT_APP_API_URL;
 
-export const addJobExperience = createAsyncThunk('jobExperience/addJobExperience', async (jobExperience) => {
+export const addJobExperience = createAsyncThunk('jobExperience/addJobExperience', async (jobExperience,{dispatch}) => {
      
     const token = getAccessToken();
     
@@ -36,13 +36,14 @@ export const addJobExperience = createAsyncThunk('jobExperience/addJobExperience
         }
       }
     );
+    dispatch(getJobExperienceList());
 
       
-     return responseFromApi;
+     return response;
 })
 
 
-export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExperience', async (jobExperience) => {
+export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExperience', async (jobExperience,{dispatch}) => {
     
     const token = getAccessToken();
     const response= {
@@ -67,7 +68,24 @@ export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExpe
        }
      }
    );
+
+   dispatch(getJobExperienceList());
     
+     
+     return response;
+})
+
+export const deleteJobExp = createAsyncThunk('jobExperience/deleteJobExp', async (id,{dispatch}) => {
+      
+    const token = getAccessToken();
+    const response = await axios.delete(baseurl+'/jobExperience/'+id,
+     {
+      headers: {
+          'Authorization': `Bearer ${token}` 
+       }
+     }
+   );
+    dispatch(getJobExperienceList());
      
      return response;
 })
@@ -109,7 +127,7 @@ const jobEReducer = createSlice({
         //add job
         builder.addCase(addJobExperience.fulfilled, (state, action) => {
             state.addjobEstatus = 'success';
-            state.jobExperienceList=[...state.jobExperienceList , action.payload];
+            //state.jobExperienceList=[...state.jobExperienceList , action.payload];
             message.success("added with success!")
         });
         builder.addCase(addJobExperience.pending, (state, action) => {
@@ -123,24 +141,7 @@ const jobEReducer = createSlice({
         //update job
         builder.addCase(updateJobExperience.fulfilled, (state, action) => {
             state.updatejobtatus = 'success';
-
-            const obj = action.payload;
-           
-            const id =obj.Id;
-             
-            let newState=[...state.jobExperienceList]
-             
-            for(let i =0 ;i <newState.length;i++){
-                let o = newState[i]
-                if(o.Id===id)
-                {
-                    newState[i]=obj;
-                    
-                    break;
-                }
-            }  
-             
-            state.jobExperienceList=newState
+ 
             message.success("updated with success!") 
             
         });
@@ -152,6 +153,23 @@ const jobEReducer = createSlice({
             message.success("error, please try again!")
         });
 
+
+
+        //deleteJobExp
+        builder.addCase(deleteJobExp.fulfilled, (state, action) => {
+            
+            state.deletejobtatus = 'success';
+           
+            message.success("delete with success!")
+            
+        });
+        builder.addCase(deleteJobExp.pending, (state, action) => {
+            state.deletejobtatus = 'pending'
+        });
+        builder.addCase(deleteJobExp.rejected, (state, action) => {
+            state.deletejobtatus = 'rejected'
+            message.error("error please try again!")
+        });
 
         //getJobExperienceList
         builder.addCase(getJobExperienceList.fulfilled, (state, action) => {
