@@ -47,7 +47,7 @@ export const jobFromApi2Front=(job)=>{
     }
 }
 export const jobListFromApi2Front=(list)=>{
-    var result =[]
+    let result =[]
     console.log("list",list)
     list.forEach(element => result.push(jobFromApi2Front(element)));
     console.log("result",result)

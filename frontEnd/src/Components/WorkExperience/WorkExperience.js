@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Space } from 'antd';
+import { Avatar, Button, List, Skeleton, Space, Spin } from 'antd';
 import UpdateExperienceModal from './UpdateExperienceModal';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteJobExp } from '../../redux/jobExperienceReducer';
  
 const WorkExperience = (props) => {
-    
+    const dispatch = useDispatch();
+    const deletejobtatus = useSelector((state) => state.jobEReducer.addjobEstatus);
+    if(deletejobtatus==="pending")
+        return(
+          <Spin tip="Loading" size="large">
+          <div className="content" />
+         </Spin>
+        );
+        else
     return (
         
         <List.Item>
@@ -17,12 +27,12 @@ const WorkExperience = (props) => {
                     </>}
                 description={
                 <>
-                    <div>Company {props.item.Company} </div>
+                    <div>Company { props.item.Company} </div>
                     <div>Location : {props.item.State}, {props.item.City} </div>
-                    <div>{props.item.Details} </div>
+                    <div>Details:{props.item.Details} </div>
                     <Space>
                     <UpdateExperienceModal isAdd={false} jobToUpdate={props.item}/>
-                    <Button icon={<DeleteOutlined />}  size='small' type="primary" danger onClick={()=>alert('to implement')}>
+                    <Button icon={<DeleteOutlined />}  size='small' type="primary" danger onClick={()=>dispatch(deleteJobExp(props.item.Id))}>
                     Delete
                     </Button>
                     </Space>

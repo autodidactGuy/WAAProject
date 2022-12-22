@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader } from 'antd';
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader, Spin } from 'antd';
 
 import { addJobExperience, updateJobExperience } from '../../redux/jobExperienceReducer';
 import {getLocations } from '../../redux/locationReducer';
@@ -35,7 +35,9 @@ const layout = {
   };
 
 const WorkExperienceEdit = (props) => {
-
+  const addJobStatus = useSelector((state) => state.jobEReducer.addjobEstatus);
+  const updatejobtatus = useSelector((state) => state.jobEReducer.updatejobtatus);
+  
   const locations = useSelector((state)=>state.locationReducer.locations)
   const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
   const dispatch = useDispatch();
@@ -94,6 +96,14 @@ const WorkExperienceEdit = (props) => {
 
 
       };
+      
+      if(addJobStatus==="pending" || updatejobtatus==="pending")
+        return(
+          <Spin tip="Loading" size="large">
+          <div className="content" />
+         </Spin>
+        );
+        else
     return (
         <>
         <Row>

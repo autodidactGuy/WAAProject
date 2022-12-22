@@ -3,6 +3,7 @@ import BasicStudentInfo from '../../StudentCV/BasicStudentInfo'
 import EducationList from '../../WorkExperience/EducationList'
 import WorkExperienceList from '../../WorkExperience/WorkExperienceList'
 import { Row, Col, Divider } from 'antd';
+import UserTags from './../../Tags/UserTags';
 
 function MyProfile() {
   return (
@@ -13,6 +14,8 @@ function MyProfile() {
       <WorkExperienceList/>
       <Divider plain  > Education </Divider>
       <EducationList/>
+      <Divider plain  > Tags </Divider>
+      <UserTags/>
       </Col>
     </Row>
   )

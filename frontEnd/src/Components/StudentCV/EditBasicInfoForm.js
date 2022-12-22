@@ -55,10 +55,10 @@ function EditBasicInfoForm() {
     const dispatch = useDispatch();
     const locations = useSelector((state)=>state.userReducer.locations)
     const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
-    useEffect(()=>{
-        dispatch(getLocations());
+    // useEffect(()=>{
+    //     dispatch(getLocations());
     
-      })
+    //   })
       const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
@@ -308,13 +308,11 @@ function EditBasicInfoForm() {
         ]}
         {...tailFormItemLayout}
       >
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
+
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
-          Register
+          Save
         </Button>
       </Form.Item>
     </Form>
