@@ -9,6 +9,7 @@ import edu.miu.alumni.service.BasicService;
 import edu.miu.alumni.service.LoginService;
 import edu.miu.alumni.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +40,8 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     @PostMapping("/login")
     public ResponseEntity<?> registerUser(@RequestBody LoginRequest loginRequest) {
         var loginResponse = uaaService.login(loginRequest);
-        if(Consts.THIS_USER_EMAIL_NOT_VALID.equals(loginResponse.getErrorMeg())){
-            return ResponseEntity.badRequest().body(loginResponse.getErrorMeg());
+        if(Consts.INVALIE_USER_OR_PASSWORD.equals(loginResponse.getErrorMeg())){
+            return ResponseEntity.status(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS).body(loginResponse.getErrorMeg());
         }
         return ResponseEntity.ok().body(loginResponse);
     }

@@ -3,6 +3,7 @@ package edu.miu.alumni.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.nio.file.Files;
 import java.util.*;
 
 @Entity
@@ -44,7 +45,6 @@ public class JobAdvertisement extends SoftDeleteBaseClass{
     private boolean isDeleted;
 
 
-    @OneToMany
-    @JoinColumn(name="id_job_advertisements")
-    private   List<Files> listFiles;
+//    @OneToMany(mappedBy = "jobAdvertisement")
+//    private   List<Files> listFiles;
 }

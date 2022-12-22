@@ -80,4 +80,9 @@ public class AlumniUserDetails implements UserDetails {
     public boolean isEnabled() {
         return !this.isDeletedUser;
     }
+
+
+    public int getAccessFailedCount() {
+        return this.getAccessFailedCount();
+    }
 }
