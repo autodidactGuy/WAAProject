@@ -15,6 +15,7 @@ export const convertJobExperienceApiToFront = (api) => {
 
 export const convertJobExperienceFrontToApi = (front) => {
     return {
+        
         "jobTitle": front.JobTitle,
         "fromTime": front.From,
         "toTime": front.To,

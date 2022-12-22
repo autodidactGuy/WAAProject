@@ -59,8 +59,8 @@ export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExpe
             City: jobExperience.location[1]
     }
   
-    const jobExperienceToSend = convertJobExperienceFrontToApi(response);
-
+    let jobExperienceToSend = convertJobExperienceFrontToApi(response);
+    jobExperienceToSend = {...jobExperienceToSend,id:response.Id}
     const responseFromApi = await axios.put(baseurl+'/jobExperience/'+jobExperience.Id,jobExperienceToSend,
      {
       headers: {
