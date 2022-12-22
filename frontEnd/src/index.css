@@ -48,3 +48,7 @@ code {
   color:#fff!important;
   background-color: #001529!important;
 }
+
+.filterForm .ant-form-item{
+  margin:10px;
+}
