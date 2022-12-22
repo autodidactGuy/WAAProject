@@ -48,7 +48,7 @@ export const deleteEducation = createAsyncThunk('education/deleteEducation', asy
     
  
     const token = getAccessToken();
-    const response=  await axios.put(baseurl+'/education/'+id,
+    const response=  await axios.delete(baseurl+'/education/'+id,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
