@@ -49,9 +49,9 @@ export const jobFromApi2Front=(job)=>{
 }
 export const jobListFromApi2Front=(list)=>{
     let result =[]
-    console.log("list",list)
+     
     list.forEach(element => result.push(jobFromApi2Front(element)));
-    console.log("result",result)
+  
     return result;
 }
 
@@ -85,5 +85,51 @@ export const educListFromAPI2Front=(list)=>{
     list.forEach(e=>{
         result.push(educationFromAPI2Front(e));
     })
+    return result;
+}
+
+export const advFromAPI2Front=(adv)=>{
+    
+    return {
+        Id: adv.id,
+        
+        Title: adv.profile,
+        PublicationDate: adv.publicationDate,
+        //State: adv.city?.id?.stateCode,
+        //City: adv.city?.id?.cityName,
+        State: "",
+        City: "",
+        CompanyName: adv.companyName,
+        Description:adv.description,
+        src:"",
+        tags:adv.tags,
+
+    }
+}
+
+export const advFromFront2API=(adv)=>{
+    return {
+        publicationDate: dateToString(adv.PublicationDate),
+        workload:"123",
+        contract:"222",
+        description:adv.Description,
+        profile:adv.Title,
+        city:{
+            id:{
+                cityName:adv.City,
+                stateCode:adv.State
+            }
+        },
+        companyName:adv.CompanyName
+    }
+}
+
+
+export const advListFromApi2Front=(list)=>{
+    let result =[]
+   console.log('before convertion ',list);
+   
+    list.forEach(element => result.push(advFromAPI2Front(element)));
+   
     return result;
 }
