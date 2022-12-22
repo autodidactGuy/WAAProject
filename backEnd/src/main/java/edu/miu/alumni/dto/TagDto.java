@@ -7,4 +7,6 @@ public class TagDto {
     private Long id;
 
     private String title;
+
+    private Boolean isSubscribed;
 }

@@ -8,4 +8,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 @Repository
 public interface JobExperienceRepository extends CrudRepository<JobExperience,Long> {
+
+
 }

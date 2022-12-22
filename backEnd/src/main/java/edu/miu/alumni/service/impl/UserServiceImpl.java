@@ -111,7 +111,7 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         }).collect(Collectors.toList());
     }
 
-    private User currentLoginUser() {
+    public  User currentLoginUser() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = repository.findUserByEmailEquals(name);
         return userByEmailEquals;

@@ -7,6 +7,7 @@ import edu.miu.alumni.repository.JobExperienceRepository;
 import edu.miu.alumni.repository.ProfileRepository;
 import edu.miu.alumni.repository.UserRepository;
 import edu.miu.alumni.service.JobExperienceService;
+import edu.miu.alumni.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.jar.JarOutputStream;
+import java.util.stream.Collectors;
 
 @Service
 public class JobExperienceServiceImpl  extends BasicServiceImpl<JobExperience, JobExperienceDto,Long, JobExperienceRepository>
@@ -23,6 +25,9 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
     private edu.miu.alumni.repository.CityRepository cityRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProfileRepository profileRepository;
@@ -36,12 +41,8 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = userRepository.findUserByEmailEquals(name);
         Profile profile1 = userByEmailEquals.getProfile();
-        List<JobExperience> jobExperienceList = profile1.getJobExperienceList();
 
-//        CityDto city = ad.getCity();
-//        City byIdCityNameAndIdStateCode = cityRepository.findById_CityNameAndId_StateCode(city.getId().getCityName(), city.getId().getStateCode());
-//
-//        jde1.setCity(byIdCityNameAndIdStateCode);
+        List<JobExperience> jobExperienceList = profile1.getJobExperienceList();
         jobExperienceList.add(jde1);
 
         profile1.setJobExperienceList(jobExperienceList);
@@ -50,10 +51,17 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
         return modelMapper.map(save,JobExperienceDto.class);
     }
 
-//    @Override
-//    public List<JobExperienceDto> getAll() {
-//        List<JobExperienceDto> all = super.getAll();
-//
-//        all
-//    }
+    /**
+     * get all job experience about this user
+     * @return
+     */
+
+    @Override
+    public List<JobExperienceDto> getAll() {
+        User user = userService.currentLoginUser();
+        return user.getProfile().getJobExperienceList()
+                .stream().map(x->modelMapper.map(x,JobExperienceDto.class))
+                .collect(Collectors.toList());
+
+    }
 }

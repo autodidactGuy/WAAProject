@@ -2,19 +2,23 @@ package edu.miu.alumni.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
 public class EducationDto {
-    private long id;
+    private Long id;
 
-    private String jobTitle;
+    private String educationTitle;
 
-    private String fromTime;
+    private String degree;
 
-    private String endTime;
+    private String year;
 
-    private String unversityName;
-    private String details;
+    private String  description;
+
+    private double GPA;
+
+    private String schoolname;
 
 }

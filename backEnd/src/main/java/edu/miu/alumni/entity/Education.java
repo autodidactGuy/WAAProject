@@ -3,6 +3,7 @@ package edu.miu.alumni.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,14 +16,17 @@ public class Education extends SoftDeleteBaseClass{
     @Column(name = "id", nullable = false)
     private long id;
 
-    private String EducationTitle   ;
+    private String educationTitle;
 
-    private Date fromTime;
+    private String degree   ;
 
-    private Date endTime;
+    private LocalDate year;
 
-    private String School;
-    private String details;
+    private String  description;
+
+    private double GPA;
+
+    private String schoolname;
 
     private boolean isDeleted;
 
