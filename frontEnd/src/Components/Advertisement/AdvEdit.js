@@ -42,12 +42,13 @@ const AdvEdit = (props) => {
 
   },[])
     const onFinish = (values) => {
-        console.log(values);
+        console.log("value:",values);
         if(props.isAdd)
         {
             //Add
             const newAdvertisement=values.adv;
-        
+            console.log("add valu.adv adv:" , values.adv);
+            console.log("add adv new :" ,newAdvertisement);
             dispatch(addAdvertisement(newAdvertisement));
         }
         else 

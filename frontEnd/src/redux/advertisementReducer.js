@@ -4,6 +4,7 @@ import axios from "axios";
  
 
 import { Moment } from 'moment';
+import { advListFromApi2Front } from "../Utils/Utils";
 
 import { getAccessToken } from "./userReducer";
 //use command :  'npm run start:Dev'  instead of 'npm start'
@@ -12,7 +13,7 @@ const baseurl = process.env.REACT_APP_API_URL;
 export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement', async (advertisement,{dispatch}) => {
      
     const token = getAccessToken();
-
+    console.log("add object : ",advertisement)
     const obj = {
         "publicationDate":"2022-12-21",
         "workload":"123",
@@ -74,11 +75,16 @@ export const deleteAdvertisement = createAsyncThunk('advertisement/deleteAdverti
 })
 
 export const getadvertisementList = createAsyncThunk('advertisement/getadvertisementList', async () => {
-    const response = await axios.get(baseurl+'/advertisement'); 
+    const token = getAccessToken();
+    const response = await axios.get(baseurl+'/jobAdvertisement/postedByme',
+    {
+        headers: {
+            'Authorization': `Bearer ${token}` 
+         }
+       }
+       ); 
  
 
-
-    
     return response.data;
 })
 
@@ -140,7 +146,10 @@ const advertisementReducer = createSlice({
         //getadvertisementList
         builder.addCase(getadvertisementList.fulfilled, (state, action) => {
             state.getadvertisementListstatus = 'success';
-            state.advertisementList=action.payload;
+            let convertedList = advListFromApi2Front(action.payload);
+            console.log("converted: ",convertedList)
+            state.advertisementList=convertedList;
+        
             
         });
         builder.addCase(getadvertisementList.pending, (state, action) => {
