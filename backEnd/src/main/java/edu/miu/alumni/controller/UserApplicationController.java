@@ -1,5 +1,6 @@
 package edu.miu.alumni.controller;
 
+import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.JobAdvertisementDto;
 import edu.miu.alumni.dto.UserApplicationDto;
 import edu.miu.alumni.entity.JobAdvertisement;
@@ -7,6 +8,8 @@ import edu.miu.alumni.entity.UserApplication;
 import edu.miu.alumni.service.JobAdvertisementService;
 import edu.miu.alumni.service.UserApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,9 +32,15 @@ public class UserApplicationController  extends BaseController<UserApplication, 
         this.bs = bs;
     }
 
+    @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_STUDENT +"')")
     @GetMapping("/getAppliedJobs")
-    public List<UserApplicationDto> getAllAppliedJobs(){
-        return bs.getCurUserAppliedJobs();
+    public ResponseEntity<?>  getAllAppliedJobs(){
+        var curUserAppliedJobs = bs.getCurUserAppliedJobs();
+        if(curUserAppliedJobs == null){
+            return ResponseEntity.badRequest().body("You are not the student role");
+        }else{
+            return ResponseEntity.ok( bs.getCurUserAppliedJobs());
+        }
     }
 
     @GetMapping("/mostRecentAppliedJob10")
