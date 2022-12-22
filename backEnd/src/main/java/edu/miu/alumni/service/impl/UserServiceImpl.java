@@ -1,10 +1,13 @@
 package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.consts.Consts;
+import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.Role;
+import edu.miu.alumni.entity.Tag;
 import edu.miu.alumni.entity.User;
 import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
+import edu.miu.alumni.repository.TagRepository;
 import edu.miu.alumni.repository.UserRepository;
 import edu.miu.alumni.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -14,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -24,6 +28,11 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
+
+
 
     @Autowired
     PasswordEncoder encoder;
@@ -78,6 +87,34 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     @Override
     public User getUserByEmail(String email) {
         return repository.findUserByEmailEquals(email);
+    }
+
+    @Override
+    public void subscribTags(List<String> tags) {
+
+        User user = currentLoginUser();
+        List<Tag> subscribTag = new ArrayList<Tag>();
+        for(String tagName:tags){
+            Tag byTitleEquals = tagRepository.findByTitleEquals(tagName);
+            subscribTag.add(byTitleEquals);
+        }
+        user.setInterstedTags(subscribTag);
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<TagDto> getSubscribTags() {
+        User user = currentLoginUser();
+        return user.getInterstedTags().stream().map(x->{
+            TagDto map = modelMapper.map(x, TagDto.class);
+            return map;
+        }).collect(Collectors.toList());
+    }
+
+    private User currentLoginUser() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userByEmailEquals = repository.findUserByEmailEquals(name);
+        return userByEmailEquals;
     }
 
 

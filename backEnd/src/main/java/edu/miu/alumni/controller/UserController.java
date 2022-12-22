@@ -74,4 +74,36 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     public void  changeActiveStatu(@PathVariable long id){
         bs.changeActiveStatu(id);
     }
+
+    @PostMapping("/subscribTags")
+    public  ResponseEntity<?>  subscribTags(@RequestBody List<String> tags){
+        try{
+            bs.subscribTags(tags);
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body("contact to mae");
+        }
+
+        return ResponseEntity.ok("subscrib tag is success");
+    }
+
+    /**
+     * get current user instrested in tags
+     * @return
+     */
+
+    @GetMapping("/subscribTags")
+    public  ResponseEntity<?>  getSubscribTags(){
+
+        try{
+            return ResponseEntity.ok(bs.getSubscribTags());
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body("contact to mae");
+        }
+
+
+    }
+
+
+
+
 }

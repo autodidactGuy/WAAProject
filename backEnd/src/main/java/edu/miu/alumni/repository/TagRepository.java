@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface TagRepository extends CrudRepository<Tag,Long> {
 //    List<TagsNumberPerLocation> numberOfTagsPerLocation();
+    public Tag findByTitleEquals(String tagName);
 }

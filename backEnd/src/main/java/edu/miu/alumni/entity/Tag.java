@@ -21,4 +21,7 @@ public class Tag extends SoftDeleteBaseClass{
 
     @ManyToMany
     private java.util.List<JobAdvertisement> jobAdvertisement;
+
+    @ManyToMany
+    private java.util.List<User> interstedInUsers;
 }
