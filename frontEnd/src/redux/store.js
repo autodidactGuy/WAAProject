@@ -14,6 +14,7 @@ const store = configureStore({
         locationReducer:locationReducer,
         educationReducer:educationReducer,
         advertisementReducer:advertisementReducer
-    }
+    },
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 });
 export default store;

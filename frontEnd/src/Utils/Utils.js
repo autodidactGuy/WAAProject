@@ -133,3 +133,10 @@ export const advListFromApi2Front=(list)=>{
    
     return result;
 }
+
+
+export const convertUserApiToUserFront=(user)=>{
+    return {
+        
+    };
+}
