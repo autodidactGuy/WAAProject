@@ -82,7 +82,7 @@ const App = () => {
 
             {/*    </div>*/}
             {/*</Content>*/}
-            <Footer style={{ textAlign: 'center' }}>Alumni Management Portal &copy; 2022 - All rights reserved</Footer>
+            <Footer style={{ textAlign: 'center' }} className="footer">Alumni Management Portal &copy; 2022 - All rights reserved</Footer>
         </Layout></>
     );
 };
