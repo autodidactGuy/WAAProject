@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, Button, List, Skeleton, Space } from 'antd';
 import UpdateEducationModal from './UpdateEducationModal';
 import { DeleteOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { deleteEducation } from '../../redux/educationReducer';
 const count = 3;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
 const Education = (props) => {
-
+    const dispatch = useDispatch();
     return (
         <List.Item>
             <List.Item.Meta
@@ -25,7 +27,7 @@ const Education = (props) => {
                     
                     <Space>
                     <UpdateEducationModal isAdd={false} educationToUpdate={props.item}/>
-                    <Button icon={<DeleteOutlined />} size='small' type="primary" danger onClick={()=>alert('to implement')}>
+                    <Button icon={<DeleteOutlined />} size='small' type="primary" danger onClick={()=>dispatch(deleteEducation(props.item.Id))}>
                      Delete
                     </Button>
                     </Space>
