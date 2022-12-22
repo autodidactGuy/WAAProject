@@ -4,6 +4,7 @@ import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design
 import { useDispatch, useSelector } from "react-redux";
 import { addAdvertisement, updateAdvertisement } from '../../redux/advertisementReducer';
 import { getLocations } from '../../redux/locationReducer';
+import { advFromFront2API } from './../../Utils/Utils';
 
 
 const layout = {
@@ -46,7 +47,7 @@ const AdvEdit = (props) => {
         if(props.isAdd)
         {
             //Add
-            const newAdvertisement=values.adv;
+            const newAdvertisement=advFromFront2API(values.adv);
             console.log("add valu.adv adv:" , values.adv);
             console.log("add adv new :" ,newAdvertisement);
             dispatch(addAdvertisement(newAdvertisement));

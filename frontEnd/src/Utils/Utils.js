@@ -116,8 +116,8 @@ export const advFromFront2API=(adv)=>{
         profile:adv.Title,
         city:{
             id:{
-                cityName:adv.City,
-                stateCode:adv.State
+                cityName:adv.location[1],
+                stateCode:adv.location[0]
             }
         },
         companyName:adv.CompanyName
@@ -137,6 +137,6 @@ export const advListFromApi2Front=(list)=>{
 
 export const convertUserApiToUserFront=(user)=>{
     return {
-        
+
     };
 }
