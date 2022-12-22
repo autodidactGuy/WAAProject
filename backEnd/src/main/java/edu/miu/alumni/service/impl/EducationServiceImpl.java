@@ -54,7 +54,9 @@ implements EducationService<Education, EducationDto,Long>
     @Override
     public List<EducationDto> getAll() {
         User user = userService.currentLoginUser();
-        return user.getProfile().getEducationList().stream().map(x->modelMapper.map(x,EducationDto.class))
+        return user.getProfile().getEducationList().stream()
+                .filter(x->!x.isDeleted())
+                .map(x->modelMapper.map(x,EducationDto.class))
                 .collect(Collectors.toList());
     }
 }

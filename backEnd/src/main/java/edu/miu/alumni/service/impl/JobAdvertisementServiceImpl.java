@@ -57,6 +57,7 @@ public class JobAdvertisementServiceImpl
         }
 
         return   filterAds.stream()
+                .filter(x->!x.isDeleted())
                 .map(x -> {
             return modelMapper.map(x, JobAdvertisementDto.class);
         }).collect(Collectors.toList());
