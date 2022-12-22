@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 const WorkExperienceList = () =>
 {
+    
     const workExperienceData = useSelector((state) => state.jobEReducer.jobExperienceList);
+    const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getJobExperienceList());
       },[]);
 
-    const dispatch = useDispatch();
+   
     
     console.log("workexperience 2:",workExperienceData);
     return (

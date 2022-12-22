@@ -4,6 +4,7 @@ import axios from "axios";
  
 
 import { Moment } from 'moment';
+import { educationFromFront2API, educListFromAPI2Front } from "../Utils/Utils";
 
 import { getAccessToken } from "./userReducer";
 //use command :  'npm run start:Dev'  instead of 'npm start'
@@ -12,7 +13,8 @@ const baseurl = process.env.REACT_APP_API_URL;
 export const addEducation = createAsyncThunk('education/addEducation', async (education,{dispatch}) => {
      
     const token = getAccessToken();
-    const responseFromApi = await axios.post(baseurl+'/education/',education,
+    const valueToAdd= educationFromFront2API(education);
+    const responseFromApi = await axios.post(baseurl+'/education',valueToAdd,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
@@ -58,10 +60,18 @@ export const deleteEducation = createAsyncThunk('education/deleteEducation', asy
 })
 
 export const geteducationList = createAsyncThunk('education/geteducationList', async () => {
-    const response = await axios.get(baseurl+'/education'); 
+    const token = getAccessToken();
+    const response = await axios.get(baseurl+'/education',
+    {
+        headers: {
+            'Authorization': `Bearer ${token}` 
+         }
+       }
+    ); 
  
 
     console.log('education list  : ',response);
+    
     return response.data;
 })
 
@@ -93,7 +103,7 @@ const educationReducer = createSlice({
         builder.addCase(addEducation.rejected, (state, action) => {
             state.addEducationstatus = 'rejected'
             message.error("error, please try again!")
-        });
+        }); 
 
         //update education
         builder.addCase(updateEducation.fulfilled, (state, action) => {
@@ -125,7 +135,8 @@ const educationReducer = createSlice({
         //geteducationList
         builder.addCase(geteducationList.fulfilled, (state, action) => {
             state.geteducationListstatus = 'success';
-            state.educationList=action.payload;
+            
+            state.educationList=educListFromAPI2Front(action.payload);
             
         });
         builder.addCase(geteducationList.pending, (state, action) => {
