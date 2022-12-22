@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, Col, Row, Avatar  } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
+import moment from 'moment';
 
 const Adv = (props) => (
     <>
@@ -8,7 +9,7 @@ const Adv = (props) => (
 
 
                     <div> {props.adv.profile} </div>
-                    <div style={{ color: 'gray', fontSize: '12px' }}> <CalendarOutlined /> {props.adv.publicationDate} </div>
+                    <div style={{ color: 'gray', fontSize: '12px' }}> <CalendarOutlined /> {moment(props.adv.publicationDate).format("MM-DD-YYYY")} </div>
 
 
                     </>}
