@@ -24,6 +24,7 @@ const { Meta } = Card;
 function Navbar() {
 
     const userInfo= useSelector((state)=>state.userReducer.userInfo)
+    console.log("user in of : ",userInfo)
     const isLogged= useSelector((state)=>state.userReducer.isLogged)
     console.log("user info :",userInfo);
     const getItem=()=>{

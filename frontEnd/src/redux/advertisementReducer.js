@@ -13,18 +13,61 @@ export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement
      
     const token = getAccessToken();
 
-    const response= {
-            
+    const obj = {
+
+
+
+        "publicationDate":"2022-12-21",
+    
+    
+    
+        "workload":"123",
+    
+    
+    
+        "contract":"222",
+    
+    
+    
+        "description":"123",
+    
+    
+    
+        "profile":"123",
+    
+    
+    
+        "city":{
+    
+            "id":{
+    
+                "cityName":"Adjuntas",
+    
+                "stateCode":"PR"
+    
+            }
+    
+    
+    
+        },
+    
+    
+    
+        "companyName":"ABC"
+    
+    
+    
     }
  
-
-     const responseFromApi = await axios.post(baseurl+'/advertisement',advertisement,
+    console.log("before axios");
+     const responseFromApi = await axios.post(baseurl+'/jobAdvertisement/',obj,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
         }
       }
     );
+    console.log("after axios");
 
       
      return responseFromApi;
