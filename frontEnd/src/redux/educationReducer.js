@@ -9,16 +9,10 @@ import { getAccessToken } from "./userReducer";
 //use command :  'npm run start:Dev'  instead of 'npm start'
 const baseurl = process.env.REACT_APP_API_URL;
 
-export const addEducation = createAsyncThunk('education/addEducation', async (education) => {
+export const addEducation = createAsyncThunk('education/addEducation', async (education,{dispatch}) => {
      
     const token = getAccessToken();
-
-    const response= {
-            
-    }
- 
-
-     const responseFromApi = await axios.post(baseurl+'/education',education,
+    const responseFromApi = await axios.post(baseurl+'/education/',education,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
@@ -26,20 +20,40 @@ export const addEducation = createAsyncThunk('education/addEducation', async (ed
       }
     );
 
-      
+    dispatch(geteducationList()) 
      return responseFromApi;
 })
 
 
-export const updateEducation = createAsyncThunk('education/updateEducation', async (education) => {
+export const updateEducation = createAsyncThunk('education/updateEducation', async (education,{dispatch}) => {
     
-    console.log('education', education);
-    
-    const response= {
  
-    }
-  
-    console.log(response);
+    const token = getAccessToken();
+    const response=  await axios.put(baseurl+'/education/'+education.id,education,
+      {
+       headers: {
+           'Authorization': `Bearer ${token}` 
+        }
+      }
+    );
+
+    dispatch(geteducationList()) 
+     return response;
+})
+
+export const deleteEducation = createAsyncThunk('education/deleteEducation', async (id,{dispatch}) => {
+    
+ 
+    const token = getAccessToken();
+    const response=  await axios.put(baseurl+'/education/'+id,
+      {
+       headers: {
+           'Authorization': `Bearer ${token}` 
+        }
+      }
+    );
+
+    dispatch(geteducationList()) 
      return response;
 })
 
@@ -59,6 +73,7 @@ const educationReducer = createSlice({
     initialState: { 
     addEducationstatus:'idle', 
     updateEducationtatus:'idle', 
+    deleteEducationtatus:'idle', 
     geteducationListstatus:'idle',
     educationList:[],
     },
@@ -70,45 +85,40 @@ const educationReducer = createSlice({
         //add education
         builder.addCase(addEducation.fulfilled, (state, action) => {
             state.addEducationstatus = 'success';
-            state.educationList=[...state.educationList , action.payload];
-            console.log('length ', state.educationList.length);
+            message.success("added with success!")
         });
         builder.addCase(addEducation.pending, (state, action) => {
             state.addEducationstatus = 'pending'
         });
         builder.addCase(addEducation.rejected, (state, action) => {
             state.addEducationstatus = 'rejected'
+            message.error("error, please try again!")
         });
 
         //update education
         builder.addCase(updateEducation.fulfilled, (state, action) => {
-            state.updateEducationtatus = 'success';
-
-            const obj = action.payload;
-           
-            const id =obj.Id;
-             
-            let newState=[...state.educationList]
-             
-            for(let i =0 ;i <newState.length;i++){
-                let o = newState[i]
-                if(o.Id===id)
-                {
-                    newState[i]=obj;
-                    
-                    break;
-                }
-            }  
-             
-            state.educationList=newState
-             
-            
+            state.updateEducationtatus = 'success';  
+            message.success("edited with success!")
         });
         builder.addCase(updateEducation.pending, (state, action) => {
             state.updateEducationtatus = 'pending'
         });
         builder.addCase(updateEducation.rejected, (state, action) => {
             state.updateEducationtatus = 'rejected' 
+            message.error("error, please try again!")
+        });
+
+        //delete education
+        builder.addCase(deleteEducation.fulfilled, (state, action) => {
+            state.deleteEducationtatus = 'success';  
+            message.success("deleted with success!")
+        });
+        builder.addCase(deleteEducation.pending, (state, action) => {
+            state.deleteEducationtatus = 'pending'
+        });
+        builder.addCase(deleteEducation.rejected, (state, action) => {
+            state.deleteEducationtatus = 'rejected' 
+            message.error("error, please try again!")
         });
 
 
@@ -123,10 +133,8 @@ const educationReducer = createSlice({
         });
         builder.addCase(geteducationList.rejected, (state, action) => {
             state.geteducationListstatus = 'rejected'
+            message.error("error, can't load the education list!")
         });
-
-       
-
     }
 });
 
