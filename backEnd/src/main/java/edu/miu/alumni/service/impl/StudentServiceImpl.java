@@ -32,7 +32,9 @@ implements StudentService<Student, StudentDto,Long>
        var res =   repository.getStudentsByFirstNameOrLastNameContainsAndMarjorEqualsAndCity_IdAndCityStateAndIdEquals(
                     searchReq.getMajor(),searchReq.getCity(),searchReq.getStudentId()==null?null: Long.parseLong(searchReq.getStudentId()),searchReq.getState(),searchReq.getName() );
 
-        List<StudentDto> collect = res.stream().map(x -> {
+        List<StudentDto> collect = res.stream()
+                .filter(x->!x.isDeleted())
+                .map(x -> {
             return modelMapper.map(x, StudentDto.class);
         }).collect(Collectors.toList());
 
