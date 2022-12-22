@@ -111,6 +111,13 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         }).collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public void resetFailedAttempts(String userEmail) {
+        User userByEmailEquals = repository.findUserByEmailEquals(userEmail);
+        userByEmailEquals.setAccessFailedCount(0);
+    }
+
     public  User currentLoginUser() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = repository.findUserByEmailEquals(name);

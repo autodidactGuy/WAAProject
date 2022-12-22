@@ -24,4 +24,6 @@ public interface UserService <T,H,A> extends BasicService<T,H,A> {
 
 
     List<TagDto> getSubscribTags();
+
+    void resetFailedAttempts(String userEmail);
 }
