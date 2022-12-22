@@ -17,4 +17,5 @@ extends BaseController<Education, EducationDto,Long>
     public EducationController(EducationService<Education, EducationDto, Long> bs) {
         super(bs);
     }
+
 }

@@ -76,9 +76,11 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     }
 
     @PostMapping("/subscribTags")
-    public  ResponseEntity<?>  subscribTags(@RequestBody List<String> tags){
+    public  ResponseEntity<?>  subscribTags(@RequestParam String tags){
         try{
-            bs.subscribTags(tags);
+            ArrayList<String> strings = new ArrayList<>();
+            strings.add(tags);
+            bs.subscribTags(strings);
         }catch (Exception e){
             return ResponseEntity.internalServerError().body("contact to mae");
         }

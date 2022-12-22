@@ -13,14 +13,13 @@ public class Education extends SoftDeleteBaseClass{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
     private long id;
 
     private String educationTitle;
 
     private String degree   ;
 
-    private LocalDate year;
+    private String year;
 
     private String  description;
 
