@@ -73,7 +73,9 @@ public class JobAdvertisementServiceImpl
 
         Long id = userByEmailEquals.getId();
 
-        return repository.getAllByPoster(id).stream().map(x->
+        return repository.getAllByPoster(id).stream()
+                .filter(x->!x.isDeleted())
+                .map(x->
                 modelMapper.map(x,JobAdvertisementDto.class)
         ).collect(Collectors.toList());
 
@@ -81,7 +83,9 @@ public class JobAdvertisementServiceImpl
 
     @Override
     public List<JobAdvertisementDto> getTop10LatestAdvertisement() {
-        return repository.findTop10JobAd().stream().map(x->
+        return repository.findTop10JobAd().stream()
+                .filter(x->!x.isDeleted())
+                .map(x->
             modelMapper.map(x,JobAdvertisementDto.class)
         ).collect(Collectors.toList());
     }

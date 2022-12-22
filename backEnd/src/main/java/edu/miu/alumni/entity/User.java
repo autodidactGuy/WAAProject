@@ -72,6 +72,7 @@ public class User extends SoftDeleteBaseClass{
     @ManyToMany(mappedBy = "interstedInUsers")
     private List<Tag> interstedTags;
 
+
     public User() {
 
     }
