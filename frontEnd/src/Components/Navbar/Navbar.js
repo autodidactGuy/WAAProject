@@ -22,23 +22,48 @@ const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
 
 function Navbar() {
+
+    const userInfo= useSelector((state)=>state.userReducer.userInfo)
     const isLogged= useSelector((state)=>state.userReducer.isLogged)
-    const isLoggeditems=[
-        { label: <Link to="/home">Home</Link>, key: "1" },
-        { label: <Link to="/searchstudent">Find student</Link>, key: "2" },
-        { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
-        { label: <UserButton/>, key: "6" },
-    ];
-    const notLoggeditems=[
-        { label: <Link to="/home">Home</Link>, key: "1" },
-        { label: <Link to="/searchstudent">Find student</Link>, key: "2" },
-        { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
-        { label:  <Login/>, key: "4" },
-        { label: <Register/>, key: "5" },
-        
-    ]
-    const items=isLogged?isLoggeditems:notLoggeditems;
-    const v = <div>hello</div>
+    console.log("user info :",userInfo);
+    const getItem=()=>{
+        if (!isLogged){
+            return [
+                { label: <Link to="/home">Home</Link>, key: "1" },
+            
+                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label:  <Login/>, key: "4" },
+                { label: <Register/>, key: "5" },
+                
+            ]
+        }
+        else
+        if(userInfo.role[0].name==="STUDENT"){
+            return [
+                { label: <Link to="/home">Home</Link>, key: "1" },
+                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <UserButton/>, key: "6" },
+            ];
+        }else if(userInfo.role[0].name==="FACULTY"){
+           return [
+                { label: <Link to="/home">Home</Link>, key: "1" },
+                { label: <Link to="/searchstudent">Find student</Link>, key: "2" },
+                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <UserButton/>, key: "6" },
+            ]
+        }else {
+            return [
+                { label: <Link to="/home">Home</Link>, key: "1" },
+                { label: <Link to="/searchstudent">Find student</Link>, key: "2" },
+                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <UserButton/>, key: "6" },
+            ]
+        }
+    }
+ 
+ 
+   
+ 
     return (
         <div>
             <div
@@ -59,7 +84,7 @@ function Navbar() {
                 theme="dark"
                 mode="horizontal"
                 defaultSelectedKeys={['1']}
-                items={items}
+                items={getItem()}
             />
         </div>
     )

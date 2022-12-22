@@ -61,7 +61,9 @@ const userSlice = createSlice({
     initialState: { 
     registerstatus: 'idle', 
     loginstatus:'idle', 
-    editprofilestatus:'idle', 
+    editprofilestatus:'idle',
+    userInfo:{}
+    ,
     isLogged:isLogged(),
  
     },
@@ -95,6 +97,7 @@ const userSlice = createSlice({
             setAccessToken(action.payload.accessToken)
             setRefreshToken(action.payload.refreshToken)
             state.isLogged=isLogged()
+            state.userInfo=action.payload.userInfo;
             message.success("Login success! Welcome")
 
             
