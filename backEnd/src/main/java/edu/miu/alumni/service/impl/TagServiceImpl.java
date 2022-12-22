@@ -1,5 +1,6 @@
 package edu.miu.alumni.service.impl;
 
+import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.Tag;
 import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.entity.User;
@@ -19,7 +20,7 @@ public class TagServiceImpl extends BasicServiceImpl<Tag, TagDto,Long, TagReposi
 implements TagService<Tag, TagDto,Long>
 {
     @Autowired
-    private UserService userService;
+    private UserService<User, UserDto,Long> userService;
     public TagServiceImpl(TagRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }

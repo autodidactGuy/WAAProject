@@ -3,15 +3,18 @@ package edu.miu.alumni.service.impl;
 import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.JobExperienceDto;
 import edu.miu.alumni.dto.UserApplicationDto;
+import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.repository.*;
 import edu.miu.alumni.service.JobExperienceService;
 import edu.miu.alumni.service.UserApplicationService;
+import edu.miu.alumni.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +30,9 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
     private JobAdvertisementRepository jobAdvertisementRepository;
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserService<User, UserDto,Long> userService;
     public UserApplicationServiceImpl(UserApplicationRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }
@@ -49,6 +55,24 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
     public List<UserApplicationDto> mostRecentAppliedJob() {
         return repository.mostRecentAppliedJob10().stream().map(x->modelMapper.map(x,UserApplicationDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void applyJob(Long id) {
+        //1:find the job advertismet by id;
+        // new User Application
+
+        User user = userService.currentLoginUser();
+
+        if(! (user instanceof Student)){
+            return ;
+        }
+        UserApplication userApplication = new UserApplication();
+        userApplication.setStudent((Student) user);
+        JobAdvertisement jobAdvertisement = jobAdvertisementRepository.findById(id).get();
+        userApplication.setJa(jobAdvertisement);
+        userApplication.setApplicationDate(new Date());
+        repository.save(userApplication);
     }
 
     @Override

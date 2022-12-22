@@ -2,6 +2,7 @@ package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.dto.CityDto;
 import edu.miu.alumni.dto.JobExperienceDto;
+import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.repository.JobExperienceRepository;
 import edu.miu.alumni.repository.ProfileRepository;
@@ -27,7 +28,7 @@ implements JobExperienceService<JobExperience, JobExperienceDto,Long>
     private UserRepository userRepository;
 
     @Autowired
-    private UserService userService;
+    private UserService<User, UserDto,Long> userService;
 
     @Autowired
     private ProfileRepository profileRepository;

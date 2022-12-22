@@ -22,7 +22,7 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     @Autowired
     private  LoginService uaaService;
     @Autowired
-    private UserService bs;
+    private UserService<User,UserDto,Long> bs;
 
     @Autowired
     public UserController(UserService<User, UserDto, Long> bs) {

@@ -16,4 +16,6 @@ public interface UserApplicationService<T,H,A> extends BasicService<T,H,A> {
     public List<UserApplicationDto> getCurUserAppliedJobs();
 
     List<H> mostRecentAppliedJob();
+
+    void applyJob(A id);
 }

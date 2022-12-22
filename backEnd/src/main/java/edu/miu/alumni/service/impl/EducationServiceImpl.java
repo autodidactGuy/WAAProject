@@ -3,6 +3,7 @@ package edu.miu.alumni.service.impl;
 import edu.miu.alumni.dto.EducationDto;
 import edu.miu.alumni.dto.JobAdvertisementDto;
 import edu.miu.alumni.dto.JobExperienceDto;
+import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.repository.EducationRepository;
 import edu.miu.alumni.repository.ProfileRepository;
@@ -28,7 +29,7 @@ implements EducationService<Education, EducationDto,Long>
     private ProfileRepository profileRepository;
 
     @Autowired
-    private UserService userService;
+    private UserService<User, UserDto,Long> userService;
     public EducationServiceImpl(EducationRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }
