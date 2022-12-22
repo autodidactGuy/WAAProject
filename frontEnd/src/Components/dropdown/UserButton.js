@@ -1,5 +1,5 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Dropdown, message } from 'antd'
+import { Avatar, Button, Dropdown, message } from 'antd'
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
@@ -31,7 +31,7 @@ function UserButton() {
       placement="bottomLeft"
       arrow
     >
-      <Button ><UserOutlined /></Button>
+      <div > Welcome user ! <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /></div>
     </Dropdown>
     </>
   )

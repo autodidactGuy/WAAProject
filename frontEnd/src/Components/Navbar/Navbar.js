@@ -8,6 +8,10 @@ import Login from '../Connection/Login';
 import Register from '../Connection/Register';
 import UserButton from '../dropdown/UserButton';
 import { Link } from 'react-router-dom';
+
+
+import logo from '../../Images/logo.png'
+
 import useSelection from 'antd/es/table/hooks/useSelection';
 import { useSelector } from 'react-redux';
 
@@ -42,10 +46,15 @@ function Navbar() {
                     float: 'left',
                     width: 120,
                     height: 31,
-                    margin: '16px 24px 16px 0',
-                    background: 'rgba(255, 255, 255, 0.2)',
+                    //margin: '16px 24px 16px 0',
+                    //background: 'rgba(255, 255, 255, 0.2)',
                 }}
-            />
+            ><img  style={{
+                float: 'left',
+                width: 120,
+                height: 31,
+                margin: '16px 24px 16px 0',
+            }} src={logo} alt="Logo" /></div>
             <Menu
                 theme="dark"
                 mode="horizontal"
