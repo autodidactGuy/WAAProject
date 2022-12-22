@@ -32,7 +32,7 @@ function Navbar() {
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
             
-                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
                 { label:  <Login/>, key: "4" },
                 { label: <Register/>, key: "5" },
                 
@@ -42,21 +42,21 @@ function Navbar() {
         if(userInfo.role[0].name==="STUDENT"){
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
                 { label: <UserButton/>, key: "6" },
             ];
         }else if(userInfo.role[0].name==="FACULTY"){
            return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchstudent">Find student</Link>, key: "2" },
-                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <Link to="/searchstudent">Find Students</Link>, key: "2" },
+                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
                 { label: <UserButton/>, key: "6" },
             ]
         }else {
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchstudent">Find student</Link>, key: "2" },
-                { label: <Link to="/searchJobs">Find a job</Link>, key: "3" },
+                { label: <Link to="/searchstudent">Find Students</Link>, key: "2" },
+                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
                 { label: <UserButton/>, key: "6" },
             ]
         }
@@ -68,19 +68,8 @@ function Navbar() {
     return (
         <div>
             <div
-                style={{
-                    float: 'left',
-                    width: 120,
-                    height: 31,
-                    //margin: '16px 24px 16px 0',
-                    //background: 'rgba(255, 255, 255, 0.2)',
-                }}
-            ><img  style={{
-                float: 'left',
-                width: 120,
-                height: 31,
-                margin: '16px 24px 16px 0',
-            }} src={logo} alt="Logo" /></div>
+                className='logo'
+            >Alumni Management System</div>
             <Menu
                 theme="dark"
                 mode="horizontal"
