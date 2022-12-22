@@ -52,3 +52,14 @@ code {
 .filterForm .ant-form-item{
   margin:10px;
 }
+
+.charts .ant-col{
+  margin:20px;
+}
+
+.oneLineText{
+  white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}

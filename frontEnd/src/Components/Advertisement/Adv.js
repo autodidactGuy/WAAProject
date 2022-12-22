@@ -23,8 +23,8 @@ const Adv = (props) => (
                 </Col>
                 <Col style={{marginLeft:'5px'}}>
                     <div> Campany : {props.adv.companyName} </div>
-                    <div> <EnvironmentOutlined /> {props.adv.StateCode}, {props.adv.CityName} </div>
-                    <div> {props.adv.description} </div>
+                    <div> <EnvironmentOutlined /> {props.adv.city?.cityName}, {props.adv.city?.stateCode} </div>
+                    <div className='oneLineText'> {props.adv.description} </div>
 
                 </Col>
             </Row>
