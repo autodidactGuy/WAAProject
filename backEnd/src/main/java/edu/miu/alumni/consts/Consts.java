@@ -25,4 +25,5 @@ public class Consts {
 
     public static final String DEFUALT_PORT = ":8080";
 
+    public static final String USER_LOCKED_INFO = "user attempt login failed over 5 times ";
 }

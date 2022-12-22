@@ -18,8 +18,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,6 +57,13 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
+        LoginResponse loginResponse = new LoginResponse();
+        //find user is locked end or not
+        String email1 = loginRequest.getEmail();
+        User userByEmailEquals1 = userRepository.findUserByEmailEquals(email1);
+        LoginResponse loginResponse1 = checkifUserIsLocked(loginResponse, userByEmailEquals1);
+        if (loginResponse1 != null) return loginResponse1;
+
 
         try {
             var result = authenticationManager.authenticate(
@@ -63,18 +73,63 @@ public class LoginServiceImpl implements LoginService {
             );
         } catch (BadCredentialsException e) {
             log.info("Bad Credentials");
-            LoginResponse loginResponse = new LoginResponse();
+            //caculate the user attempt faied times;
             loginResponse.setErrorMeg(Consts.INVALIE_USER_OR_PASSWORD);
+            String email = loginRequest.getEmail();
+            try{
+                increateFaiedAttemptTime(loginResponse, email);
+            }catch (Exception ei){
+                return loginResponse;
+            }
             return loginResponse;
-//            throw new InvalideUserOperationExceptions(Consts.INVALIE_USER_OR_PASSWORD);
         }
+
+
+        clearFailedAttemptTimes(userByEmailEquals1);
 
         final String accessToken = jwtHelper.generateToken(loginRequest.getEmail());
         final String refreshToken = jwtHelper.generateRefreshToken(loginRequest.getEmail());
-        User userByEmailEquals = userRepository.findUserByEmailEquals(loginRequest.getEmail());
-        UserDto currentLoginUserInfo = modelMapper.map(userByEmailEquals, UserDto.class);
-        var loginResponse = new LoginResponse(accessToken, refreshToken,currentLoginUserInfo);
-        return loginResponse;
+        UserDto currentLoginUserInfo = modelMapper.map(userByEmailEquals1, UserDto.class);
+        var loginResponse2 = new LoginResponse(accessToken, refreshToken,currentLoginUserInfo);
+        return loginResponse2;
+    }
+
+    private static LoginResponse checkifUserIsLocked(LoginResponse loginResponse, User userByEmailEquals1) {
+        if(userByEmailEquals1.getAccessFailedCount()>=5){
+            //means user has been locked
+            Date lockedTime = userByEmailEquals1.getLockedTime();
+            //check if the lock is end
+            boolean isLockedEnded = userByEmailEquals1.getLockedTime()==null?true:new Date().getTime()-lockedTime.getTime()>15*1000*60*60;
+            if(!isLockedEnded){
+                loginResponse.setErrorMeg("your account is still been locked");
+                return loginResponse;
+            }else{
+                userByEmailEquals1.setLockoutEnd(true);
+            }
+        }
+        return null;
+    }
+
+
+    void increateFaiedAttemptTime(LoginResponse loginResponse, String email) {
+        User userByEmailEquals = userRepository.findUserByEmailEquals(email);
+        int accessFailedCount = userByEmailEquals.getAccessFailedCount();
+
+        if(accessFailedCount>=5){
+            userByEmailEquals.setLockedTime(new Date());
+            userByEmailEquals.setLockoutEnd(false);
+            loginResponse.setErrorMeg(Consts.USER_LOCKED_INFO);
+
+        }else{
+            userByEmailEquals.setAccessFailedCount(accessFailedCount+1);
+        }
+        userRepository.save(userByEmailEquals);
+    }
+
+    @Transactional
+    void clearFailedAttemptTimes(User u) {
+        u.setAccessFailedCount(0);
+        userRepository.save(u);
     }
 
 
