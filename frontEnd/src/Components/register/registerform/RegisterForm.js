@@ -59,7 +59,9 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const registerstatus = useSelector((state) => state.userReducer.registerstatus);
   useEffect(()=>{
-    dispatch(getLocations());
+    if(locations.length===0){
+      dispatch(getLocations());
+    }
 
   },[])
   const onFinish = (values) => {

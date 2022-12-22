@@ -26,6 +26,14 @@ const setRefreshToken=(refreshtoken)=>{
     
     localStorage.setItem('refreshToken', refreshtoken);
 }
+
+const setUserInfo=(userInfo)=>{
+    localStorage.setItem('userInfo', JSON.stringify(userInfo));
+}
+
+const getUserInfo=()=>{
+    return JSON.parse(localStorage.getItem('userInfo'));
+}
  
 
 const isLogged=()=>{
@@ -54,14 +62,15 @@ export const editProfile = createAsyncThunk('user/editProfile', async (user) => 
 
  
 
- 
 
 const userSlice = createSlice({
     name: "user",
     initialState: { 
     registerstatus: 'idle', 
     loginstatus:'idle', 
-    editprofilestatus:'idle', 
+    editprofilestatus:'idle',
+    userInfo:getUserInfo()
+    ,
     isLogged:isLogged(),
  
     },
@@ -70,9 +79,13 @@ const userSlice = createSlice({
         logout:(state)=>{
             localStorage.removeItem('accessToken');
             localStorage.removeItem('refreshToken');
+            localStorage.removeItem('userInfo')
             state.isLogged=isLogged()
             
             message.success("Logout success! See you soon")
+        },
+        getUserInfo:(state)=>{
+            state.userInfo=getUserInfo();
         }
     },
     extraReducers: (builder) => {
@@ -94,7 +107,9 @@ const userSlice = createSlice({
             
             setAccessToken(action.payload.accessToken)
             setRefreshToken(action.payload.refreshToken)
+            setUserInfo(action.payload.userInfo)
             state.isLogged=isLogged()
+            state.userInfo=getUserInfo();
             message.success("Login success! Welcome")
 
             

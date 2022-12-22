@@ -8,6 +8,7 @@ import { logout } from '../../redux/userReducer';
 function UserButton() {
   const dispatch=useDispatch();
   const navigate = useNavigate();
+  const userInfo= useSelector((state)=>state.userReducer.userInfo)
   return (
     <>
  
@@ -31,7 +32,7 @@ function UserButton() {
       placement="bottomLeft"
       arrow
     >
-      <div > Welcome user ! <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /></div>
+      <div > Welcome {userInfo.nickName} ! <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /></div>
     </Dropdown>
     </>
   )

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader   } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
+import { addAdvertisement } from '../../redux/advertisementReducer';
+import { getLocations } from '../../redux/locationReducer';
 
 
 const layout = {
@@ -26,15 +28,26 @@ const layout = {
   };
 
 const AdvEdit = (props) => {
+  const dispatch = useDispatch();
   const locations = useSelector((state)=>state.locationReducer.locations)
-  const filter = (inputValue, path) =>
+  const filter = 
+  (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+  
+  useEffect(()=>{
+    if(locations.length===0){
+      dispatch(getLocations());
+    }
 
+  },[])
     const onFinish = (values) => {
         console.log(values);
         if(props.isAdd)
         {
             //Add
+            const newAdvertisement=values.adv;
+            console.log("newAdvertisement to add:",newAdvertisement)
+            dispatch(addAdvertisement(newAdvertisement));
         }
         else 
         {
@@ -53,7 +66,7 @@ const AdvEdit = (props) => {
                     <Input />
                 </Form.Item>
                 <Form.Item
-                  name={['workExperience', 'location']}
+                  name={['adv', 'location']}
                   label="location"
                   rules={[
                     {
