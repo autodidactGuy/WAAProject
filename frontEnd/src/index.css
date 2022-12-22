@@ -25,3 +25,11 @@ code {
 .mt-20{
   margin-top:50px!important;
 }
+
+.login-form-button{
+  float:right;
+}
+
+.search_student{
+  display:flex!important;
+}
