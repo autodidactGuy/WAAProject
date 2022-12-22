@@ -52,7 +52,7 @@ function ECharts() {
     const getStudentsPerCity = async()=>{
         if(getAccessToken()!=null){
             setIsLoggedIn(true);
-            const response=await axios.get("/echart//echart/getStudentsNumberPerCity?stateCode=PR");
+            const response=await axios.get("/echart/getStudentsNumberPerCity?stateCode=PR");
             setStudentsPerCity(response.data);
         }
         else{
