@@ -16,7 +16,7 @@ public class ActivityLog {
 
     private String methodName;
     private String requestType;
-    private String userId;
+    private Long userId;
 
     private Date callTime;
 

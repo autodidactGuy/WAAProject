@@ -1,9 +1,12 @@
 package edu.miu.alumni.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import  java.util.*;
 
 @Entity
+@Data
 @Table(name="files")
 public class File extends SoftDeleteBaseClass{
 
@@ -11,6 +14,7 @@ public class File extends SoftDeleteBaseClass{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String fileName;
     private String fileUrl;
     private boolean isDeleted;
 
