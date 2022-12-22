@@ -25,7 +25,7 @@ steps:
     command: 'custom'
     workingDir: '$(System.DefaultWorkingDirectory)/frontEnd/'
     customCommand: 'run build:Prod'
-  displayName: 'Npm build'
+  displayName: 'Npm build production'
 
 - task: ArchiveFiles@2
   name: 'ArchiveTheBuild'
@@ -35,18 +35,22 @@ steps:
     archiveType: 'tar'
     archiveFile: '$(Build.ArtifactStagingDirectory)/waafrontend-$(Build.BuildId).tar'
     replaceExistingArchive: true
+  displayName: 'Npm build production'
+
 - task: PublishBuildArtifacts@1
   name: 'PublishBuildToAzureDevops'
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'waafrontend'
     publishLocation: 'Container'
+  displayName: 'Publish front-end build to AzureDevops Artifacts'
 - task: SSH@0
   inputs:
     sshEndpoint: 'localserver'
     runOptions: 'commands'
     commands: 'rm -rf /opt/WAA/frontend/caddy/caddy_html/*'
     readyTimeout: '20000'
+  displayName: 'Clean html folder in the production server'
 
 - task: CopyFilesOverSSH@0
   inputs:
@@ -55,3 +59,4 @@ steps:
     contents: '**'
     targetFolder: '/opt/WAA/frontend/caddy/caddy_html/'
     readyTimeout: '20000'
+  displayName: 'Deploy frontend build to production server'
