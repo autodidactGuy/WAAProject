@@ -83,6 +83,15 @@ steps:
   inputs:
     sshEndpoint: 'localserver'
     runOptions: 'commands'
+    commands: 'podman rm waabackend'
+    readyTimeout: '20000'
+  displayName: 'Delete docker container'
+  continueOnError: true
+
+- task: SSH@0
+  inputs:
+    sshEndpoint: 'localserver'
+    runOptions: 'commands'
     commands: 'podman rmi waabackendimg'
     readyTimeout: '20000'
   displayName: 'Delete docker image'

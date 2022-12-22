@@ -70,10 +70,12 @@ public class JobAdvertisementServiceImpl
 
         User userByEmailEquals = userRepository.findUserByEmailEquals(name);
 
-        System.out.println(userByEmailEquals);
         Long id = userByEmailEquals.getId();
-        System.out.println(id);
-        return null;
+
+        return repository.getAllByPoster(id).stream().map(x->
+                modelMapper.map(x,JobAdvertisementDto.class)
+        ).collect(Collectors.toList());
+
     }
 
     @Override

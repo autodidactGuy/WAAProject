@@ -27,7 +27,7 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
     );
 
     @Query(value = "SELECT * FROM job_advertisements c WHERE " +
-            " c.postUserId = poster_stu_id :postUserId" ,nativeQuery = true
+            " c.poster_stu_id  = :postUserId" ,nativeQuery = true
     )
     public List<JobAdvertisement> getAllByPoster(Long postUserId);
 
