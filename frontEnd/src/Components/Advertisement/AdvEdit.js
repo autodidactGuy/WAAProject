@@ -1,6 +1,7 @@
 import React from 'react';
-import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber   } from 'antd';
+import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader   } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from "react-redux";
 
 
 const layout = {
@@ -25,6 +26,10 @@ const layout = {
   };
 
 const AdvEdit = (props) => {
+  const locations = useSelector((state)=>state.locationReducer.locations)
+  const filter = (inputValue, path) =>
+  path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
+
     const onFinish = (values) => {
         console.log(values);
         if(props.isAdd)
@@ -47,11 +52,23 @@ const AdvEdit = (props) => {
                 <Form.Item name={['adv', 'Title']} label="Job Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
-                <Form.Item name={['adv', 'State']} label="State" rules={[{ required: true }]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name={['adv', 'City']} label="City" rules={[{ required: true }]}>
-                    <Input />
+                <Form.Item
+                  name={['workExperience', 'location']}
+                  label="location"
+                  rules={[
+                    {
+                      type: 'array',
+                      required: true,
+                      message: 'Please select the location',
+                    },
+                  ]}
+                >
+                  <Cascader options={locations} 
+                  
+                  showSearch={{
+                    filter,
+                  }}
+                  />
                 </Form.Item>
                 <Form.Item name={['adv', 'CompanyName']} label="CompanyName" rules={[{ required: true }]}>
                     <Input />

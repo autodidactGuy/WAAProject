@@ -11,7 +11,7 @@ const columns = [
     title: 'Title',
     dataIndex: 'Title',
     key: 'Title',
-    render: (text) => <a>{text}</a>,
+    render: (text) => text,
   },
   {
     title: 'Company',
@@ -59,16 +59,7 @@ const columns = [
     dataIndex: 'ApplicationDate',
     key: 'ApplicationDate',
   },
-  {
-    title: 'Action',
-    key: 'action',
-    render: (_, record) => (
-      <Space size="middle">
-        <a>details</a>
-        <a>Delete</a>
-      </Space>
-    ),
-  },
+ 
 ];
 
 function MyAppliedJobs() {
