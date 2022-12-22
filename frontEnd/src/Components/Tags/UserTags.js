@@ -27,7 +27,7 @@ const UserTags = () =>
     return (
     
         <div style={{ marginLeft:'5px' }}>
-            <h1> my Tags</h1>
+            <h1> Tags interrested in</h1>
             
             <Select
                 mode="tags"
