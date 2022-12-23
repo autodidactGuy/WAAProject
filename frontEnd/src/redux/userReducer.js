@@ -4,6 +4,7 @@ import axios from "axios";
  
 import { workExperienceData } from '../Data/WorkExperienceData'
 import { Moment } from 'moment';
+import { convertListAppliedJobApiToFront } from './../Utils/Utils';
 
 //use command :  'npm run start:Dev'  instead of 'npm start'
 const baseurl = process.env.REACT_APP_API_URL;
@@ -60,6 +61,20 @@ export const editProfile = createAsyncThunk('user/editProfile', async (user) => 
     return response.data;
 })
 
+
+
+export const appliedJobs = createAsyncThunk('education/myAppliedJobs', async () => {
+    const token = getAccessToken();
+    const response = await axios.get(baseurl+'/userApplication/getAppliedJobs',
+    {
+        headers: {
+            'Authorization': `Bearer ${token}` 
+         }
+       }
+    ); 
+
+    return response.data;
+})
  
 
 
@@ -69,9 +84,10 @@ const userSlice = createSlice({
     registerstatus: 'idle', 
     loginstatus:'idle', 
     editprofilestatus:'idle',
-    userInfo:getUserInfo()
-    ,
+    appliedJobsstatus:'idle',
+    userInfo:getUserInfo(),
     isLogged:isLogged(),
+    myAppliedJobs:[],
  
     },
     
@@ -138,6 +154,22 @@ const userSlice = createSlice({
             message.error("Update Error! Please try again")
         });
          
+
+        //my applied job
+        builder.addCase(appliedJobs.fulfilled, (state, action) => {
+            state.appliedJobsstatus = 'success';
+            state.myAppliedJobs = convertListAppliedJobApiToFront(action.payload)
+
+
+            
+        });
+        builder.addCase(appliedJobs.pending, (state, action) => {
+            state.appliedJobsstatus = 'pending'
+        });
+        builder.addCase(appliedJobs.rejected, (state, action) => {
+            state.appliedJobsstatus = 'rejected'
+            message.error("Error! Please try again")
+        });
 
     }
 });

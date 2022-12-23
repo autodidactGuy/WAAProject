@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { appliedjobs } from '../../../Data/appliedAdvertisements'
  
  
 import { Space, Table, Tag } from 'antd';
+import { useSelector, useDispatch } from 'react-redux';
+import { appliedJobs } from './../../../redux/userReducer';
 
 
 
@@ -63,10 +65,19 @@ const columns = [
 ];
 
 function MyAppliedJobs() {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(appliedJobs());
+  },[])
+
+  const myAppliedJobs = useSelector((state)=>state.userReducer.myAppliedJobs)
+
+  console.log(myAppliedJobs)
+
   return (
     <div>
     <h1 style={{margin:'15px'}}> Applied job </h1>
-    <Table columns={columns} dataSource={appliedjobs} />
+    <Table columns={columns} dataSource={myAppliedJobs} />
     </div>
   )
 }

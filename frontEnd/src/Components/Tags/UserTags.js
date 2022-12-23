@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { Avatar, Button, List, Select } from 'antd';
+import axios from 'axios';
+import { getAccessToken } from '../../redux/userReducer';
 //import { workExperienceData } from '../../Data/WorkExperienceData'
 
 import { useDispatch, useSelector } from "react-redux";
@@ -17,13 +19,24 @@ const handleChange = (value) => {
 
 const UserTags = () =>
 {
-    // const workExperienceData = useSelector((state) => state.jobEReducer.jobExperienceList);
-    // useEffect(() => {
-    //     dispatch(getJobExperienceList());
-    //   },[]);
+  const baseurl = process.env.REACT_APP_API_URL;
 
-    // const dispatch = useDispatch();
+  axios.defaults.baseURL=baseurl;
+
+  axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
     
+
+  const getTags = async()=>{
+    if(getAccessToken()!=null){
+
+        const response=await axios.get("/tag");
+        console.log(response);
+    }
+    else{
+
+    }
+}
+
     return (
     
         <div style={{ marginLeft:'5px' }}>
@@ -39,7 +52,7 @@ const UserTags = () =>
                 options={options}
                 
             />
-        
+        <Button onClick={getTags}> get tag</Button>
         </div>
     );
 }
