@@ -3,10 +3,13 @@ import { Col, Row } from 'antd';
 import { TenJobAdv } from '../../Data/TenJobAdv';
 import { getAccessToken} from '../../redux/userReducer';
 import axios from 'axios';
+import { useDispatch ,useSelector} from "react-redux";
 
 import Adv from '../Advertisement/Adv'
 
 const TenLastJobAdv = () => {
+
+    const loginstatus = useSelector((state) => state.userReducer.isLogged);
 
     const baseurl = process.env.REACT_APP_API_URL;
 
@@ -35,7 +38,7 @@ const TenLastJobAdv = () => {
         getJobs();
     },[]);
     return(
-        (isLoggedIn)?
+        (loginstatus)?
         <>
             <h1 style={{margin:'15px'}}> Top 10 Job Advertisements </h1>
             <Row>

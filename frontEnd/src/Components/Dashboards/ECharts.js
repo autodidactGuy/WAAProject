@@ -2,11 +2,13 @@ import React,{useEffect,useState} from 'react';
 import SampleEchart from './SampleEchart';
 import axios from 'axios';
 import { getAccessToken } from '../../redux/userReducer';
+import { useDispatch ,useSelector} from "react-redux";
 
 import { Button, Checkbox, Form, Input, Row, Col, Spin } from 'antd';
 
 function ECharts() {
 
+    const loginstatus = useSelector((state) => state.userReducer.isLogged);
 
   const baseurl = process.env.REACT_APP_API_URL;
 
@@ -65,7 +67,7 @@ function ECharts() {
   return (
 
     
-        (isLoggedIn)
+        (loginstatus)
         ?
         
         <Row className='charts'>
