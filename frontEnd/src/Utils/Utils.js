@@ -138,3 +138,29 @@ export const convertUserApiToUserFront=(user)=>{
 
     };
 }
+
+export const convertAppliedJobApiToFront=(appliedJob) => 
+{
+    return 	{
+		Id: appliedJob.id,
+		UserId: appliedJob.student.id,
+		Title: appliedJob.ja.profile,
+		PublicationDate: dateToString(),
+        ApplicationDate: dateToString(), 
+		State: "State",
+		City: "City",
+		CompanyName: appliedJob.ja.companyName,
+		Description: appliedJob.ja.description,
+		src:'',
+        tags:['CS','CV']
+	}
+}
+
+
+export const convertListAppliedJobApiToFront=(list)=>{
+    let result =[]
+   
+    list.forEach(element => result.push(convertAppliedJobApiToFront(element)));
+   
+    return result;
+}

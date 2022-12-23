@@ -50,7 +50,7 @@ const formItemLayout = {
     },
   };
 
-function EditBasicInfoForm() {
+function EditBasicInfoForm(props) {
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const locations = useSelector((state)=>state.userReducer.locations)
@@ -62,6 +62,12 @@ function EditBasicInfoForm() {
       const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
+  const onFill = () => {
+    form.setFieldsValue({
+      note: 'Hello world!',
+      gender: 'male',
+    });
+  };
 
     const onFinish = (values) => {
         const newuser =

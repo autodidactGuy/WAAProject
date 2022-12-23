@@ -4,6 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from 'react'
 import BasicStudentInfoModal from './BasicStudentInfoModal'
 import Moment  from 'moment';
+import { message } from 'antd';
+import axios from 'axios';
+import { getAccessToken } from '../../redux/userReducer';
 
 const formItemLayout = {
   labelCol: {
@@ -37,7 +40,21 @@ const tailFormItemLayout = {
 };
 
 function BasicStudentInfo() {
+
+  const baseurl = process.env.REACT_APP_API_URL;
+
+  axios.defaults.baseURL=baseurl;
+
+  axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+
   const [form] = Form.useForm();
+
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  onReset();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
@@ -51,14 +68,37 @@ function BasicStudentInfo() {
     setIsModalOpen(false);
   };
 
-  const onFinish = (values) => {
-    alert("TODO");
-    
+  async function resetMyPassword (value)  {
 
-  
+    //isLoading = true;
+    //AXIOS
+    try {
+      const result=await axios.post("/user/resetPassword",value);
+      if (result.status === 200) {
+
+        setIsModalOpen(false);
+        message.success("Password updated successullfy.");
+      } else {
+        message.error("error");
+      }
+    } catch (e) {
+      message.error("error");
+    } finally {
+      //isLoading = false;
+    }
+  };
+
+  const onFinish = async(values) =>{
+    alert('onfinish')
+    await resetMyPassword(values);
     };
 
+
+
+
   const userInfo= useSelector((state)=>state.userReducer.userInfo)
+
+
   console.log("user in of : ",userInfo)
   return (
     <div style={{textAlign:"center"}}>
@@ -74,8 +114,21 @@ function BasicStudentInfo() {
       <Button icon={<LockOutlined />} type="primary" onClick={showModal}>
         Reset Password
       </Button>
-      <Modal title="Reset your password" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+      <Modal 
+        title="Reset your password" 
+        open={isModalOpen} 
+        onCancel={handleCancel}
+        footer={[
+          <Button type="primary" form="resetPasswordForm" key="submit" htmlType="submit">
+              Reset
+          </Button>,
+          <Button onClick={handleCancel}>
+           Cancel
+            </Button>
+          ]}
+      >
       <Form
+      id="resetPasswordForm"
       {...formItemLayout}
       form={form}
       name="register"
@@ -84,10 +137,11 @@ function BasicStudentInfo() {
         residence: ['state', 'city'],
       }}
       scrollToFirstError
+
     >
       <Form.Item
         name="oldpassword"
-        label="oldPassword"
+        label="Old Password"
         rules={[
           {
             required: true,
@@ -102,7 +156,7 @@ function BasicStudentInfo() {
 
       <Form.Item
         name="password"
-        label="Password"
+        label="New Password"
         rules={[
           {
             required: true,
@@ -116,7 +170,7 @@ function BasicStudentInfo() {
 
       <Form.Item
         name="confirm"
-        label="Confirm Password"
+        label="Confirm New Password"
         dependencies={['password']}
         hasFeedback
         rules={[
