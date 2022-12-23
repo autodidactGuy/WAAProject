@@ -69,6 +69,7 @@ public class User extends SoftDeleteBaseClass{
     private Date lockedTime;
 
 
+    private String fcm_token;
     @ManyToMany(mappedBy = "interstedInUsers")
     private List<Tag> interstedTags;
 
