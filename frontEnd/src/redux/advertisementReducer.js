@@ -3,7 +3,7 @@ import { message } from "antd";
 import axios from "axios";
  
 
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import { advListFromApi2Front } from "../Utils/Utils";
 
 import { getAccessToken } from "./userReducer";
@@ -13,25 +13,25 @@ const baseurl = process.env.REACT_APP_API_URL;
 export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement', async (advertisement,{dispatch}) => {
      
     const token = getAccessToken();
-    console.log("add object : ",advertisement)
+    
     const obj = {
-        "publicationDate":"2022-12-21",
+        "publicationDate":moment().format('YYYY-MM-DD'),
         "workload":"123",
         "contract":"222",
-        "description":"123",
-        "profile":"123",
+        "description":advertisement.Description,
+        "profile":advertisement.Title,
         "city":{
             "id":{
-                "cityName":"Adjuntas",
-                "stateCode":"PR"
+                "cityName":advertisement.location[1],
+                "stateCode":advertisement.location[0]
             }
         },
-        "companyName":"ABC"
+        "companyName":advertisement.CompanyName
     }
 
+    console.log("add object : ",obj)
  
-
-     const responseFromApi = await axios.post(baseurl+'/jobAdvertisement/',advertisement,
+    const responseFromApi = await axios.post(baseurl+'/jobAdvertisement/',obj,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
@@ -40,7 +40,7 @@ export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement
     );
  
     dispatch(getadvertisementList());
-     return responseFromApi;
+     return "responseFromApi";
 })
 
 
