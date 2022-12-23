@@ -97,8 +97,6 @@ export const advFromAPI2Front=(adv)=>{
         PublicationDate: adv.publicationDate,
         State: adv.city?.id?.stateCode,
         City: adv.city?.id?.cityName,
-        //State: "",
-        //City: "",
         CompanyName: adv.companyName,
         Description:adv.description,
         src:"",
