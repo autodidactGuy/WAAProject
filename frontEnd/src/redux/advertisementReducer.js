@@ -14,7 +14,7 @@ export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement
      
     const token = getAccessToken();
     
-    const obj = {
+    /*const obj = {
         "publicationDate":moment().format('YYYY-MM-DD'),
         "workload":"123",
         "contract":"222",
@@ -27,11 +27,11 @@ export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement
             }
         },
         "companyName":advertisement.CompanyName
-    }
+    }*/
 
-    console.log("add object : ",obj)
+    console.log("add object : ",advertisement)
  
-    const responseFromApi = await axios.post(baseurl+'/jobAdvertisement/',obj,
+    const responseFromApi = await axios.post(baseurl+'/jobAdvertisement/',advertisement,
       {
        headers: {
            'Authorization': `Bearer ${token}` 
