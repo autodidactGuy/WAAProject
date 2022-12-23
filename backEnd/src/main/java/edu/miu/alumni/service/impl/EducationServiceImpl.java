@@ -65,7 +65,7 @@ implements EducationService<Education, EducationDto, Long>
         Object[][] resQuery =  repository.getAvgGapPerGpa();
         var avgGapPerGpas = new ArrayList<AvgGapPerGpa>();
         for (int i = 0; i < resQuery.length; i++) {
-            avgGapPerGpas.add(new AvgGapPerGpa((String)resQuery[i][0],((BigInteger)resQuery[i][1]).longValue()));
+            avgGapPerGpas.add(new AvgGapPerGpa((String)resQuery[i][0],((java.math.BigDecimal)resQuery[i][1]).longValue()));
         }
         return avgGapPerGpas;
     }
