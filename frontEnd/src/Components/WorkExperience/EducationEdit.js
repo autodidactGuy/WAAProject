@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader, InputNumber } from 'antd';
+import { Avatar, Button, List, Skeleton, Row, Col, Form, Input, DatePicker, Checkbox, Cascader, InputNumber, Spin } from 'antd';
 
 import { addJobExperience, getLocations, updateJobExperience } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
@@ -35,6 +35,8 @@ const layout = {
   };
 
 const EducationEdit = (props) => {
+  const updateEducationtatus = useSelector((state) => state.educationReducer.updateEducationtatus);
+  const addEducationstatus = useSelector((state) => state.educationReducer.addEducationstatus);
   const dispatch = useDispatch();
   // const locations = useSelector((state)=>state.userReducer.locations)
   // const getLocationStatus = useSelector((state)=>state.userReducer.getLocationStatus)
@@ -91,6 +93,13 @@ const EducationEdit = (props) => {
 
 
       };
+      if(addEducationstatus==="pending" || updateEducationtatus==="pending")
+        return(
+          <Spin tip="Loading" size="large">
+          <div className="content" />
+         </Spin>
+        );
+        else
     return (
         <>
         <Row>

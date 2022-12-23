@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
  
  
 import EducationEdit from './EducationEdit';
 import { PlusOutlined } from '@ant-design/icons';
+import { useSelector } from 'react-redux';
 
 function AddEducationModal() {
+  const addEducationStatus = useSelector((state) => state.educationReducer.addEducationstatus);
   
+  useEffect(()=>{
+    if(addEducationStatus==="success" )
+    {
+      setIsModalOpen(false);
+      
+    }
+    
+
+  },[addEducationStatus])
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);
