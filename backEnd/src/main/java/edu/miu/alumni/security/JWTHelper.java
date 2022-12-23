@@ -39,23 +39,23 @@ public class JWTHelper {
     }
 
     public boolean validateToken(String token) {
-        try {
+//        try {
             Jwts.parser()
                     .setSigningKey(secret)
                     .parseClaimsJws(token);
             return true;
-        } catch (SignatureException e) {
-            System.out.println(e.getMessage());
-        } catch (MalformedJwtException e) {
-            System.out.println(e.getMessage());
-        } catch (ExpiredJwtException e) {
-            System.out.println(e.getMessage());
-        } catch (UnsupportedJwtException e) {
-            System.out.println(e.getMessage());
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
+//        } catch (SignatureException e) {
+//            System.out.println(e.getMessage());
+//        } catch (MalformedJwtException e) {
+//            System.out.println(e.getMessage());
+//        } catch (ExpiredJwtException e) {
+//            System.out.println(e.getMessage());
+//        } catch (UnsupportedJwtException e) {
+//            System.out.println(e.getMessage());
+//        } catch (IllegalArgumentException e) {
+//            System.out.println(e.getMessage());
+//        }
+//        return false;
     }
 
     public String doGenerateRefreshToken(Map<String, Object> claims, String subject) {

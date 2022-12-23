@@ -84,4 +84,14 @@ public class EchartController {
     }
 
 
+    /**
+     * Tags with location.
+     * Tags.
+     */
+    @GetMapping("/numberOfAdPerTag")
+    public List<AdNumberPerTag> numberOfAdPerTag(){
+        return tagService.numberOfAdPerTag();
+    }
+
+
 }
