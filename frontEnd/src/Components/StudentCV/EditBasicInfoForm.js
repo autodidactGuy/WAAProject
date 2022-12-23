@@ -97,7 +97,6 @@ function EditBasicInfoForm() {
       onFinish={onFinish}
       initialValues={{
         residence: ['state', 'city'],
-        
       }}
       scrollToFirstError
     >
