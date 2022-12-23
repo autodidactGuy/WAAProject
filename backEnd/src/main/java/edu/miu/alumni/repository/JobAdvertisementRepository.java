@@ -46,10 +46,10 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
     )
     public List<JobAdvertisementsPerLocation> getJobAdvertisementPerLocation();
 
+    @Query(value = "with extract_year_month_per_ad as(\n" +
+            "\tselect concat(date_part('year',publication_date),'1', DATE_PART('month',publication_date)) pub_year_month ,1 ja_count from job_advertisements ja\n" +
+            ")select pub_year_month,sum(ja_count) from  extract_year_month_per_ad group by pub_year_month",nativeQuery = true)
+    Object[][] getAdsPerMonth();
 
-//    @Query(value = "SELECT new edu.miu.alumni.model.echarts.AdertisementsPerTag(s.city.id.cityName,s.city.id.stateCode,count(*))" +
-//            " FROM JobAdvertisement AS s " +
-//            "GROUP BY  s.city.id.cityName,s.city.id.stateCode"
-//    )
-//    List<AdertisementsPerTag> getAdertisementsPerTag();
+
 }

@@ -6,8 +6,11 @@ import edu.miu.alumni.entity.User;
 import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.model.LoginRequest;
 import edu.miu.alumni.model.SignupRequest;
+import edu.miu.alumni.model.UserSubscribTag;
 import edu.miu.alumni.service.LoginService;
+import edu.miu.alumni.service.TagService;
 import edu.miu.alumni.service.UserService;
+import org.apache.http.protocol.ResponseServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +24,9 @@ public class UserController   extends BaseController<User, UserDto,Long> {
 
     @Autowired
     private  LoginService uaaService;
+
+    @Autowired
+    private TagService tagService;
     @Autowired
     private UserService<User,UserDto,Long> bs;
 
@@ -77,16 +83,14 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     }
 
     @PostMapping("/subscribTags")
-    public  ResponseEntity<?>  subscribTags(@RequestParam String tags){
+    public  ResponseEntity<?>  subscribTags(@RequestBody UserSubscribTag tags){
         try{
-            ArrayList<String> strings = new ArrayList<>();
-            strings.add(tags);
-            bs.subscribTags(strings);
+            bs.subscribTags(tags.getTags());
+            List all = tagService.getAll();
+            return ResponseEntity.ok().body(all);
         }catch (Exception e){
             return ResponseEntity.internalServerError().body("contact to mae");
         }
-
-        return ResponseEntity.ok("subscrib tag is success");
     }
 
     /**

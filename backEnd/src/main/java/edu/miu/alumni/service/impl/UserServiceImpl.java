@@ -27,8 +27,6 @@ import java.util.stream.Stream;
 public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRepository>
         implements UserService<User, UserDto,Long> {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private TagRepository tagRepository;
@@ -94,13 +92,13 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     public void subscribTags(List<String> tags) {
 
         User user = currentLoginUser();
-        List<Tag> subscribTag = new ArrayList<Tag>();
         for(String tagName:tags){
             Tag byTitleEquals = tagRepository.findByTitleEquals(tagName);
-            subscribTag.add(byTitleEquals);
+            if(user.getInterstedTags().contains(byTitleEquals)){
+               continue;
+            }
+            repository.subscribeTags(user.getId(), byTitleEquals.getId());
         }
-        user.setInterstedTags(subscribTag);
-        userRepository.save(user);
     }
 
     @Override
@@ -108,6 +106,7 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         User user = currentLoginUser();
         return user.getInterstedTags().stream().map(x->{
             TagDto map = modelMapper.map(x, TagDto.class);
+            map.setIsSubscribed(true);
             return map;
         }).collect(Collectors.toList());
     }

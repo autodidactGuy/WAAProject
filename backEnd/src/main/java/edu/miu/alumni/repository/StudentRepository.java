@@ -63,4 +63,15 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
 
 
     Student findStudentByEmailEquals(String facultyEmail);
+
+
+    @Query(value ="select gender,count(1) from users \n" +
+            "where user_type  = 'Student' and is_deleted = false\n" +
+            "group by gender ",nativeQuery = true )
+    Object[][] getStudentByGender();
+
+    @Query(value = "select extract(year  from AGE(to_timestamp(birthday, 'YYYY-MM-DD')))  ages,count(1) from users\n" +
+            "where user_type  = 'Student'\n" +
+            "group by  extract(year  from AGE(to_timestamp(birthday, 'YYYY-MM-DD')))  ;",nativeQuery = true)
+    Object[][] getNumOfStuPerAge();
 }
