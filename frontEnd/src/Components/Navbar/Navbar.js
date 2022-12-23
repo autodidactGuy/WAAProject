@@ -56,7 +56,6 @@ function Navbar() {
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
                 { label: <Link to="/searchstudent">Find Students</Link>, key: "2" },
-                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
                 { label: <UserButton/>, key: "6" },
             ]
         }
