@@ -9,6 +9,29 @@ function UserButton() {
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const userInfo= useSelector((state)=>state.userReducer.userInfo)
+
+
+  const getItems=()=>{
+
+      if(userInfo.role[0].name==="STUDENT")
+      {
+        return [
+          {key:'1', label:<Link to="/myprofile">myprofile</Link>},
+          {key:'2', label:<Link to="/myappliedjobs">appliedjobs</Link>},
+          {key:'3', label:<Link to="/mysubmittedadv">SubmittedAdvertisements</Link>},
+      ]
+      }
+      else {
+        return [
+          {key:'1', label:<Link to="/myprofile">myprofile</Link>},
+          
+      ]
+      }
+
+   
+    
+}
+
   return (
     <>
  
@@ -16,14 +39,10 @@ function UserButton() {
     <Dropdown
       menu={{
         items:[
-            {key:'1', label:<Link to="/myprofile">myprofile</Link>},
-            {key:'2', label:<Link to="/myappliedjobs">appliedjobs</Link>},
-            {key:'3', label:<Link to="/mysubmittedadv">SubmittedAdvertisements</Link>},
+            ...getItems(),
             {key:'4', label:<div onClick={()=>{
               dispatch(logout());
               navigate('home');
-              
-             
             }
             
             }><LogoutOutlined /> logout </div>}
