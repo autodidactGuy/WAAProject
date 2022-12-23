@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, message, Modal } from 'antd';
 import { useSelector } from 'react-redux';
 import EditBasicInfoForm from './EditBasicInfoForm';
+import { EditOutlined } from '@ant-design/icons';
 const BasicStudentInfoModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
  
@@ -19,7 +20,7 @@ const BasicStudentInfoModal = () => {
   return (
     <>
  
-      <Button type="primary" onClick={showModal}>
+      <Button icon={<EditOutlined />} type="primary" onClick={showModal}>
         edit profile
       </Button>
       < Modal title="edit profile" open={isModalOpen}  onCancel={handleCancel}
