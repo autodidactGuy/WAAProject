@@ -3,9 +3,9 @@ package edu.miu.alumni.controller;
 import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
+import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.model.LoginRequest;
 import edu.miu.alumni.model.SignupRequest;
-import edu.miu.alumni.service.BasicService;
 import edu.miu.alumni.service.LoginService;
 import edu.miu.alumni.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,6 +99,19 @@ public class UserController   extends BaseController<User, UserDto,Long> {
 
         try{
             return ResponseEntity.ok(bs.getSubscribTags());
+        }catch (Exception e){
+            return ResponseEntity.internalServerError().body("contact to mae");
+        }
+    }
+
+    /**
+     * update the fcm token
+     * @return
+     */
+        @PostMapping("/updateFcmToken")
+    public  ResponseEntity<?>  updateFcmToken(@RequestBody UserFmcToken userFmcToken){
+        try{
+            return ResponseEntity.ok(bs.updateFcmToken(userFmcToken));
         }catch (Exception e){
             return ResponseEntity.internalServerError().body("contact to mae");
         }

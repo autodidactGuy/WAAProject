@@ -3,6 +3,7 @@ package edu.miu.alumni.service;
 import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
+import edu.miu.alumni.model.UserFmcToken;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface UserService <T,H,A> extends BasicService<T,H,A> {
     List<TagDto> getSubscribTags();
 
     void resetFailedAttempts(String userEmail);
+
+    H updateFcmToken(UserFmcToken t);
 }

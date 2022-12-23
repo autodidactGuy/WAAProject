@@ -6,6 +6,7 @@ import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.Role;
 import edu.miu.alumni.entity.Tag;
 import edu.miu.alumni.entity.User;
+import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
 import edu.miu.alumni.repository.TagRepository;
 import edu.miu.alumni.repository.UserRepository;
@@ -118,11 +119,23 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         userByEmailEquals.setAccessFailedCount(0);
     }
 
+    @Override
+    public UserDto updateFcmToken(UserFmcToken fcmToken) {
+        User user = currentLoginUser();
+        String fmcToken = fcmToken.getFmcToken();
+        user.setFcm_token(fmcToken);
+        User save = repository.save(user);
+        return modelMapper.map(save,UserDto.class);
+    }
+
+
     public  User currentLoginUser() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = repository.findUserByEmailEquals(name);
         return userByEmailEquals;
     }
+
+
 
 
 }

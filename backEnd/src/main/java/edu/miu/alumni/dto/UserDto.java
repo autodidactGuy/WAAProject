@@ -17,24 +17,16 @@ public class UserDto {
 
     private String email;
 
-
-
     private CityDto city;
-
 
     private String phoneNumber;
 
     private String birthday;
 
-
     private String gender;
-
-
 
     private List<RoleDto> role;
     private int accessFailedCount;
-
-
 
     private boolean isLockoutEnd;
 
@@ -42,12 +34,11 @@ public class UserDto {
 
     private boolean isDeleted;
 
-
     private String nickName;
 
-
-
     private ProfileDto profile;
+
+    private String fcm_token;
 
 
 }
