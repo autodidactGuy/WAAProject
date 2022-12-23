@@ -160,43 +160,6 @@ function EditBasicInfoForm() {
         <Input />
       </Form.Item>
 
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password />
-      </Form.Item>
-
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
-            },
-          }),
-        ]}
-      >
-        <Input.Password />
-      </Form.Item>
-
       <Form.Item name="birthday" label="Birthday" 
           rules= { [
             {
@@ -277,37 +240,6 @@ function EditBasicInfoForm() {
           <Option value="male">Male</Option>
           <Option value="female">Female</Option>
         </Select>
-      </Form.Item>
-
-      <Form.Item
-        name="role"
-        label="Role"
-        rules={[
-          {
-            required: true,
-            message: 'Please select role!',
-          },
-        ]}
-      >
-        <Select placeholder="select your role">
-          <Option value="STUDENT">Student</Option>
-          <Option value="FACULT">Faculty</Option>
-        </Select>
-      </Form.Item>
-
-
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject(new Error('Should accept agreement')),
-          },
-        ]}
-        {...tailFormItemLayout}
-      >
-
       </Form.Item>
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
