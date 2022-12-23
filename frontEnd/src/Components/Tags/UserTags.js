@@ -29,7 +29,9 @@ const UserTags = () =>
   const getTags = async()=>{
     if(getAccessToken()!=null){
 
-        const response=await axios.get("/tag");
+        const response=await axios.get("/user/subscribTags");
+        //const response=await axios.get("/tag");
+        
         console.log(response);
     }
     else{
