@@ -37,4 +37,8 @@ public interface TagRepository extends CrudRepository<Tag,Long> {
             "order by count(1) desc",nativeQuery = true
     )
     Object[][] numberOfTagsPerLocation();
+
+
+    @Query(value = "select intersted_tags_id from tag_intersted_in_users where intersted_in_users_id = :id",nativeQuery = true)
+    List<Long> getUserIntrestedTags(Long id);
 }

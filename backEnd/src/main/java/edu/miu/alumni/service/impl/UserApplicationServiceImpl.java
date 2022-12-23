@@ -5,6 +5,7 @@ import edu.miu.alumni.dto.JobExperienceDto;
 import edu.miu.alumni.dto.UserApplicationDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
+import edu.miu.alumni.model.echarts.AppliedJobPerMonth;
 import edu.miu.alumni.repository.*;
 import edu.miu.alumni.service.JobExperienceService;
 import edu.miu.alumni.service.UserApplicationService;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,6 +76,17 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
         userApplication.setJa(jobAdvertisement);
         userApplication.setApplicationDate(new Date());
         repository.save(userApplication);
+    }
+
+    @Override
+    public List<AppliedJobPerMonth> getAppliedJobNumPerMonth() {
+        Object [][] resQuery =  repository.getAppliedJobNumberPerMonth();
+
+        ArrayList<AppliedJobPerMonth> appliedJobPerMonths = new ArrayList<>();
+        for (int i = 0; i < resQuery.length; i++) {
+                appliedJobPerMonths.add(new AppliedJobPerMonth((String)resQuery[i][0],((BigInteger)resQuery[i][1]).intValue()));
+        }
+        return appliedJobPerMonths;
     }
 
     @Override

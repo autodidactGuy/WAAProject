@@ -1,10 +1,9 @@
 package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.dto.EducationDto;
-import edu.miu.alumni.dto.JobAdvertisementDto;
-import edu.miu.alumni.dto.JobExperienceDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
+import edu.miu.alumni.model.echarts.AvgGapPerGpa;
 import edu.miu.alumni.repository.EducationRepository;
 import edu.miu.alumni.repository.ProfileRepository;
 import edu.miu.alumni.repository.UserRepository;
@@ -12,16 +11,16 @@ import edu.miu.alumni.service.EducationService;
 import edu.miu.alumni.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfigureOrder;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class EducationServiceImpl extends BasicServiceImpl<Education, EducationDto,Long, EducationRepository>
-implements EducationService<Education, EducationDto,Long>
+implements EducationService<Education, EducationDto, Long>
 {
     @Autowired
     private UserRepository userRepository;
@@ -59,5 +58,15 @@ implements EducationService<Education, EducationDto,Long>
                 .filter(x->!x.isDeleted())
                 .map(x->modelMapper.map(x,EducationDto.class))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<AvgGapPerGpa> getAvgGapPerGpa() {
+        Object[][] resQuery =  repository.getAvgGapPerGpa();
+        var avgGapPerGpas = new ArrayList<AvgGapPerGpa>();
+        for (int i = 0; i < resQuery.length; i++) {
+            avgGapPerGpas.add(new AvgGapPerGpa((String)resQuery[i][0],((BigInteger)resQuery[i][1]).longValue()));
+        }
+        return avgGapPerGpas;
     }
 }

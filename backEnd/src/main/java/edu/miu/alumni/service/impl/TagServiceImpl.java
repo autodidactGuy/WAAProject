@@ -63,11 +63,20 @@ implements TagService<Tag, TagDto,Long>
     public List<TagDto> getAll() {
 
         User user = userService.currentLoginUser();
-        List<Tag> interstedTags = user.getInterstedTags();
 
-        System.out.println(interstedTags);
+        List<Long> userIntrestedTagsId = repository.getUserIntrestedTags(user.getId());
+        List<TagDto> all = super.getAll();
 
-        return null;
-//        return
+        List<TagDto> userInfoTagDto = new ArrayList<TagDto>();
+        for (TagDto tg:all){
+            if(userIntrestedTagsId.contains(tg.getId())){
+               tg.setIsSubscribed(true);
+            }else{
+                tg.setIsSubscribed(false);
+            }
+            userInfoTagDto.add(tg);
+        }
+
+        return userInfoTagDto;
     }
 }

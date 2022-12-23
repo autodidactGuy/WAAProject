@@ -1,5 +1,6 @@
 package edu.miu.alumni.service;
 
+import edu.miu.alumni.model.echarts.AdsPerMonth;
 import edu.miu.alumni.model.SearchJobRequest;
 
 import edu.miu.alumni.model.echarts.AdertisementsPerTag;
@@ -18,4 +19,5 @@ public interface JobAdvertisementService <T,H,A> extends BasicService<T,H,A>{
     List<AdertisementsPerTag> getAdertisementsPerTag();
 
 
+    List<AdsPerMonth> getAdsPerMonth();
 }

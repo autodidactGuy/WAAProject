@@ -1,16 +1,11 @@
 package edu.miu.alumni.controller;
-
-import edu.miu.alumni.dto.JobAdvertisementDto;
-import edu.miu.alumni.dto.StudentDto;
-import edu.miu.alumni.dto.TagDto;
-import edu.miu.alumni.entity.JobAdvertisement;
-import edu.miu.alumni.entity.Student;
-import edu.miu.alumni.entity.Tag;
+import edu.miu.alumni.dto.*;
+import edu.miu.alumni.entity.*;
+import edu.miu.alumni.model.echarts.AdsPerMonth;
+import edu.miu.alumni.model.echarts.AvgGapPerGpa;
 import edu.miu.alumni.model.echarts.JobAdvertisementsPerLocation;
 import edu.miu.alumni.model.echarts.StudentsNumberPerState;
-import edu.miu.alumni.service.JobAdvertisementService;
-import edu.miu.alumni.service.StudentService;
-import edu.miu.alumni.service.TagService;
+import edu.miu.alumni.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import edu.miu.alumni.model.echarts.*;
@@ -29,6 +24,11 @@ public class EchartController {
     @Autowired
     TagService<Tag, TagDto,Long> tagService;
 
+    @Autowired
+    EducationService<Education, EducationDto,Long> educationService;
+
+    @Autowired
+    UserApplicationService<UserApplication, UserApplicationDto,Long> appliedDetailService;
     /**
      * number of job advertisements per location.
      */
@@ -73,15 +73,8 @@ public class EchartController {
     }
 
 
-    /**
-     * Tags with location.
-     * Tags.
-     */
-    @GetMapping("/averageTimeFindJobPerGpaRange")
-    public long averageTimeFindJobPerGapYear(){
-//        return stuServer.averageTimeFindJobPerGapYear(stateCode);
-        return 0;
-    }
+
+
 
 
     /**
@@ -92,6 +85,36 @@ public class EchartController {
     public List<AdNumberPerTag> numberOfAdPerTag(){
         return tagService.numberOfAdPerTag();
     }
+
+
+    /**
+     *avg gap timer per gpa_range
+     */
+    @GetMapping("/avgGapPerGpa")
+    public List<AvgGapPerGpa> getAvgGapPerGpa(){
+        return educationService.getAvgGapPerGpa();
+    }
+
+    @GetMapping("/numOfAdsPerMonth")
+    public List<AdsPerMonth> getAdsPerMonth(){
+        return ja.getAdsPerMonth();
+    }
+
+    @GetMapping("/numOfStudentByGender")
+    public List<StudentGenderSummary> getStudentByGender(){
+        return stuServer.getStudentByGender();
+    }
+
+    @GetMapping("/numOfStuPerAge")
+    public List<StudentAgeSummary> numOfStuPerAge(){
+        return stuServer.getNumOfStuPerAge();
+    }
+
+    @GetMapping("/getAppliedJobNumPerMonth")
+    public List<AppliedJobPerMonth> getAppliedJobNumPerMonth(){
+        return appliedDetailService.getAppliedJobNumPerMonth();
+    }
+
 
 
 }

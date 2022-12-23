@@ -1,8 +1,8 @@
 package edu.miu.alumni.service.impl;
 
-import edu.miu.alumni.dto.CityDto;
 import edu.miu.alumni.dto.JobAdvertisementDto;
 import edu.miu.alumni.entity.*;
+import edu.miu.alumni.model.echarts.AdsPerMonth;
 import edu.miu.alumni.model.SearchJobRequest;
 import edu.miu.alumni.model.echarts.AdertisementsPerTag;
 import edu.miu.alumni.repository.CityRepository;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -100,6 +101,16 @@ public class JobAdvertisementServiceImpl
     public List<AdertisementsPerTag> getAdertisementsPerTag() {
         return null;
 //        return repository.getAdertisementsPerTag();
+    }
+
+    @Override
+    public List<AdsPerMonth> getAdsPerMonth() {
+        Object [][] resQuery = repository.getAdsPerMonth();
+        ArrayList<AdsPerMonth> adsPerMonths = new ArrayList<>();
+        for (int i = 0; i < resQuery.length; i++) {
+            adsPerMonths.add(new AdsPerMonth((String )resQuery[i][0],((BigInteger)resQuery[i][1]).longValue()));
+        }
+        return adsPerMonths;
     }
 
     @Override
