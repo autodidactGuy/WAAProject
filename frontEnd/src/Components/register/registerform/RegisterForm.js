@@ -314,6 +314,7 @@ const RegisterForm = () => {
         <Select placeholder="select your role">
           <Option value="STUDENT">Student</Option>
           <Option value="FACULTY">Faculty</Option>
+          <Option value="ADMIN">Admin</Option>
         </Select>
       </Form.Item>
 
