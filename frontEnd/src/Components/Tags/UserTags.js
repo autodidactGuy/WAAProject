@@ -21,21 +21,21 @@ const UserTags = () =>
 
 
   async function handleChangeMyTags (value)  {
-    let tagsToSend = []
+    let tags = []
     allTags.forEach(tag => {
       if(value.includes(tag.title))
       {
-        tagsToSend.push({id: tag.id, title: tag.title, isSubscribed:true})
+        tags.push({id: tag.id, title: tag.title, isSubscribed:true})
       }
       else 
       {
-        tagsToSend.push({id: tag.id, title: tag.title, isSubscribed:false})
+        tags.push({id: tag.id, title: tag.title, isSubscribed:false})
       }
     })
     //isLoading = true;
     //AXIOS
     try {
-      const result=await axios.post(`/user/subscribTags`, {tagsToSend});
+      const result=await axios.post(`/user/subscribTags`, {tags:value});
       if (result.status === 200) {
         message.success("tags updated successfully");
       } else {
