@@ -62,8 +62,8 @@ function MySubmittedAdvertisements() {
           {tags.map((tag) => {
             let color = 'geekblue';
             return (
-              <Tag color={color} key={tag}>
-                {tag}
+              <Tag color={color} key={tag.id}>
+                {tag.label}
               </Tag>
             );
           })}

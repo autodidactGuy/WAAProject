@@ -99,11 +99,17 @@ export const advFromAPI2Front=(adv)=>{
         CompanyName: adv.companyName,
         Description:adv.description,
         src:"",
-        tags:adv.tags,
+        tags:convertApiTagsToFront(adv.tags),
         Workload: adv.workload,
         Contract: adv.contract,
         location: [adv.city?.id?.stateCode, adv.city?.id?.cityName]
     }
+}
+
+export const convertApiTagsToFront = (tags) => {
+    let result = []
+    tags.forEach(tag => result.push({value:tag.title, label:tag.title, ...tag}));
+    return result;
 }
 
 export const advFromFront2API=(adv)=>{

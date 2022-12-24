@@ -114,7 +114,11 @@ function Student (props)  {
 
 
       useEffect(()=>{
-        getStudentComment();
+        if(userInfo.role[0].name==="FACULTY")
+        {
+          getStudentComment();
+        }
+
       },[]);
 
     return (
