@@ -14,9 +14,8 @@ const LoginModal = () => {
     {
       setIsModalOpen(false);
     }
-    
-
   },[loginstatus])
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
  
   const showModal = () => {

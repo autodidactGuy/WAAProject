@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Modal } from 'antd';
  
  
 import { EditOutlined, PlusOutlined } from '@ant-design/icons';
 import EducationEdit from '../../WorkExperience/EducationEdit';
 import AdvEdit from '../../Advertisement/AdvEdit';
+import { useDispatch, useSelector } from 'react-redux';
 
 function AddEditJobAdvertisementModal(props) {
-  
+  const dispatch = useDispatch();
+  const addAdvertisementstatus = useSelector((state) => state.advertisementReducer.addAdvertisementstatus);
+  const updateAdvertisementstatus = useSelector((state) => state.advertisementReducer.updateAdvertisementstatus);
+   
+ 
+  useEffect(()=>{
+    if(
+      (addAdvertisementstatus!="pending" && updateAdvertisementstatus!="pending")
+      &&
+      (addAdvertisementstatus==="success" || updateAdvertisementstatus==="success")
+      )
+    {
+      setIsModalOpen(false);
+    }
+  },[addAdvertisementstatus , updateAdvertisementstatus])
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader, Select   } from 'antd';
+import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader, Select, Spin   } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { addAdvertisement, updateAdvertisement } from '../../redux/advertisementReducer';
@@ -32,6 +32,10 @@ const layout = {
   };
 
 const AdvEdit = (props) => {
+ 
+  const addAdvertisementstatus = useSelector((state) => state.advertisementReducer.addAdvertisementstatus);
+  const updateAdvertisementstatus = useSelector((state) => state.advertisementReducer.updateAdvertisementstatus);
+   
   const baseurl = process.env.REACT_APP_API_URL;
 
   axios.defaults.baseURL=baseurl;
@@ -120,7 +124,13 @@ const AdvEdit = (props) => {
 
 
 
-
+      if(addAdvertisementstatus==="pending"||updateAdvertisementstatus==="pending")
+      return(
+        <Spin tip="Loading" size="large">
+        <div className="content" />
+       </Spin>
+      );
+      else
 
     return (
         <>
