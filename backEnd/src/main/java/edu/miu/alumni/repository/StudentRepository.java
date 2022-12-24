@@ -25,7 +25,7 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
 //    );
 
         @Query(value = "SELECT *  FROM users c WHERE " +
-                "(:marjor is null or c.marjor = :marjor) " +
+                "(:major is null or c.major = :major) " +
                 "and (:cityName is null or c.city_name = :cityName)" +
                 "and (:id is null or c.id = :id)"+
                 "and (:stateCode is null or c.state_code = :stateCode)"+
@@ -33,7 +33,7 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
                 "and (c.user_type='Student')",nativeQuery = true
         )
     public List<Student> getStudentsByFirstNameOrLastNameContainsAndMarjorEqualsAndCity_IdAndCityStateAndIdEquals(
-            String marjor,
+            String major,
             String cityName,
             Long  id,
             String stateCode,
