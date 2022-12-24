@@ -1,12 +1,50 @@
-import React from 'react';
-import { Card, Col, Row, Avatar, Switch, Button, Space, Tooltip  } from 'antd';
+import React, { useState } from 'react';
+import { Card, Col, Row, Avatar, Switch, Button, Space, Tooltip, message } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Comment } from '@ant-design/compatible';   
 import moment from 'moment';
 import { useSelector } from 'react-redux';
+import axios from 'axios'
+import { getAccessToken } from '../../redux/userReducer';
 
 function Student (props)  {
+
+    const [isActive,setIsActive] = useState(props.student.activated);
+
+
     const userInfo= useSelector((state)=>state.userReducer.userInfo)
+
+    const baseurl = process.env.REACT_APP_API_URL;
+
+    axios.defaults.baseURL=baseurl;
+  
+    axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+
+    async function enableDisableUserAccount (value)  {
+
+
+        console.log("enable disable account",value)
+        //isLoading = true;
+        //AXIOS
+        try {
+          const result=await axios.post(`/user/${value.id}/changeActiveStatu`);
+          if (result.status === 200) {
+    
+            setIsActive(!isActive)
+            message.success("Enable disable account successfully");
+
+
+          } else {
+            message.error("error");
+          }
+        } catch (e) {
+          message.error("error");
+        } finally {
+          //isLoading = false;
+        }
+      };
+
+
     return (
     <>
         <Card title={<>
@@ -35,7 +73,8 @@ function Student (props)  {
                     <Switch
                         checkedChildren={<CheckOutlined />}
                         unCheckedChildren={<CloseOutlined />}
-                        defaultChecked
+                        checked={isActive}
+                        onClick={() => enableDisableUserAccount(props.student)}
                     />
 
                     <div ><Button > Reset password </Button>   </div> 
