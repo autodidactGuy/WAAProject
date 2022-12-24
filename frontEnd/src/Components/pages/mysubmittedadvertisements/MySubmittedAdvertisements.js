@@ -55,11 +55,11 @@ function MySubmittedAdvertisements() {
     },
     {
       title: 'Tags',
-      key: 'tags',
-      dataIndex: 'tags',
-      render: (_, { tags }) => (
+      key: 'Tags',
+      dataIndex: 'Tags',
+      render: (_, { Tags }) => (
         <>
-          {tags.map((tag) => {
+          {Tags.map((tag) => {
             let color = 'geekblue';
             return (
               <Tag color={color} key={tag.id}>

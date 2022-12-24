@@ -56,9 +56,9 @@ const AdvEdit = (props) => {
         setAllTags(convertResponse)
         let tempMyTags = [];
 
-        convertResponse.forEach(tag => {if(tag.isSubscribed){tempMyTags.push(tag.title)}})
-        console.log('my temps tags', tempMyTags)
-        setAdvTags(tempMyTags)
+        //convertResponse.forEach(tag => {if(tag.isSubscribed){tempMyTags.push(tag.title)}})
+        console.log('adv tags', props.adv.Tags)
+        setAdvTags(props.adv.Tags)
     }
     else{
 

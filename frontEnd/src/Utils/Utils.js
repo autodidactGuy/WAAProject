@@ -99,7 +99,7 @@ export const advFromAPI2Front=(adv)=>{
         CompanyName: adv.companyName,
         Description:adv.description,
         src:"",
-        tags:convertApiTagsToFront(adv.tags),
+        Tags:convertApiTagsToFront(adv.tags),
         Workload: adv.workload,
         Contract: adv.contract,
         location: [adv.city?.id?.stateCode, adv.city?.id?.cityName]
