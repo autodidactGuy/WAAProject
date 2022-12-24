@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Button, List, Select } from 'antd';
+import { Avatar, Button, List, Select, message } from 'antd';
 import axios from 'axios';
 import { getAccessToken } from '../../redux/userReducer';
 //import { workExperienceData } from '../../Data/WorkExperienceData'
@@ -7,18 +7,47 @@ import { getAccessToken } from '../../redux/userReducer';
 import { useDispatch, useSelector } from "react-redux";
 import { convertListTagsApiToFront } from '../../Utils/Utils';
 
-const handleChange = (value) => {
-  console.log(`selected ${value}`);
-};
+
 
 const UserTags = () =>
 {
+  const [allTags,setAllTags] = useState([]);
   const [myTags,setMyTags] = useState([]);
   const baseurl = process.env.REACT_APP_API_URL;
 
   axios.defaults.baseURL=baseurl;
 
   axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+
+
+  async function handleChangeMyTags (value)  {
+    let tagsToSend = []
+    allTags.forEach(tag => {
+      if(value.includes(tag.title))
+      {
+        tagsToSend.push({id: tag.id, title: tag.title, isSubscribed:true})
+      }
+      else 
+      {
+        tagsToSend.push({id: tag.id, title: tag.title, isSubscribed:false})
+      }
+    })
+    //isLoading = true;
+    //AXIOS
+    try {
+      const result=await axios.post(`/user/subscribTags`, {tags: tagsToSend});
+      if (result.status === 200) {
+        message.success("tags updated successfully");
+      } else {
+        message.error("error");
+      }
+    } catch (e) {
+      message.error("error");
+    } finally {
+      //isLoading = false;
+    }
+  };
+
   
 
 
@@ -27,7 +56,18 @@ const UserTags = () =>
         const response=await axios.get("/tag");
         const convertResponse = convertListTagsApiToFront(response.data)
         console.log('converted tag : ',convertResponse);
-        setMyTags(convertResponse)
+        setAllTags(convertResponse)
+        let tempMyTags = [];
+        // for (let i = 0; i < response.length; i++) {
+        //   let tmpTag = response[i];
+        //   if(tmpTag.isSubscribed)
+        //   {
+        //     tempMyTags.push(tmpTag.title);
+        //   }
+        // }
+        convertResponse.forEach(tag => {if(tag.isSubscribed){tempMyTags.push(tag.title)}})
+        
+        setMyTags(tempMyTags)
     }
     else{
 
@@ -35,12 +75,12 @@ const UserTags = () =>
 }
 
 useEffect(()=>{
-  if(myTags.length===0){
+  if(allTags.length===0){
     getTags();
   }
 
     
-},[myTags])
+},[allTags])
 
     return (
     
@@ -48,14 +88,14 @@ useEffect(()=>{
             <h1> Tags interrested in</h1>
             
             <Select
-                mode="tags"
+                mode="multiple"
                 style={{
                 width: '100%',
                 }}
-                placeholder="Tags Mode"
-                onChange={handleChange}
-                options={myTags}
-                
+                defaultValue={myTags}
+                placeholder="Select tags"
+                onChange={handleChangeMyTags}
+                options={allTags}
             />
         </div>
     );

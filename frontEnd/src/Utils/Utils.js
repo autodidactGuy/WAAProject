@@ -168,8 +168,9 @@ export const convertListAppliedJobApiToFront=(list)=>{
 
 export const convertTagApiToFront = (tag) => {
     return {
-            value: tag.id,
-            label: tag.title
+            value: tag.title,
+            label: tag.title,
+            ...tag
         }
     
 }
