@@ -44,6 +44,7 @@ public class AdNotification {
     public void informPosterNewStuApplied(){ }
 
 
+
     @AfterReturning(
             pointcut="informPosterNewStuApplied()",
             returning="retVal")
