@@ -43,6 +43,7 @@ public class AdNotification {
     @Pointcut("@annotation(edu.miu.alumni.aspects.annotation.InformPosterNewStuApplied)")
     public void informPosterNewStuApplied(){ }
 
+
     @AfterReturning(
             pointcut="informPosterNewStuApplied()",
             returning="retVal")
