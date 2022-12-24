@@ -4,11 +4,12 @@ import { getAccessToken } from '../../../redux/userReducer';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import Adv from '../../Advertisement/Adv';
 import { Button, Checkbox, Form, Input, Row, Col, Spin } from 'antd';
+import { useSelector } from 'react-redux';
 
 const Searchjob = () => {
 
   const [myAppliedJob,setMyAppliedJob] = useState([]);
-
+  const userInfo= useSelector((state)=>state.userReducer.userInfo)
 
   const baseurl = process.env.REACT_APP_API_URL;
 
@@ -20,8 +21,14 @@ const Searchjob = () => {
 
   const getJobs = async(searchFilters)=>{
     if(getAccessToken()!=null){
-      const myAppJobs = await getMyAppliedJobs();
-      setMyAppliedJob(myAppJobs)
+      let myAppJobs = []
+      if(userInfo.role[0].name==="STUDENT")
+      {
+        myAppJobs = await getMyAppliedJobs();
+        setMyAppliedJob(myAppJobs)
+      }
+
+
         setIsLoggedIn(true);
         console.log(searchFilters);
         const response=await axios.post("/jobAdvertisement/filterJobs",searchFilters);
