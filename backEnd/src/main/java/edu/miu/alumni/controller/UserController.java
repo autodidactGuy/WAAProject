@@ -75,12 +75,12 @@ public class UserController   extends BaseController<User, UserDto,Long> {
 
         String s = bs.resetPassword(newPassword);
         if(s.equals(Consts.RESET_PASSWORD_SUCCESS)){
-            ResponseEntity.ok().body(Consts.RESET_PASSWORD_SUCCESS);
+           return  ResponseEntity.ok().body(Consts.RESET_PASSWORD_SUCCESS);
         }
         if(s.equals(Consts.OLD_PASSWORD_IS_INCORRECT)){
            return  new ResponseEntity<String>(Consts.OLD_PASSWORD_IS_INCORRECT, HttpStatus.EXPECTATION_FAILED);
         }
-        return (ResponseEntity<String>) ResponseEntity.ok();
+        return  ResponseEntity.ok().body(Consts.RESET_PASSWORD_SUCCESS);
     }
 
     @PostMapping("/{id}/changeActiveStatu")
