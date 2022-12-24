@@ -29,7 +29,7 @@ public class JobExperience extends SoftDeleteBaseClass{
 
     private String company;
 
-    @Column(length = 800)
+//    @Column(length = 800)
     private String details;
 
     private boolean isDeleted;
