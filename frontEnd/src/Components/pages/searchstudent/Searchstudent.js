@@ -145,7 +145,7 @@ const onFinish = (values) => {
             <Col offset={1}>
               <h1>Students</h1>
               <Row >
-                  {students.map(student => <Col  key={student.id}  xs={24} sm={12} md={12} lg={8} xl={6}> <Student student={student} /> </Col>)}
+                  {students.map(student => <Col  key={student.id}  xs={24} sm={24} md={24} lg={24} xl={24}> <Student student={student} /> </Col>)}
               </Row>
             </Col>
             </Row>
