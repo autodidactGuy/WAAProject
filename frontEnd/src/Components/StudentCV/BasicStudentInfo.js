@@ -140,7 +140,7 @@ function BasicStudentInfo() {
 
     >
       <Form.Item
-        name="oldpassword"
+        name="oldPassword"
         label="Old Password"
         rules={[
           {
@@ -155,7 +155,7 @@ function BasicStudentInfo() {
 
 
       <Form.Item
-        name="password"
+        name="newPassword"
         label="New Password"
         rules={[
           {
@@ -171,7 +171,7 @@ function BasicStudentInfo() {
       <Form.Item
         name="confirm"
         label="Confirm New Password"
-        dependencies={['password']}
+        dependencies={['newPassword']}
         hasFeedback
         rules={[
           {
@@ -180,7 +180,7 @@ function BasicStudentInfo() {
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
-              if (!value || getFieldValue('password') === value) {
+              if (!value || getFieldValue('newPassword') === value) {
                 return Promise.resolve();
               }
               return Promise.reject(new Error('The two passwords that you entered do not match!'));
