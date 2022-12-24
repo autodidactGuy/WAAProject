@@ -44,6 +44,24 @@ function Student (props)  {
         }
       };
 
+      async function resetUserPassword (value)  {
+        console.log("reset user account password",value)
+        //isLoading = true;
+        //AXIOS
+        try {
+          const result=await axios.post(`/user/${value.id}/resetPassword`);
+          if (result.status === 200) {
+            message.success("user password reset successfully");
+          } else {
+            message.error("error");
+          }
+        } catch (e) {
+          message.error("error");
+        } finally {
+          //isLoading = false;
+        }
+      };
+
 
     return (
     <>
