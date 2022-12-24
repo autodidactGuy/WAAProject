@@ -42,7 +42,7 @@ const TenLastJobAdv = () => {
         <>
             <h1 style={{margin:'15px'}}> Top 10 Job Advertisements </h1>
             <Row>
-                {top10jobs.map(adv => <Col key={adv.id} xs={24} sm={12} md={12} lg={8} xl={6}> <Adv adv={adv} /> </Col>)}
+                {top10jobs.map(adv => <Col key={adv.id} xs={24} sm={24} md={24} lg={24} xl={24}> <Adv adv={adv} lockApply={true} /> </Col>)}
             </Row>
         </>
         :

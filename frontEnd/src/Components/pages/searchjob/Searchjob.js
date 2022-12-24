@@ -151,7 +151,7 @@ const onFinish = (values) => {
             <Col offset={1}>
               <h1>Jobs</h1>
               <Row >
-                  {jobs.map(job => <Col  key={job.id}  xs={24} sm={12} md={12} lg={8} xl={6}> <Adv adv={job} isApplied={ handleIsApplied(job) } /> </Col>)}
+                  {jobs.map(job => <Col  key={job.id}  xs={24} sm={24} md={24} lg={24} xl={24}> <Adv adv={job} isApplied={ handleIsApplied(job) } /> </Col>)}
               </Row>
             </Col>
             </Row>
