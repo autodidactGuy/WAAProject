@@ -115,7 +115,7 @@ public class JobAdvertisementServiceImpl
     }
 
     @Override
-    @InformPosterNewStuApplied
+//    @InformPosterNewStuApplied
     public JobAdvertisementDto save(JobAdvertisementDto ad) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
