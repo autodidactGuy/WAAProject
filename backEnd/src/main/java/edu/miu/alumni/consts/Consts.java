@@ -26,4 +26,6 @@ public class Consts {
     public static final String DEFUALT_PORT = ":8080";
 
     public static final String USER_LOCKED_INFO = "user attempt login failed over 5 times ";
+    public static final String RESET_PASSWORD_SUCCESS = "reset password success";
+    public static final String OLD_PASSWORD_IS_INCORRECT = "your password is not correct ";
 }

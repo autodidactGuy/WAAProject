@@ -6,6 +6,7 @@ import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.Role;
 import edu.miu.alumni.entity.Tag;
 import edu.miu.alumni.entity.User;
+import edu.miu.alumni.model.ResetPassword;
 import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
 import edu.miu.alumni.repository.TagRepository;
@@ -58,11 +59,20 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
 
     @Override
     @Transactional
-    public void resetPassword(String password) {
+    public String resetPassword(ResetPassword password) {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = repository.findUserByEmailEquals(name);
-        String encodedPassword = encoder.encode(password);
+        String databasePw = userByEmailEquals.getPassword();
+
+        boolean matches = encoder.matches(password.getOldPassword(), databasePw);
+
+        if(! encoder.matches(password.getOldPassword(), databasePw)){
+            return Consts.OLD_PASSWORD_IS_INCORRECT ;
+        }
+
+        String encodedPassword = encoder.encode(password.getNewPassword());
         userByEmailEquals.setPassword(encodedPassword);
+        return Consts.RESET_PASSWORD_SUCCESS;
     }
 
     @Override
