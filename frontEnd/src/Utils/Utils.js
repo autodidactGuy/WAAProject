@@ -126,11 +126,11 @@ export const advFromFront2API=(adv)=>{
             }
         },
         companyName:adv.CompanyName,
-        tags: [{id:1, title:'java', isSubscribed:true}]// adv.Tags
+        tags: [{id:1, title:'java', isSubscribed:false}]// adv.Tags
     }
 }
 
-export const advFromFront2APIWithId=(adv, id)=>{
+export const advFromFront2APIWithId=(adv, id, userId)=>{
     return {
         id:id,
         publicationDate: dateToString(adv.PublicationDate),
@@ -145,7 +145,8 @@ export const advFromFront2APIWithId=(adv, id)=>{
             }
         },
         companyName:adv.CompanyName,
-        tags: [{id:1, title:'java', isSubscribed:true}]// adv.Tags
+        tags: [{id:1, title:'java'}] ,// adv.Tags
+        poster: { id: userId }
     }
 }
 

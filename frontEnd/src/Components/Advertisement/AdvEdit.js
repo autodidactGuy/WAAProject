@@ -109,7 +109,7 @@ const AdvEdit = (props) => {
         else 
         {
             //Update
-            let advToUpdate=advFromFront2APIWithId(values.adv, props.adv.Id);
+            let advToUpdate=advFromFront2APIWithId(values.adv, props.adv.Id, userInfo.id);
 
             dispatch(updateAdvertisement(advToUpdate));
         }
