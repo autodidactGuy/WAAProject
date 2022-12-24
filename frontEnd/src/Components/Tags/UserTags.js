@@ -38,6 +38,7 @@ const UserTags = () =>
       const result=await axios.post(`/user/subscribTags`, {tags:value});
       if (result.status === 200) {
         message.success("tags updated successfully");
+        setMyTags(value)
       } else {
         message.error("error");
       }
@@ -66,7 +67,7 @@ const UserTags = () =>
         //   }
         // }
         convertResponse.forEach(tag => {if(tag.isSubscribed){tempMyTags.push(tag.title)}})
-        
+        console.log('my temps tags', tempMyTags)
         setMyTags(tempMyTags)
     }
     else{
@@ -92,7 +93,7 @@ useEffect(()=>{
                 style={{
                 width: '100%',
                 }}
-                defaultValue={myTags}
+                value={myTags}
                 placeholder="Select tags"
                 onChange={handleChangeMyTags}
                 options={allTags}
