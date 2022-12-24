@@ -1,10 +1,40 @@
 import React from 'react';
-import { Card, Col, Row, Avatar  } from 'antd';
+import { Card, Col, Row, Avatar, Button, message  } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { getAccessToken } from '../../redux/userReducer';
 
-const Adv = (props) => (
-    <>
+const Adv = (props) => {
+    const userInfo= useSelector((state)=>state.userReducer.userInfo)
+
+    const baseurl = process.env.REACT_APP_API_URL;
+
+    axios.defaults.baseURL=baseurl;
+  
+    axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+
+    async function handleApplyJob ()  {
+        //isLoading = true;
+        //AXIOS
+        try {
+          const result=await axios.get(`/userApplication/apply/${props.adv.id}`);
+          if (result.status === 200) {
+            message.success("Applyed successfully");
+          } else {
+            message.error("error");
+          }
+        } catch (e) {
+          message.error("error");
+        } finally {
+          //isLoading = false;
+        }
+      };
+
+
+    return (
+        <>
         <Card title={<>
 
 
@@ -25,12 +55,20 @@ const Adv = (props) => (
                     <div> Campany : {props.adv.companyName} </div>
                     <div> <EnvironmentOutlined /> {props.adv.city?.cityName}, {props.adv.city?.stateCode} </div>
                     <div className='oneLineText'> {props.adv.description} </div>
-
+                    {userInfo.role[0].name==="STUDENT" ?
+                        <div ><Button onClick={handleApplyJob}> Apply </Button>   </div>
+                    : 
+                    <></>
+                    }
                 </Col>
             </Row>
 
+
         </Card>
     </>
-);
+)
+    
+}
+    ;
 export default Adv;
 
