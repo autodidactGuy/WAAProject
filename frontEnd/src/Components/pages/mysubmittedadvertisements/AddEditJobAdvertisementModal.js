@@ -64,7 +64,7 @@ function AddEditJobAdvertisementModal(props) {
               Cancel
             </Button>]}
         >
-          <AdvEdit isAdd={props.isAdd}  />
+          <AdvEdit adv={props.adv} isAdd={props.isAdd}  />
           
         </Modal>
       </>

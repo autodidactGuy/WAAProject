@@ -74,7 +74,7 @@ function MySubmittedAdvertisements() {
       key: 'action',
       render: (_, record) => (
         <Space size="middle">
-          <AddEditJobAdvertisementModal isAdd = {false}   />
+          <AddEditJobAdvertisementModal adv ={record} isAdd = {false}   />
           <Popconfirm title="Sure to delete?" onConfirm={() => {dispatch(deleteAdvertisement(record.Id))}}>
             <Button icon={<DeleteOutlined/>} danger size='small'>Delete</Button>
           </Popconfirm>

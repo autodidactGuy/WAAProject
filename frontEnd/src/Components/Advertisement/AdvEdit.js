@@ -32,6 +32,11 @@ const AdvEdit = (props) => {
   const userInfo= useSelector((state)=>state.userReducer.userInfo);
   const dispatch = useDispatch();
   const locations = useSelector((state)=>state.locationReducer.locations)
+
+  const [form] = Form.useForm();
+
+
+
   const filter = 
   (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
@@ -42,6 +47,13 @@ const AdvEdit = (props) => {
     }
 
   },[])
+
+  const onFill = () => {
+
+    console.log('adv received ', props.adv)
+    form.setFieldsValue(props);
+  };
+
     const onFinish = (values) => {
         console.log("value:",values);
         if(props.isAdd)
@@ -63,13 +75,17 @@ const AdvEdit = (props) => {
         }
 
       };
+
+
+      onFill();
+
     return (
         <>
         <Row>
              <Col span={24} offset={0}>
             <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  Job advertisement </h1>
 
-            <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+            <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['adv', 'Title']} label="Job Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
