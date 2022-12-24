@@ -92,24 +92,25 @@ export const advFromAPI2Front=(adv)=>{
     
     return {
         Id: adv.id,
-        
         Title: adv.profile,
-        PublicationDate: adv.publicationDate,
+        PublicationDate: dateToString(adv.publicationDate),
         State: adv.city?.id?.stateCode,
         City: adv.city?.id?.cityName,
         CompanyName: adv.companyName,
         Description:adv.description,
         src:"",
         tags:adv.tags,
-
+        Workload: adv.workload,
+        Contract: adv.contract,
+        location: [adv.city?.id?.stateCode, adv.city?.id?.cityName]
     }
 }
 
 export const advFromFront2API=(adv)=>{
     return {
         publicationDate: dateToString(adv.PublicationDate),
-        workload:"123",
-        contract:"222",
+        workload:adv.Workload,
+        contract:adv.Contract,
         description:adv.Description,
         profile:adv.Title,
         city:{
@@ -118,7 +119,27 @@ export const advFromFront2API=(adv)=>{
                 stateCode:adv.location[0]
             }
         },
-        companyName:adv.CompanyName
+        companyName:adv.CompanyName,
+        tags: [{id:1, title:'java', isSubscribed:true}]// adv.Tags
+    }
+}
+
+export const advFromFront2APIWithId=(adv, id)=>{
+    return {
+        id:id,
+        publicationDate: dateToString(adv.PublicationDate),
+        workload:adv.Workload,
+        contract:adv.Contract,
+        description:adv.Description,
+        profile:adv.Title,
+        city:{
+            id:{
+                cityName:adv.location[1],
+                stateCode:adv.location[0]
+            }
+        },
+        companyName:adv.CompanyName,
+        tags: [{id:1, title:'java', isSubscribed:true}]// adv.Tags
     }
 }
 

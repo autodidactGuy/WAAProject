@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
-import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader   } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader, Select   } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { addAdvertisement, updateAdvertisement } from '../../redux/advertisementReducer';
 import { getLocations } from '../../redux/locationReducer';
-import { advFromFront2API } from './../../Utils/Utils';
+import { advFromFront2API, advFromFront2APIWithId, convertListTagsApiToFront } from './../../Utils/Utils';
+import { message } from 'antd';
+import { getAccessToken } from '../../redux/userReducer';
+import axios from 'axios';
 
 
 const layout = {
@@ -29,9 +32,36 @@ const layout = {
   };
 
 const AdvEdit = (props) => {
+  const baseurl = process.env.REACT_APP_API_URL;
+
+  axios.defaults.baseURL=baseurl;
+
+  axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+
+  const [allTags,setAllTags] = useState([]);
+  const [advTags,setAdvTags] = useState([]);
   const userInfo= useSelector((state)=>state.userReducer.userInfo);
   const dispatch = useDispatch();
   const locations = useSelector((state)=>state.locationReducer.locations)
+
+  const getTags = async()=>{
+    if(getAccessToken()!=null){
+        const response=await axios.get("/tag");
+        const convertResponse = convertListTagsApiToFront(response.data)
+        console.log('converted tag : ',convertResponse);
+        setAllTags(convertResponse)
+        let tempMyTags = [];
+
+        convertResponse.forEach(tag => {if(tag.isSubscribed){tempMyTags.push(tag.title)}})
+        console.log('my temps tags', tempMyTags)
+        setAdvTags(tempMyTags)
+    }
+    else{
+
+    }
+}
+
+
 
   const [form] = Form.useForm();
 
@@ -44,6 +74,15 @@ const AdvEdit = (props) => {
   useEffect(()=>{
     if(locations.length===0){
       dispatch(getLocations());
+
+    }
+
+    if(allTags.length ===0){
+      getTags();
+    }
+
+    if(!props.isAdd){
+      onFill();
     }
 
   },[])
@@ -55,7 +94,6 @@ const AdvEdit = (props) => {
   };
 
     const onFinish = (values) => {
-        console.log("value:",values);
         if(props.isAdd)
         {
             //Add
@@ -67,17 +105,22 @@ const AdvEdit = (props) => {
         else 
         {
             //Update
-            const advToUpdate={
-              ...values.adv,
-              id:props.item.id
-            };
+            let advToUpdate=advFromFront2APIWithId(values.adv, props.adv.Id);
+
             dispatch(updateAdvertisement(advToUpdate));
         }
 
       };
 
+      async function handleChangeAdvTags (value)  {
 
-      onFill();
+            setAdvTags(value)
+
+      };
+
+
+
+
 
     return (
         <>
@@ -110,10 +153,27 @@ const AdvEdit = (props) => {
                 <Form.Item name={['adv', 'CompanyName']} label="CompanyName" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
+                <Form.Item name={['adv', 'Workload']} label="Workload" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
+                <Form.Item name={['adv', 'Contract']} label="Contract" rules={[{ required: true }]}>
+                    <Input />
+                </Form.Item>
                 <Form.Item name={['adv', 'Description']} label="Description" rules={[{ required: true }]}>
                     <Input.TextArea />
                 </Form.Item>
-
+                <Form.Item name={['adv', 'Tags']} label="Tags" >
+                    <Select
+                    mode="multiple"
+                    style={{
+                    width: '100%',
+                    }}
+                    value={advTags}
+                    placeholder="Select tags"
+                    onChange={handleChangeAdvTags}
+                    options={allTags}
+            />
+                </Form.Item>
                 <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
                     <Button type="primary" htmlType="submit">
                         { props.isAdd ? "Add " : "Update " }

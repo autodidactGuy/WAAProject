@@ -43,7 +43,16 @@ function MySubmittedAdvertisements() {
       dataIndex: 'City',
       key: 'city',
     },
-    
+    {
+      title: 'Workload',
+      dataIndex: 'Workload',
+      key: 'workload',
+    },
+    {
+      title: 'Contract',
+      dataIndex: 'Contract',
+      key: 'contract',
+    },
     {
       title: 'Tags',
       key: 'tags',
@@ -51,13 +60,10 @@ function MySubmittedAdvertisements() {
       render: (_, { tags }) => (
         <>
           {tags.map((tag) => {
-            let color = tag.length > 5 ? 'geekblue' : 'green';
-            if (tag === 'loser') {
-              color = 'volcano';
-            }
+            let color = 'geekblue';
             return (
               <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
+                {tag}
               </Tag>
             );
           })}
