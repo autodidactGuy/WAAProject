@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Col, Row, Avatar, Switch, Button, Space, Tooltip, message, Form, Input, Select } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Comment } from '@ant-design/compatible';   
@@ -11,6 +11,9 @@ import { Option } from 'antd/es/mentions';
 function Student (props)  {
 
     const [isActive,setIsActive] = useState(props.student.activated);
+
+    const [studentComments,setStudentComments] = useState([]);
+
     const [isLoadingResetPassword,setIsLoadingResetPassword] = useState(false);
 
     const userInfo= useSelector((state)=>state.userReducer.userInfo)
@@ -73,12 +76,12 @@ function Student (props)  {
       
 
 
-      async function getStudentComment (value)  {
+      async function getStudentComment ()  {
         //AXIOS
         try {
           const result=await axios.get(`/comment/getCommentsByStudentId/${props.student.id}`);
           if (result.status === 200) {
-            console.log('student comment', result.data)
+            setStudentComments(result.data)
           } else {
             message.error("get student comment error");
           }
@@ -96,7 +99,9 @@ function Student (props)  {
           const result=await axios.post(`/comment/saveComments`,{toStudentId:props.student.id, comment:value.comment});
           if (result.status === 200) {
             onReset();
-            message.success("user password reset successfully");
+            getStudentComment();
+            message.success("comment added successfully");
+
           } else {
             message.error("error");
           }
@@ -107,6 +112,10 @@ function Student (props)  {
         }
       };
 
+
+      useEffect(()=>{
+        getStudentComment();
+      },[]);
 
     return (
     <>
@@ -208,14 +217,16 @@ function Student (props)  {
                                     </Input.Group>
                                 </Form.Item>
                         </Form>
-                        <Comment
-                            author={<a>Han Solo</a>}
+                        {
+                          studentComments.map(c => {
+                            console.log('comment ',c);
+                            return (
+                            <Comment
+                            author={<div>Faculty id : {c.writedByFacultyId}</div>}
                             avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
                             content={
                                 <p>
-                                We supply a series of design principles, practical patterns and high quality design
-                                resources (Sketch and Axure), to help people create their product prototypes beautifully
-                                and efficiently.
+                                {c.comment}
                                 </p>
                             }
                             datetime={
@@ -224,6 +235,10 @@ function Student (props)  {
                                 </Tooltip>
                             }
                             />
+                            )
+                          })
+                        }
+                        
 
                      
                     </div> 
