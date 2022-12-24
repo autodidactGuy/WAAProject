@@ -166,6 +166,13 @@ export const convertUserApiToUserFront=(user)=>{
     };
 }
 
+export const convertApiTagToFrontV2=(tags) => 
+{
+    let result = [];
+    tags.forEach(tag => {result.push(tag.title)})
+    return result;
+}
+
 export const convertAppliedJobApiToFront=(appliedJob) => 
 {
     return 	{
@@ -174,12 +181,12 @@ export const convertAppliedJobApiToFront=(appliedJob) =>
 		Title: appliedJob.ja.profile,
 		PublicationDate: dateToString(),
         ApplicationDate: dateToString(), 
-		State: "State",
-		City: "City",
+        State: appliedJob.ja.city?.id?.stateCode,
+        City: appliedJob.ja.city?.id?.cityName,
 		CompanyName: appliedJob.ja.companyName,
 		Description: appliedJob.ja.description,
 		src:'',
-        tags:['CS','CV']
+        tags:convertApiTagToFrontV2(appliedJob.ja.tags)
 	}
 }
 
