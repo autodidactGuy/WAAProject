@@ -20,7 +20,8 @@ function Student (props)  {
     axios.defaults.baseURL=baseurl;
   
     axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
-    const [form] = Form.useForm();
+    const [form]  = Form.useForm();
+    const [formComment] = Form.useForm();
     const onReset = () => {
         form.resetFields();
       };
@@ -92,7 +93,7 @@ function Student (props)  {
         setIsLoadingResetPassword(true)
         //AXIOS
         try {
-          const result=await axios.post(`/user/${props.student.id}/resetPassword`,value);
+          const result=await axios.post(`/comment/saveComments`,{toStudentId:props.student.id, comment:value.comment});
           if (result.status === 200) {
             onReset();
             message.success("user password reset successfully");
@@ -178,7 +179,7 @@ function Student (props)  {
                     {userInfo.role[0].name==="FACULTY" ?
 
                         <div> 
-                        <Form form={form} onFinish={addComment} name="addcomment" >
+                        <Form form={formComment} onFinish={addComment} name="addcomment" >
                         <Form.Item >
                                     <Input.Group compact>
                                     <Form.Item
@@ -202,7 +203,7 @@ function Student (props)  {
                                         name="reset"
                                         noStyle
                                     >
-                                        <Button loading={isLoadingResetPassword} type="primary" htmlType="submit" className="login-form-button"> reset password </Button>
+                                        <Button type="primary" htmlType="submit" className="login-form-button"> Add comment </Button>
                                     </Form.Item>
                                     </Input.Group>
                                 </Form.Item>
