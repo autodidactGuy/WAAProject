@@ -7,6 +7,9 @@ import { Button, Checkbox, Form, Input, Row, Col, Spin } from 'antd';
 
 const Searchjob = () => {
 
+  const [myAppliedJob,setMyAppliedJob] = useState([]);
+
+
   const baseurl = process.env.REACT_APP_API_URL;
 
   axios.defaults.baseURL=baseurl;
@@ -17,14 +20,36 @@ const Searchjob = () => {
 
   const getJobs = async(searchFilters)=>{
     if(getAccessToken()!=null){
+      const myAppJobs = await getMyAppliedJobs();
+      setMyAppliedJob(myAppJobs)
         setIsLoggedIn(true);
         console.log(searchFilters);
         const response=await axios.post("/jobAdvertisement/filterJobs",searchFilters);
         setJobs(response.data);
+
     }
     else{
 
     }
+}
+
+
+const getMyAppliedJobs = async()=>{
+  if(getAccessToken()!=null){
+    const response = await axios.get(baseurl+'/userApplication/getAppliedJobs',
+    {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+         }
+    }
+    ); 
+
+    return response.data
+    
+  }
+  else{
+    return []
+  }
 }
 
 const [jobs,setJobs] = useState([]);
@@ -53,6 +78,14 @@ const onFinish = (values) => {
   getJobs(searchJobs);
 
   };
+
+  const handleIsApplied = (job) => 
+  {
+    let result = myAppliedJob.filter(m => m.ja.id === job.id).length > 0
+    console.log('job ', job)
+    console.log('myappliedjob ', myAppliedJob)
+    return result
+  }
 
   return (
     <div>
@@ -111,7 +144,7 @@ const onFinish = (values) => {
             <Col offset={1}>
               <h1>Jobs</h1>
               <Row >
-                  {jobs.map(job => <Col  key={job.id}  xs={24} sm={12} md={12} lg={8} xl={6}> <Adv adv={job} /> </Col>)}
+                  {jobs.map(job => <Col  key={job.id}  xs={24} sm={12} md={12} lg={8} xl={6}> <Adv adv={job} isApplied={ handleIsApplied(job) } /> </Col>)}
               </Row>
             </Col>
             </Row>
