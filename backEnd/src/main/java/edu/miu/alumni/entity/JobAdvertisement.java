@@ -28,6 +28,7 @@ public class JobAdvertisement extends SoftDeleteBaseClass{
 
     private  String contract;
 
+//    @Column(length = 700)
     private  String description;
 
     private  String profile;

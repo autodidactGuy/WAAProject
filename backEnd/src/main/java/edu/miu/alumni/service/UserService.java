@@ -3,6 +3,7 @@ package edu.miu.alumni.service;
 import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
+import edu.miu.alumni.model.ResetPassword;
 import edu.miu.alumni.model.UserFmcToken;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface UserService <T,H,A> extends BasicService<T,H,A> {
 
     void resetPassword(String password, long id);
 
-    void resetPassword(String password);
+    String resetPassword(ResetPassword password);
 
     void changeActiveStatu(long id);
 

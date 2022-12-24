@@ -3,13 +3,11 @@ package edu.miu.alumni.controller;
 import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
-import edu.miu.alumni.model.UserFmcToken;
-import edu.miu.alumni.model.LoginRequest;
-import edu.miu.alumni.model.SignupRequest;
-import edu.miu.alumni.model.UserSubscribTag;
+import edu.miu.alumni.model.*;
 import edu.miu.alumni.service.LoginService;
 import edu.miu.alumni.service.TagService;
 import edu.miu.alumni.service.UserService;
+import org.apache.coyote.Response;
 import org.apache.http.protocol.ResponseServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -73,8 +71,16 @@ public class UserController   extends BaseController<User, UserDto,Long> {
      * this function is for user reset themself password
      */
     @PostMapping("/resetPassword")
-    public void  resetselfPassword(@RequestBody String password){
-        bs.resetPassword(password);
+    public ResponseEntity<String>  resetselfPassword(@RequestBody ResetPassword newPassword){
+
+        String s = bs.resetPassword(newPassword);
+        if(s.equals(Consts.RESET_PASSWORD_SUCCESS)){
+           return  ResponseEntity.ok().body(Consts.RESET_PASSWORD_SUCCESS);
+        }
+        if(s.equals(Consts.OLD_PASSWORD_IS_INCORRECT)){
+           return  new ResponseEntity<String>(Consts.OLD_PASSWORD_IS_INCORRECT, HttpStatus.EXPECTATION_FAILED);
+        }
+        return  ResponseEntity.ok().body(Consts.RESET_PASSWORD_SUCCESS);
     }
 
     @PostMapping("/{id}/changeActiveStatu")

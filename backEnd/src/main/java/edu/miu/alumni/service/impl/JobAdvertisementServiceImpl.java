@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import edu.miu.alumni.aspects.annotation.InformPosterNewStuApplied;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -114,6 +115,7 @@ public class JobAdvertisementServiceImpl
     }
 
     @Override
+//    @InformPosterNewStuApplied
     public JobAdvertisementDto save(JobAdvertisementDto ad) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -121,6 +123,9 @@ public class JobAdvertisementServiceImpl
         Student studentByEmailEquals = studentRepostory.findStudentByEmailEquals(email);
         ja.setPoster(studentByEmailEquals);
         JobAdvertisement save = repository.save(ja);
+
+
+
         return modelMapper.map(save,JobAdvertisementDto.class);
     }
 }
