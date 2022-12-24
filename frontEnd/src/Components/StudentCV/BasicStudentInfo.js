@@ -70,10 +70,15 @@ function BasicStudentInfo() {
 
   async function resetMyPassword (value)  {
 
+    const valueToSend = {
+      newPassword: value.newPassword,
+      oldPassword: value.oldPassword
+    }
+
     //isLoading = true;
     //AXIOS
     try {
-      const result=await axios.post("/user/resetPassword",value);
+      const result=await axios.post("/user/resetPassword",valueToSend);
       if (result.status === 200) {
 
         setIsModalOpen(false);
@@ -89,7 +94,6 @@ function BasicStudentInfo() {
   };
 
   const onFinish = async(values) =>{
-    alert('onfinish')
     await resetMyPassword(values);
     };
 

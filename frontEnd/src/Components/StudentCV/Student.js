@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Card, Col, Row, Avatar, Switch, Button, Space, Tooltip, message } from 'antd';
+import { Card, Col, Row, Avatar, Switch, Button, Space, Tooltip, message, Form, Input, Select } from 'antd';
 import { EnvironmentOutlined, CalendarOutlined, UserOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons';
 import { Comment } from '@ant-design/compatible';   
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import axios from 'axios'
 import { getAccessToken } from '../../redux/userReducer';
+import { Option } from 'antd/es/mentions';
 
 function Student (props)  {
 
     const [isActive,setIsActive] = useState(props.student.activated);
-
+    const [isLoadingResetPassword,setIsLoadingResetPassword] = useState(false);
 
     const userInfo= useSelector((state)=>state.userReducer.userInfo)
 
@@ -19,6 +20,10 @@ function Student (props)  {
     axios.defaults.baseURL=baseurl;
   
     axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+    const [form] = Form.useForm();
+    const onReset = () => {
+        form.resetFields();
+      };
 
     async function enableDisableUserAccount (value)  {
 
@@ -46,11 +51,12 @@ function Student (props)  {
 
       async function resetUserPassword (value)  {
         console.log("reset user account password",value)
-        //isLoading = true;
+        setIsLoadingResetPassword(true)
         //AXIOS
         try {
-          const result=await axios.post(`/user/${value.id}/resetPassword`);
+          const result=await axios.post(`/user/${props.student.id}/resetPassword`,value);
           if (result.status === 200) {
+            onReset();
             message.success("user password reset successfully");
           } else {
             message.error("error");
@@ -58,7 +64,7 @@ function Student (props)  {
         } catch (e) {
           message.error("error");
         } finally {
-          //isLoading = false;
+            setIsLoadingResetPassword(false)
         }
       };
 
@@ -95,7 +101,37 @@ function Student (props)  {
                         onClick={() => enableDisableUserAccount(props.student)}
                     />
 
-                    <div ><Button > Reset password </Button>   </div> 
+                    <div>          
+                        <Form form={form} onFinish={resetUserPassword} name="resetpassword" >
+                        <Form.Item >
+                                    <Input.Group compact>
+                                    <Form.Item
+                                        name="password"
+                                        noStyle
+                                        rules={[
+                                        {
+                                            required: true,
+                                            message: 'new password required is required',
+                                        },
+                                        ]}
+                                    >
+                                        <Input.Password
+                                        style={{
+                                            width: '50%',
+                                        }}
+                                        placeholder="new password"
+                                        />
+                                    </Form.Item>
+                                    <Form.Item
+                                        name="reset"
+                                        noStyle
+                                    >
+                                        <Button loading={isLoadingResetPassword} type="primary" htmlType="submit" className="login-form-button"> reset password </Button>
+                                    </Form.Item>
+                                    </Input.Group>
+                                </Form.Item>
+                            </Form>
+                    </div> 
                     </div> 
                     : 
                     <></>
