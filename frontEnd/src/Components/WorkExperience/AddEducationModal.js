@@ -18,6 +18,7 @@ function AddEducationModal() {
     
 
   },[addEducationStatus])
+  
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);
