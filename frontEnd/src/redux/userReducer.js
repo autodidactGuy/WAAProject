@@ -68,14 +68,16 @@ export const appliedJobs = createAsyncThunk('education/myAppliedJobs', async () 
     const response = await axios.get(baseurl+'/userApplication/getAppliedJobs',
     {
         headers: {
-            'Authorization': `Bearer ${token}` 
+            'Authorization': `Bearer ${token}` ,
+            'Content-Type': 'multipart/form-data'
          }
-       }
+    }
     ); 
 
     return response.data;
 })
  
+
 
 
 const userSlice = createSlice({
@@ -88,7 +90,7 @@ const userSlice = createSlice({
     userInfo:getUserInfo(),
     isLogged:isLogged(),
     myAppliedJobs:[],
- 
+    isforgotPassword: false    
     },
     
     reducers:{
@@ -102,6 +104,9 @@ const userSlice = createSlice({
         },
         getUserInfo:(state)=>{
             state.userInfo=getUserInfo();
+        },
+        setIsforgotPassword:(state,action) => {
+            state.isforgotPassword = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -176,4 +181,4 @@ const userSlice = createSlice({
 
 
 export default userSlice.reducer;
-export const { logout } = userSlice.actions;
+export const { logout,  setIsforgotPassword} = userSlice.actions;

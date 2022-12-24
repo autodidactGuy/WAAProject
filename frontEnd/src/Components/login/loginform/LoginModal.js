@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal ,message } from 'antd';
 import LoginForm from './LoginForm';
+import { setIsforgotPassword } from '../../../redux/userReducer';
 import { useDispatch ,useSelector} from "react-redux";
  
 const LoginModal = () => {
+  const dispatch = useDispatch();
   const loginstatus = useSelector((state) => state.userReducer.loginstatus);
    
  
@@ -11,7 +13,6 @@ const LoginModal = () => {
     if(loginstatus==="success")
     {
       setIsModalOpen(false);
-      
     }
     
 
@@ -25,6 +26,7 @@ const LoginModal = () => {
     setIsModalOpen(false);
   };
   const handleCancel = () => {
+    dispatch(setIsforgotPassword(false))
     setIsModalOpen(false);
   };
   
