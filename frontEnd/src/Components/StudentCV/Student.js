@@ -69,6 +69,44 @@ function Student (props)  {
       };
 
 
+      
+
+
+      async function getStudentComment (value)  {
+        //AXIOS
+        try {
+          const result=await axios.get(`/comment/getCommentsByStudentId/${props.student.id}`);
+          if (result.status === 200) {
+            console.log('student comment', result.data)
+          } else {
+            message.error("get student comment error");
+          }
+        } catch (e) {
+          message.error("get student comment error");
+        } finally {
+        }
+      };
+
+      async function addComment (value)  {
+        console.log("comment to add",value)
+        setIsLoadingResetPassword(true)
+        //AXIOS
+        try {
+          const result=await axios.post(`/user/${props.student.id}/resetPassword`,value);
+          if (result.status === 200) {
+            onReset();
+            message.success("user password reset successfully");
+          } else {
+            message.error("error");
+          }
+        } catch (e) {
+          message.error("error");
+        } finally {
+            setIsLoadingResetPassword(false)
+        }
+      };
+
+
     return (
     <>
         <Card title={<>
@@ -130,7 +168,7 @@ function Student (props)  {
                                     </Form.Item>
                                     </Input.Group>
                                 </Form.Item>
-                            </Form>
+                        </Form>
                     </div> 
                     </div> 
                     : 
@@ -140,7 +178,35 @@ function Student (props)  {
                     {userInfo.role[0].name==="FACULTY" ?
 
                         <div> 
-                        <div ><Button > Add comment </Button>   </div>
+                        <Form form={form} onFinish={addComment} name="addcomment" >
+                        <Form.Item >
+                                    <Input.Group compact>
+                                    <Form.Item
+                                        name="comment"
+                                        noStyle
+                                        rules={[
+                                        {
+                                            required: true,
+                                            message: 'Comment is required',
+                                        },
+                                        ]}
+                                    >
+                                        <Input
+                                        style={{
+                                            width: '50%',
+                                        }}
+                                        placeholder="New comment"
+                                        />
+                                    </Form.Item>
+                                    <Form.Item
+                                        name="reset"
+                                        noStyle
+                                    >
+                                        <Button loading={isLoadingResetPassword} type="primary" htmlType="submit" className="login-form-button"> reset password </Button>
+                                    </Form.Item>
+                                    </Input.Group>
+                                </Form.Item>
+                        </Form>
                         <Comment
                             author={<a>Han Solo</a>}
                             avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}

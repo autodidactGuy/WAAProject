@@ -35,7 +35,7 @@ const UserTags = () =>
     //isLoading = true;
     //AXIOS
     try {
-      const result=await axios.post(`/user/subscribTags`, {tags: tagsToSend});
+      const result=await axios.post(`/user/subscribTags`, {tagsToSend});
       if (result.status === 200) {
         message.success("tags updated successfully");
       } else {
