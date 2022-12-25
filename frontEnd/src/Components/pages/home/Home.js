@@ -10,7 +10,7 @@ function Home() {
   return (
     <div>
       <Row>
-        <Col offset={1}>
+        <Col span={23} offset={1}>
           <TenLastJobAdv />
           <br/>
           <ECharts/>

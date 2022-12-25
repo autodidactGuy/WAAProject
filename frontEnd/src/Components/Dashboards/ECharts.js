@@ -30,47 +30,25 @@ function ECharts() {
 
 
   const getJobsPerLocation = async()=>{
-        if(getAccessToken()!=null){
-            setIsLoggedIn(true);
-            const response=await axios.get("/echart/getJobAdvertisementsPerLocation");
-            setJobsPerLocation(response.data);
-        }
-        else{
-
-        }
+        const response=await axios.get("/echart/getJobAdvertisementsPerLocation");
+        setJobsPerLocation(response.data);
     }
 
     const getStudentsPerState = async()=>{
-        if(getAccessToken()!=null){
-            setIsLoggedIn(true);
             const response=await axios.get("/echart/getStudentsNumberPerState");
             setStudentsPerState(response.data);
-        }
-        else{
-
-        }
     }
 
     const getStudentsPerCity = async()=>{
-        if(getAccessToken()!=null){
-            setIsLoggedIn(true);
-            const response=await axios.get("/echart/getStudentsNumberPerCity?stateCode=PR");
-            setStudentsPerCity(response.data);
-        }
-        else{
-
-        }
+        const response=await axios.get("/echart/getStudentsNumberPerCity?stateCode=PR");
+        setStudentsPerCity(response.data);
     }
 
 
 
   return (
 
-    
-        (loginstatus)
-        ?
-        
-        <Row className='charts'>
+        <Row className='charts' >
         <Col span={11}>
             <SampleEchart title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
         </Col>
@@ -81,9 +59,6 @@ function ECharts() {
         <SampleEchart title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
         </Col>
         </Row>
-        :
-        <>
-        </>
     
     
   )
