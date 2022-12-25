@@ -13,7 +13,19 @@ public class FirebaseMessageService {
         this.firebaseMessaging = firebaseMessaging;
     }
 
+    public void sendNotificationToTopic(String title, String body, String topic) throws FirebaseMessagingException{
+        Notification notification = Notification
+                .builder()
+                .setTitle(title)
+                .setBody(body)
+                .build();
+        Message message = Message.builder()
+        .setNotification(notification)
+        .setTopic(topic)
+        .build();
 
+        String response = FirebaseMessaging.getInstance().send(message);
+    }
     public void sendNotification(String title, String body, String token) throws FirebaseMessagingException {
 
         Notification notification = Notification

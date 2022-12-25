@@ -9,11 +9,15 @@ import edu.miu.alumni.repository.CityRepository;
 import edu.miu.alumni.repository.JobAdvertisementRepository;
 import edu.miu.alumni.repository.StudentRepository;
 import edu.miu.alumni.repository.UserRepository;
+import edu.miu.alumni.service.FirebaseMessageService;
 import edu.miu.alumni.service.JobAdvertisementService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.google.firebase.messaging.FirebaseMessagingException;
+
 import edu.miu.alumni.aspects.annotation.InformPosterNewStuApplied;
 
 import java.math.BigInteger;
@@ -33,6 +37,10 @@ public class JobAdvertisementServiceImpl
     private StudentRepository studentRepostory;
     @Autowired
     private CityRepository cityRepository;
+
+    @Autowired
+    private FirebaseMessageService firebaseMessageService;
+
     public JobAdvertisementServiceImpl(JobAdvertisementRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }
@@ -120,7 +128,17 @@ public class JobAdvertisementServiceImpl
 
         JobAdvertisement save = repository.save(ja);
 
+        List<Tag> tags=ja.getTags();
 
+        for(Tag t:tags){
+            try{
+                firebaseMessageService.sendNotificationToTopic("New Job Posted","A job is posted for your concerned tag: "+t.getTitle(),t.getTitle());
+            }
+            catch(FirebaseMessagingException ex){
+
+            }
+            
+        }
 
         return modelMapper.map(save,JobAdvertisementDto.class);
     }
