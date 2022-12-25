@@ -106,7 +106,7 @@ function BasicStudentInfo() {
   console.log("user in of : ",userInfo)
   return (
     <div style={{textAlign:"center"}}>
-      <Avatar size={64} icon={<UserOutlined />} />
+      <Avatar size={64} src={userInfo.srcLogo} icon={<UserOutlined />} />
       <div> {userInfo.firstName}, {userInfo.lastName}  </div>
       <div>age : {Moment().diff(userInfo.birthday, 'years')}</div>
       <div><PhoneOutlined />phone number : {userInfo.phoneNumber} </div>
