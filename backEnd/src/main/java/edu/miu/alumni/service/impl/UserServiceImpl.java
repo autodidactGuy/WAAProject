@@ -102,6 +102,7 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     public void subscribTags(List<String> tags) {
 
         User user = currentLoginUser();
+        repository.deleteTags(user.getId());
         for(String tagName:tags){
             Tag byTitleEquals = tagRepository.findByTitleEquals(tagName);
             if(user.getInterstedTags().contains(byTitleEquals)){

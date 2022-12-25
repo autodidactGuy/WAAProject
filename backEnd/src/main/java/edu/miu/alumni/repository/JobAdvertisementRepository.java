@@ -59,4 +59,9 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
      @Query(value = "INSERT INTO tag_job_advertisement(tags_id, job_advertisement_id) VALUES (:tagId,:advertisementId)",nativeQuery = true)
      @Transactional
      Integer  subscribeAdvTags(Long advertisementId,Long tagId);
+
+     @Modifying
+     @Query(value = "DELETE FROM tag_job_advertisement WHERE job_advertisement_id = :advertisementId",nativeQuery = true)
+     @Transactional
+     Integer  deleteAdvTags(Long advertisementId);
 }

@@ -22,6 +22,12 @@ public interface UserRepository extends CrudRepository<User,Long> {
     Integer  subscribeTags(Long userId,Long tagId);
 
 
+    @Modifying
+    @Query(value = "DELETE FROM tag_intersted_in_users WHERE intersted_in_users_id = :userId",nativeQuery = true)
+    @Transactional
+    Integer  deleteTags(Long userId);
+
+
 
 
 }

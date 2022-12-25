@@ -143,4 +143,20 @@ public class JobAdvertisementServiceImpl
 
         return modelMapper.map(save,JobAdvertisementDto.class);
     }
+
+    @Override
+    public void update(JobAdvertisementDto ad, Long id) {
+
+        JobAdvertisement ja = modelMapper.map(ad, JobAdvertisement.class);
+        repository.save(ja);
+
+        repository.deleteAdvTags(id);
+
+        List<Tag> list=ja.getTags();
+        for(int i=0;i<list.size();i++){
+            repository.subscribeAdvTags(ja.getId(),list.get(i).getId());
+        }
+
+    }
+
 }
