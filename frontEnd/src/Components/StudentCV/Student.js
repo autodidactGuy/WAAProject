@@ -224,16 +224,16 @@ function Student (props)  {
                             console.log('comment ',c);
                             return (
                             <Comment
-                            author={<div>Faculty id : {c.writedByFacultyId}</div>}
-                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" alt="Han Solo" />}
+                            author={<div>Faculty : {c.writedByFactultyName}</div>}
+                            avatar={<Avatar src={c.writedByFactultyAvatar} icon={<UserOutlined />} alt="Han Solo" />}
                             content={
                                 <p>
                                 {c.comment}
                                 </p>
                             }
                             datetime={
-                                <Tooltip title="2016-11-22 11:22:33">
-                                <span>8 hours ago</span>
+                                <Tooltip title={c.createdAt}>
+                                  <span>{moment(c.createdAt).fromNow()}</span>
                                 </Tooltip>
                             }
                             />

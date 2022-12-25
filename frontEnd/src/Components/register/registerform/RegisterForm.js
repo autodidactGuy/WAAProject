@@ -90,7 +90,6 @@ const RegisterForm = () => {
     {
       let currentFile = newFileList[0];
       let blobLogo = await getBase64(currentFile.originFileObj);
-
       setSrcLogo(blobLogo)
       //thumbUrl
     } 
@@ -181,8 +180,8 @@ const RegisterForm = () => {
       scrollToFirstError
     >
       
-      <Form.Item name={['adv', 'srcLogo']} label="Company logo" >
-      <ImgCrop rotate minZoom={0.3}>
+      <Form.Item name={['adv', 'srcLogo']} label="User Avatar" >
+                <ImgCrop rotate minZoom={0.3}>
                 <Upload
                       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                       listType="picture-card"
@@ -192,6 +191,7 @@ const RegisterForm = () => {
                     >
                       {fileList.length >= 1 ? null : uploadButton}
                     </Upload>
+                    </ImgCrop>
                     <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                       <img
                         alt="example"
@@ -201,7 +201,7 @@ const RegisterForm = () => {
                         src={previewImage}
                       />
                     </Modal>
-                    </ImgCrop>
+
                 </Form.Item>
 
 

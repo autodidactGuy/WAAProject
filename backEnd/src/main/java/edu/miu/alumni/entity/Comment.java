@@ -1,8 +1,10 @@
 package edu.miu.alumni.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -15,6 +17,8 @@ public class Comment extends SoftDeleteBaseClass{
 
     private String comment;
 
+    @CreationTimestamp
+    private Date createdAt;
     @OneToOne
     private Faculty writedBy;
 
