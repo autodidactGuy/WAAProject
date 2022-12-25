@@ -143,7 +143,7 @@ public class LoginServiceImpl implements LoginService {
                 signUpRequest.getFirstname(),signUpRequest.getLastname(),
                 signUpRequest.getBirthday(),signUpRequest.getGender(),
                 signUpRequest.getNickname(),signUpRequest.getPhone()
-        );;
+        );
 
         String role = signUpRequest.getRole();
         List<Role> roles = new ArrayList<>();

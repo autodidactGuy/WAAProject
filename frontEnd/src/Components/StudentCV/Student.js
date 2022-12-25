@@ -53,11 +53,17 @@ function Student (props)  {
       };
 
       async function resetUserPassword (value)  {
+
         console.log("reset user account password",value)
+
+        const req={
+          "newPassword": value.password
+        }
+
         setIsLoadingResetPassword(true)
         //AXIOS
         try {
-          const result=await axios.post(`/user/${props.student.id}/resetPassword`,value);
+          const result=await axios.post(`/user/${props.student.id}/resetPassword`,req);
           if (result.status === 200) {
             onReset();
             message.success("user password reset successfully");
@@ -241,8 +247,6 @@ function Student (props)  {
                           })
                         }
                         
-
-                     
                     </div> 
                     : 
                     <></>

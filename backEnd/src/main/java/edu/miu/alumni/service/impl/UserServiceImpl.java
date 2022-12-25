@@ -18,8 +18,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.TopicManagementResponse;
+
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -109,6 +114,16 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
                continue;
             }
             repository.subscribeTags(user.getId(), byTitleEquals.getId());
+
+            //can implement AOP but dont have enough time for this
+            // try{
+            //     List<String> registrationTokens = Arrays.asList(user.getFcm_token());
+            //     TopicManagementResponse response = FirebaseMessaging.getInstance().subscribeToTopic(registrationTokens, byTitleEquals.getTitle());
+            // }
+            // catch(FirebaseMessagingException ex){
+            //     System.out.println(ex.getMessage());
+            // }
+            
         }
     }
 

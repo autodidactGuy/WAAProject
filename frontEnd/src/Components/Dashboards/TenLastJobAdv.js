@@ -20,14 +20,8 @@ const TenLastJobAdv = () => {
 
 
     const getJobs = async()=>{
-        if(getAccessToken()!=null){
-            setIsLoggedIn(true);
-            const response=await axios.get("/jobAdvertisement/top10Advertisement");
-            setTop10Jobs(response.data);
-        }
-        else{
-
-        }
+        const response=await axios.get("/jobAdvertisement/top10Advertisement");
+        setTop10Jobs(response.data);
     }
 
     const [top10jobs,setTop10Jobs] = useState([]);
@@ -47,7 +41,7 @@ const TenLastJobAdv = () => {
         </>
         :
         <>
-            <h1 style={{margin:'15px',textAlign:'center'}}> Please login to view </h1>
+            
         </>
     );
     
