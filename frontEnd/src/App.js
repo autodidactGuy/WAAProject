@@ -20,6 +20,7 @@ import MyAppliedJobs from './Components/pages/myappliedjobs/MyAppliedJobs';
 import Home from './Components/pages/home/Home';
 import Searchjob from './Components/pages/searchjob/Searchjob';
 import Searchstudent from './Components/pages/searchstudent/Searchstudent';
+import ResetPassword from './Components/Connection/ResetPassword';
 
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
@@ -81,6 +82,7 @@ const App = () => {
         <Route path={"/myappliedjobs"} element={<MyAppliedJobs/>} /> 
         <Route path={"/searchJobs"} element={<Searchjob/>} /> 
         <Route path={"/searchstudent"} element={<Searchstudent/>} /> 
+        <Route path={"/resetpassword/:token"} element={<ResetPassword/>} /> 
         
 
 

@@ -4,6 +4,7 @@ import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
 import edu.miu.alumni.entity.Validate;
+import edu.miu.alumni.model.ForgotPassword;
 import edu.miu.alumni.repository.EducationRepository;
 import edu.miu.alumni.repository.ValidateRepository;
 import edu.miu.alumni.service.UserService;
@@ -59,16 +60,16 @@ public class ValidateServiceImpl extends  BasicServiceImpl<Validate,Validate,Lon
         passwordResetEmail.setFrom(from);
         passwordResetEmail.setTo(email);
         passwordResetEmail.setSubject("alumin system reset password");
-        passwordResetEmail.setText("you are trying to reset password,please click the link below: \n" + appUrl + "/validate/reset?token=" + validate.getResetToken());
+        passwordResetEmail.setText("you are trying to reset password,please click the link below: \n" + appUrl + "/resetpassword/" + validate.getResetToken());
         sendPasswordResetEmail(passwordResetEmail);
     }
 
     @Override
-    public void resetPasswordByResetToken(String token) {
-        Validate byResetToken = repository.findByResetToken(token);
+    public void resetPasswordByResetToken(ForgotPassword forgotPassword) {
+        Validate byResetToken = repository.findByResetToken(forgotPassword.getToken());
         Long userId = byResetToken.getUserId();
 
-        userService.resetPassword(Consts.INITIAL_PASSWORD,userId);
+        userService.resetPassword(forgotPassword.getNewPassword(),userId);
     }
 
 

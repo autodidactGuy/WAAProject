@@ -59,8 +59,19 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     public void resetPassword(String password, long id) {
         User user = repository.findById(id).get();
         String encodedPassword = encoder.encode(password);
+
+        String encodedPasswordToto = encoder.encode("toto");
+        String encodedPasswordInDatabase = user.getPassword();
+
+        boolean matcheAdmin = encoder.matches("toto",encodedPasswordToto);
+        boolean matcheUser = encoder.matches("toto",encodedPasswordInDatabase);
+
         user.setPassword(encodedPassword);
-    }
+        user.setAccessFailedCount(0);
+        user.setLockedTime(null);
+        user.setLockoutEnd(true);
+        //repository.save(user);
+     }
 
     @Override
     @Transactional

@@ -4,6 +4,7 @@ import edu.miu.alumni.consts.Consts;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
 import edu.miu.alumni.entity.Validate;
+import edu.miu.alumni.model.ForgotPassword;
 import edu.miu.alumni.service.UserService;
 import edu.miu.alumni.service.ValidateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,20 @@ public class ValidateController  {
     public ResponseEntity<?> sendValidationEmail(@RequestParam("email") String email,
                                               HttpServletRequest request){
         User userByEmail = userService.getUserByEmail(email);
-        String appUrl = request.getScheme() + "://" + request.getServerName()+Consts.DEFUALT_PORT;
+
+        String appUrl ="";
+        String scheme = request.getScheme();
+        if(scheme=="http")
+        {
+            //Dev environment
+            appUrl = request.getScheme() + "://" + request.getServerName()+":3000";
+        }
+        else
+        {
+            // Prod environment
+            appUrl = "https://waa.bhtechnology.fr";
+        }
+
         if (userByEmail == null){
             return    new  ResponseEntity<>("user email not valid", HttpStatus.NOT_FOUND);
         }
@@ -40,14 +54,14 @@ public class ValidateController  {
         return new ResponseEntity<>("sucessfully send email",HttpStatus.OK);
     }
 
-    @GetMapping(value = "/reset")
-    public ResponseEntity<?> giveResetedPasword(@RequestParam String token){
+    @PostMapping(value = "/reset")
+    public ResponseEntity<?> giveResetedPasword(@RequestBody ForgotPassword forgotPassword){
 //        User userByEmail = userService.getUserByEmail(email);
 //        String appUrl = request.getScheme() + "://" + request.getServerName();
 //        if (userByEmail == null){
 //            return    new  ResponseEntity<>("user email not valid", HttpStatus.NOT_FOUND);
 //        }
-        validateService.resetPasswordByResetToken(token);
+        validateService.resetPasswordByResetToken(forgotPassword);
 
         return new ResponseEntity<>("you have success reset the password to "+ Consts.INITIAL_PASSWORD,HttpStatus.OK);
     }

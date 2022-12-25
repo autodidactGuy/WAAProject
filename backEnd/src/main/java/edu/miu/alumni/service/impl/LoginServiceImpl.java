@@ -64,20 +64,24 @@ public class LoginServiceImpl implements LoginService {
         LoginResponse loginResponse1 = checkifUserIsLocked(loginResponse, userByEmailEquals1);
         if (loginResponse1 != null) return loginResponse1;
 
-            boolean match = encoder.matches(loginRequest.getPassword(), userByEmailEquals1.getPassword());
-            if(!match) {
-                log.info("Bad Credentials");
-                //caculate the user attempt faied times;
-                loginResponse.setErrorMeg(Consts.INVALIE_USER_OR_PASSWORD);
-                String email = loginRequest.getEmail();
-                try {
-                    increateFaiedAttemptTime(loginResponse, email);
-                } catch (Exception ei) {
-                    return loginResponse;
-                }
+        try {
+            var result = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),
+                            loginRequest.getPassword())
+
+            );
+        } catch (BadCredentialsException e) {
+            log.info("Bad Credentials");
+            //caculate the user attempt faied times;
+            loginResponse.setErrorMeg(Consts.INVALIE_USER_OR_PASSWORD);
+            String email = loginRequest.getEmail();
+            try{
+                increateFaiedAttemptTime(loginResponse, email);
+            }catch (Exception ei){
                 return loginResponse;
             }
-
+            return loginResponse;
+        }
 
 
         clearFailedAttemptTimes(userByEmailEquals1);

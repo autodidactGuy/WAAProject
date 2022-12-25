@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class ResetPassword {
+public class ForgotPassword {
 
     private String oldPassword;
     private String newPassword;
