@@ -3,9 +3,12 @@ package edu.miu.alumni.repository;
 import edu.miu.alumni.entity.JobAdvertisement;
 import edu.miu.alumni.model.echarts.AdertisementsPerTag;
 import edu.miu.alumni.model.echarts.JobAdvertisementsPerLocation;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import  java.util.*;
 @Repository
 public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisement,Long> {
@@ -52,4 +55,8 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
     Object[][] getAdsPerMonth();
 
 
+     @Modifying
+     @Query(value = "INSERT INTO tag_job_advertisement(tags_id, job_advertisement_id) VALUES (:tagId,:advertisementId)",nativeQuery = true)
+     @Transactional
+     Integer  subscribeAdvTags(Long advertisementId,Long tagId);
 }

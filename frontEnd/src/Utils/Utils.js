@@ -134,7 +134,7 @@ export const advFromFront2API=(adv)=>{
             }
         },
         companyName:adv.CompanyName,
-        tags: [{id:1, title:'java', isSubscribed:false}],  // adv.Tags
+        tags: [{id:1, title:'java', isSubscribed:true}],  // adv.Tags
         srcLogo : adv.srcLogo
     }
 }

@@ -1,5 +1,6 @@
 package edu.miu.alumni.service;
 
+import edu.miu.alumni.dto.JobAdvertisementDto;
 import edu.miu.alumni.model.echarts.AdsPerMonth;
 import edu.miu.alumni.model.SearchJobRequest;
 
@@ -20,4 +21,6 @@ public interface JobAdvertisementService <T,H,A> extends BasicService<T,H,A>{
 
 
     List<AdsPerMonth> getAdsPerMonth();
+
+    JobAdvertisementDto addNewAdv(JobAdvertisementDto newjob);
 }

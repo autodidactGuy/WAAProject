@@ -1,15 +1,9 @@
 package edu.miu.alumni.controller;
 
 import edu.miu.alumni.dto.JobAdvertisementDto;
-import edu.miu.alumni.dto.JobExperienceDto;
-import edu.miu.alumni.dto.StudentDto;
 import edu.miu.alumni.entity.JobAdvertisement;
-import edu.miu.alumni.entity.JobExperience;
-import edu.miu.alumni.entity.Student;
 import edu.miu.alumni.model.SearchJobRequest;
-import edu.miu.alumni.service.BasicService;
 import edu.miu.alumni.service.JobAdvertisementService;
-import edu.miu.alumni.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 import  java.util.*;
@@ -29,6 +23,11 @@ public class JobAdvertisementController extends BaseController<JobAdvertisement,
        return  bs.searchJob(sj);
     }
 
+   // @PostMapping()
+    //public JobAdvertisementDto save(@RequestBody JobAdvertisementDto newJob){
+      //  return this.bs.addNewAdv(newJob);
+
+    //}
     @GetMapping("/postedByme")
     public List<JobAdvertisementDto> getUserPostedAdvertisement(){
         //get all related user Advertisement by user id

@@ -115,6 +115,17 @@ public class JobAdvertisementServiceImpl
     }
 
     @Override
+    public JobAdvertisementDto addNewAdv(JobAdvertisementDto newjob) {
+        JobAdvertisement ja = modelMapper.map(newjob, JobAdvertisement.class);
+
+        JobAdvertisement save = repository.save(ja);
+
+
+
+        return modelMapper.map(save,JobAdvertisementDto.class);
+    }
+
+    @Override
 //    @InformPosterNewStuApplied
     public JobAdvertisementDto save(JobAdvertisementDto ad) {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -122,8 +133,12 @@ public class JobAdvertisementServiceImpl
         JobAdvertisement ja = modelMapper.map(ad, JobAdvertisement.class);
         Student studentByEmailEquals = studentRepostory.findStudentByEmailEquals(email);
         ja.setPoster(studentByEmailEquals);
+        //ja.setTags( modelMapper.map(ad, JobAdvertisement.class) );
         JobAdvertisement save = repository.save(ja);
-
+        List<Tag> list=ja.getTags();
+        for(int i=0;i<list.size();i++){
+            repository.subscribeAdvTags(ja.getId(),list.get(i).getId());
+        }
 
 
         return modelMapper.map(save,JobAdvertisementDto.class);
