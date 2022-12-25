@@ -47,6 +47,10 @@ public class UserController   extends BaseController<User, UserDto,Long> {
         if(Consts.INVALIE_USER_OR_PASSWORD.equals(loginResponse.getErrorMeg())){
             return ResponseEntity.status(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS).body(loginResponse.getErrorMeg());
         }
+        else if("your account is still been locked".equals(loginResponse.getErrorMeg()))
+        {
+            return ResponseEntity.status(HttpStatus.UNAVAILABLE_FOR_LEGAL_REASONS).body(loginResponse.getErrorMeg());
+        }
         return ResponseEntity.ok().body(loginResponse);
     }
 

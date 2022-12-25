@@ -46,11 +46,21 @@ export const registerUser = createAsyncThunk('user/registerUser', async (user) =
     return response.data;
 })
 
-export const loginUser = createAsyncThunk('user/loginUser', async (user) => {
+export const loginUser = createAsyncThunk('user/loginUser', async (user,{rejectWithValue}) => {
 
-    const response = await axios.post(baseurl+'/user/login',user); 
+
+    try {
+            const response =await axios.post(baseurl+'/user/login',user); 
+            return response.data
+      } catch (err) {
+        if (!err.response) {
+          throw err
+        }
+  
+        return rejectWithValue(err.response.data)
+      } 
     
-    return response.data;
+ 
 })
  
 
@@ -140,7 +150,8 @@ const userSlice = createSlice({
         });
         builder.addCase(loginUser.rejected, (state, action) => {
             state.loginstatus = 'rejected'
-            message.error("Login Error! Please try again")
+            
+            message.error("Error : "+ action.payload)
         });
 
         //edit profile
