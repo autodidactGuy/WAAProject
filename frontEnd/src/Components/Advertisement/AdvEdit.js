@@ -6,6 +6,7 @@ import { addAdvertisement, updateAdvertisement } from '../../redux/advertisement
 import { getLocations } from '../../redux/locationReducer';
 import { advFromFront2API, advFromFront2APIWithId, convertListTagsApiToFront } from './../../Utils/Utils';
 import { message } from 'antd';
+import ImgCrop from 'antd-img-crop';
 import { getAccessToken } from '../../redux/userReducer';
 import axios from 'axios';
 
@@ -215,6 +216,7 @@ const AdvEdit = (props) => {
 
             <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['adv', 'srcLogo']} label="Company logo" >
+                <ImgCrop rotate>
                 <Upload
                       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                       listType="picture-card"
@@ -223,7 +225,8 @@ const AdvEdit = (props) => {
                       onChange={handleChange}
                     >
                       {fileList.length >= 1 ? null : uploadButton}
-                    </Upload>
+                  </Upload>
+                  </ImgCrop>
                     <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
                       <img
                         alt="example"

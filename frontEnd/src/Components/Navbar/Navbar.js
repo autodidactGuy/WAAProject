@@ -31,8 +31,6 @@ function Navbar() {
         if (!isLogged){
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-            
-                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
                 { label:  <Login/>, key: "4" },
                 { label: <Register/>, key: "5" },
                 

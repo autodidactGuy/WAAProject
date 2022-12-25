@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Col, Row, Avatar, Button, message, Tag  } from 'antd';
-import { EnvironmentOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined } from '@ant-design/icons';
+import { EnvironmentOutlined, CalendarOutlined, UserOutlined, CheckCircleOutlined, QuestionOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
@@ -51,7 +51,7 @@ const Adv = (props) => {
                 <Col>
                     <Avatar shape="square" size={100}
                     src= {props.adv.srcLogo}
-                    icon={<UserOutlined />} />
+                    icon={<QuestionOutlined />} />
                 </Col>
                 <Col style={{marginLeft:'5px'}}>
                     <div> Campany : {props.adv.companyName} </div>
