@@ -32,7 +32,6 @@ function Student (props)  {
     async function enableDisableUserAccount (value)  {
 
 
-        console.log("enable disable account",value)
         //isLoading = true;
         //AXIOS
         try {
@@ -92,7 +91,6 @@ function Student (props)  {
       };
 
       async function addComment (value)  {
-        console.log("comment to add",value)
         setIsLoadingResetPassword(true)
         //AXIOS
         try {

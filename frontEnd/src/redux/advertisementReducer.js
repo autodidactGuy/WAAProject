@@ -46,7 +46,6 @@ export const addAdvertisement = createAsyncThunk('advertisement/addAdvertisement
 
 export const updateAdvertisement = createAsyncThunk('advertisement/updateAdvertisement', async (advertisement,{dispatch}) => {
     
-   // console.log('advertisement', advertisement);
     const token = getAccessToken();
     const response = await axios.put(baseurl+'/jobAdvertisement/'+advertisement.id,advertisement,
     {

@@ -50,10 +50,7 @@ const WorkExperienceEdit = (props) => {
       {
         onFill();
       }
-
-
     if(locations===[] || locations.length==0) dispatch(getLocations());
-    console.log(locations);
     },[locations])
     const [form] = Form.useForm();
     const onFill = () => {
@@ -81,7 +78,6 @@ const WorkExperienceEdit = (props) => {
         {
             //Add
             const newJob=values.workExperience;
-            console.log("job to add:",newJob)
             dispatch(addJobExperience(newJob));
         }
         else 

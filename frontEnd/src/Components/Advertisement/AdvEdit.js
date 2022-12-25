@@ -53,7 +53,6 @@ const AdvEdit = (props) => {
     }
     else 
     {
-      console.log('logo update', props.adv.srcLogo)
       if(props.adv.srcLogo != null  && props.adv.srcLogo!=='' )
       {
         return  [{
@@ -128,12 +127,10 @@ const AdvEdit = (props) => {
     if(getAccessToken()!=null){
         const response=await axios.get("/tag");
         const convertResponse = convertListTagsApiToFront(response.data)
-        console.log('converted tag : ',convertResponse);
         setAllTags(convertResponse)
         let tempMyTags = [];
 
         //convertResponse.forEach(tag => {if(tag.isSubscribed){tempMyTags.push(tag.title)}})
-        console.log('adv tags', props.adv.Tags)
         setAdvTags(props.adv.Tags)
     }
     else{
@@ -178,8 +175,6 @@ const AdvEdit = (props) => {
         {
             //Add
             const newAdvertisement=advFromFront2API({...values.adv, srcLogo:srcLogo});
-            console.log("add valu.adv adv:" , values.adv);
-            console.log("add adv new :" ,newAdvertisement);
             dispatch(addAdvertisement(newAdvertisement));
         }
         else 

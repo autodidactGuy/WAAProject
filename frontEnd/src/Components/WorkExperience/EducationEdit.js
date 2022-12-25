@@ -63,7 +63,6 @@ const EducationEdit = (props) => {
            Year: stringToDate(props.education.Year),
          }
          propsClone.education = education;
-         console.log("value: props:",education);
          form.setFieldsValue(propsClone);
        };
 
@@ -77,7 +76,6 @@ const EducationEdit = (props) => {
         {
             //Add
             const newEducation=values.education;
-            console.log("education to add:",newEducation)
             //todo
             dispatch(addEducation(newEducation));
         }

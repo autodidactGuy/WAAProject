@@ -30,7 +30,6 @@ const Searchjob = () => {
 
 
         setIsLoggedIn(true);
-        console.log(searchFilters);
         const response=await axios.post("/jobAdvertisement/filterJobs",searchFilters);
         setJobs(response.data);
 
@@ -89,8 +88,6 @@ const onFinish = (values) => {
   const handleIsApplied = (job) => 
   {
     let result = myAppliedJob.filter(m => m.ja.id === job.id).length > 0
-    console.log('job ', job)
-    console.log('myappliedjob ', myAppliedJob)
     return result
   }
 

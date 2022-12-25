@@ -56,7 +56,6 @@ const UserTags = () =>
     if(getAccessToken()!=null){
         const response=await axios.get("/tag");
         const convertResponse = convertListTagsApiToFront(response.data)
-        console.log('converted tag : ',convertResponse);
         setAllTags(convertResponse)
         let tempMyTags = [];
         // for (let i = 0; i < response.length; i++) {

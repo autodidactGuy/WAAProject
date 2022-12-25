@@ -11,9 +11,7 @@ const baseurl = process.env.REACT_APP_API_URL;
  
 
 export const getLocations = createAsyncThunk('/locations/getAllCitiesPerState', async () => {
-    console.log("enter get location");
     const response = await axios.get(baseurl+'/state/getAllCitiesPerState'); 
-    console.log("result : ",response.data);
     return response.data;
     
     //const response = locations;

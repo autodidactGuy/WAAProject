@@ -11,7 +11,6 @@ const RegisterModal = () => {
     if(registerstatus==="success")
     {
       setIsModalOpen(false);
-       console.log("again")
     }
      
   },[registerstatus])

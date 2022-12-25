@@ -44,7 +44,6 @@ const App = () => {
                 "fmcToken": token
             }
             const response=await axios.post("/user/updateFcmToken",data);
-            console.log(response.data);
         }
         else{
 

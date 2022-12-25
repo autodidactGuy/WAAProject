@@ -17,7 +17,6 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   async function forgotPasswordAxios (value)  {
-    console.log("enable disable account",value)
     //isLoading = true;
     //AXIOS
     try {

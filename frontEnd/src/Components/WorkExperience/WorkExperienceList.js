@@ -16,9 +16,6 @@ const WorkExperienceList = () =>
         dispatch(getJobExperienceList());
       },[]);
 
-   
-    
-    console.log("workexperience 2:",workExperienceData);
     return (
     
         <div style={{ marginLeft:'5px' }}>

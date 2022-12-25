@@ -89,7 +89,6 @@ const RegisterForm = () => {
     if(newFileList.length>0)
     {
       let currentFile = newFileList[0];
-      console.log('current file image: ',currentFile)
       let blobLogo = await getBase64(currentFile.originFileObj);
 
       setSrcLogo(blobLogo)

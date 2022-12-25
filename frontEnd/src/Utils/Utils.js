@@ -6,8 +6,6 @@ export const dateToString = (date) => {
   //  dayjs.extend(utc)
 //dayjs.extend(timezone)
 
-//console.log("new date in chicago",dayjs(date).tz("America/Chicago"));
-//console.log("new date in chicago",dayjs(date).tz("America/Toronto"));
    return dayjs(date).add(1,'hour').format("YYYY-MM-DD")
 }
 
@@ -95,8 +93,6 @@ export const educListFromAPI2Front=(list)=>{
 }
 
 export const advFromAPI2Front=(adv)=>{
-    //console.log("date : ",adv.publicationDate)
-    //console.log("date string : ",dateToString(adv.publicationDate))
     return {
         Id: adv.id,
         Title: adv.profile,
@@ -121,6 +117,7 @@ export const convertApiTagsToFront = (tags) => {
 }
 
 export const advFromFront2API=(adv)=>{
+    console.log('tags in adv', adv.Tags);
     return {
         publicationDate: dayjs(adv.PublicationDate),//dateToString(adv.PublicationDate),
         workload:adv.Workload,
@@ -140,6 +137,7 @@ export const advFromFront2API=(adv)=>{
 }
 
 export const advFromFront2APIWithId=(adv, id, userId)=>{
+    console.log('tags in adv', adv.Tags);
     return {
         id:id,
         publicationDate: dayjs(adv.PublicationDate),//dateToString(adv.PublicationDate),
@@ -163,7 +161,6 @@ export const advFromFront2APIWithId=(adv, id, userId)=>{
 
 export const advListFromApi2Front=(list)=>{
     let result =[]
-   console.log('before convertion ',list);
    
     list.forEach(element => result.push(advFromAPI2Front(element)));
    

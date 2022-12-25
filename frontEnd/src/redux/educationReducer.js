@@ -71,9 +71,6 @@ export const geteducationList = createAsyncThunk('education/geteducationList', a
          }
        }
     ); 
- 
-
-    console.log('education list  : ',response);
 
     return response.data;
 })

@@ -19,7 +19,6 @@ const Searchstudent = () => {
   const getStudents = async(searchFilters)=>{
     if(getAccessToken()!=null){
         setIsLoggedIn(true);
-        console.log(searchFilters);
         const response=await axios.post("/student/filterStudents",searchFilters);
         setStudents(response.data);
     }
