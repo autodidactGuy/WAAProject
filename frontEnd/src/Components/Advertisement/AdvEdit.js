@@ -142,7 +142,7 @@ const AdvEdit = (props) => {
 
   const [form] = Form.useForm();
 
-
+  
 
   const filter = 
   (inputValue, path) =>
@@ -165,23 +165,29 @@ const AdvEdit = (props) => {
   },[])
 
   const onFill = () => {
-
-    console.log('adv received ', props.adv)
     form.setFieldsValue(props);
   };
 
     const onFinish = (values) => {
+
+        let tagsToSend = [];
+        allTags.forEach(t => {
+          if(values.adv.Tags.includes(t.title))
+          {
+            tagsToSend.push({id:t.id, title:t.title, isSubscribed:true})
+          }
+        })
+
         if(props.isAdd)
         {
             //Add
-            const newAdvertisement=advFromFront2API({...values.adv, srcLogo:srcLogo});
+            const newAdvertisement=advFromFront2API({...values.adv, Tags:tagsToSend, srcLogo:srcLogo});
             dispatch(addAdvertisement(newAdvertisement));
         }
         else 
         {
             //Update
-            let advToUpdate=advFromFront2APIWithId({...values.adv, srcLogo:srcLogo}, props.adv.Id, userInfo.id);
-            console.log('advtoupdate', advToUpdate)
+            let advToUpdate=advFromFront2APIWithId({...values.adv, Tags:tagsToSend, srcLogo:srcLogo}, props.adv.Id, userInfo.id);
             dispatch(updateAdvertisement(advToUpdate));
         }
 

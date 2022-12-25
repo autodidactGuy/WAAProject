@@ -131,7 +131,7 @@ export const advFromFront2API=(adv)=>{
             }
         },
         companyName:adv.CompanyName,
-        tags: [{id:1, title:'java', isSubscribed:true}],  // adv.Tags
+        tags: adv.Tags,
         srcLogo : adv.srcLogo
     }
 }
@@ -152,7 +152,7 @@ export const advFromFront2APIWithId=(adv, id, userId)=>{
             }
         },
         companyName:adv.CompanyName,
-        tags: [{id:1, title:'java'}] ,// adv.Tags
+        tags: adv.Tags,
         poster: { id: userId },
         srcLogo : adv.srcLogo
     }
