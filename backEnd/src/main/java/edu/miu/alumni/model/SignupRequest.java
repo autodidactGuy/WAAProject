@@ -29,6 +29,8 @@ public class SignupRequest {
 
     private String stateCode;
 
+    private String srcLogo;
+
     @Nullable
     private String marjor;
 }

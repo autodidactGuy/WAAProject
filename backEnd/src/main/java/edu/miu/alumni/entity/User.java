@@ -68,6 +68,9 @@ public class User extends SoftDeleteBaseClass{
 
     private Date lockedTime;
 
+    @Column(columnDefinition="TEXT")
+    private String srcLogo;
+
 
     private String fcm_token;
     @ManyToMany(mappedBy = "interstedInUsers")

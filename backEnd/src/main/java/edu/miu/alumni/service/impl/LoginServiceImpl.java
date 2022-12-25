@@ -195,6 +195,7 @@ public class LoginServiceImpl implements LoginService {
         State state = stateRepository.findById(signUpRequest.getStateCode()).get();
         user.setRole(roles);
         user.setCity(userCity);
+        user.setSrcLogo(signUpRequest.getSrcLogo());
 
         Profile pf = new Profile();
         Profile save = profileRepository.save(pf);

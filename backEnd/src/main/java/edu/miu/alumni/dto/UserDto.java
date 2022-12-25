@@ -40,5 +40,7 @@ public class UserDto {
 
     private String fcm_token;
 
+    private String srcLogo;
+
 
 }
