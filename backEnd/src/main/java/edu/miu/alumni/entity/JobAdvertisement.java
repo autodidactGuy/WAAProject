@@ -45,6 +45,8 @@ public class JobAdvertisement extends SoftDeleteBaseClass{
 
     private boolean isDeleted;
 
+    @Column(columnDefinition="TEXT")
+    private String srcLogo;
 
 //    @OneToMany(mappedBy = "jobAdvertisement")
 //    private   List<Files> listFiles;
