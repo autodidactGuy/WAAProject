@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader, Select, Spin   } from 'antd';
-import { EnvironmentOutlined, CalendarOutlined, UserOutlined } from '@ant-design/icons';
+import { Card, Col, Row, Avatar, Button, Form, Input, InputNumber, Cascader, Select, Spin, Upload, Modal   } from 'antd';
+import { EnvironmentOutlined, CalendarOutlined, UserOutlined, PlusOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from "react-redux";
 import { addAdvertisement, updateAdvertisement } from '../../redux/advertisementReducer';
 import { getLocations } from '../../redux/locationReducer';
@@ -9,6 +9,13 @@ import { message } from 'antd';
 import { getAccessToken } from '../../redux/userReducer';
 import axios from 'axios';
 
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 const layout = {
     labelCol: {
@@ -32,7 +39,75 @@ const layout = {
   };
 
 const AdvEdit = (props) => {
- 
+  const [srcLogo, setSrcLogo] = useState(props.adv?.srcLogo);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+
+  const getFiles = () => 
+  {
+    if(props.isAdd)
+    {
+      return [];
+    }
+    else 
+    {
+      console.log('logo update', props.adv.srcLogo)
+      if(props.adv.srcLogo != null  && props.adv.srcLogo!=='' )
+      {
+        return  [{
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
+          url: props.adv?.srcLogo,
+        }];
+      }
+      else 
+      {
+        return [];
+      }
+     
+    }
+  }
+
+  const [fileList, setFileList] = useState(getFiles());
+
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
+  const  handleChange = async ({ fileList: newFileList }) => 
+  {
+    setFileList(newFileList)
+    if(newFileList.length>0)
+    {
+      let currentFile = newFileList[0];
+      console.log('current file image: ',currentFile)
+      let blobLogo = await getBase64(currentFile.originFileObj);
+
+      setSrcLogo(blobLogo)
+      //thumbUrl
+    } 
+  };
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
+
   const addAdvertisementstatus = useSelector((state) => state.advertisementReducer.addAdvertisementstatus);
   const updateAdvertisementstatus = useSelector((state) => state.advertisementReducer.updateAdvertisementstatus);
    
@@ -101,7 +176,7 @@ const AdvEdit = (props) => {
         if(props.isAdd)
         {
             //Add
-            const newAdvertisement=advFromFront2API(values.adv);
+            const newAdvertisement=advFromFront2API({...values.adv, srcLogo:srcLogo});
             console.log("add valu.adv adv:" , values.adv);
             console.log("add adv new :" ,newAdvertisement);
             dispatch(addAdvertisement(newAdvertisement));
@@ -109,8 +184,8 @@ const AdvEdit = (props) => {
         else 
         {
             //Update
-            let advToUpdate=advFromFront2APIWithId(values.adv, props.adv.Id, userInfo.id);
-
+            let advToUpdate=advFromFront2APIWithId({...values.adv, srcLogo:srcLogo}, props.adv.Id, userInfo.id);
+            console.log('advtoupdate', advToUpdate)
             dispatch(updateAdvertisement(advToUpdate));
         }
 
@@ -139,6 +214,26 @@ const AdvEdit = (props) => {
             <h1 style={{textAlign: 'center'}}>  {props.isAdd ? "Add " : "Update "}  Job advertisement </h1>
 
             <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+                <Form.Item name={['adv', 'srcLogo']} label="Company logo" >
+                <Upload
+                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                      listType="picture-card"
+                      fileList={fileList}
+                      onPreview={handlePreview}
+                      onChange={handleChange}
+                    >
+                      {fileList.length >= 1 ? null : uploadButton}
+                    </Upload>
+                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+                      <img
+                        alt="example"
+                        style={{
+                          width: '100%',
+                        }}
+                        src={previewImage}
+                      />
+                    </Modal>
+                </Form.Item>
                 <Form.Item name={['adv', 'Title']} label="Job Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>

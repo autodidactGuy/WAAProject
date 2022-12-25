@@ -30,5 +30,6 @@ public class JobAdvertisementDto {
 
     private String companyName;
 
+    private String srcLogo;
 
 }

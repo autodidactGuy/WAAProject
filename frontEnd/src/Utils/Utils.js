@@ -102,7 +102,8 @@ export const advFromAPI2Front=(adv)=>{
         Tags:convertApiTagsToFront(adv.tags),
         Workload: adv.workload,
         Contract: adv.contract,
-        location: [adv.city?.id?.stateCode, adv.city?.id?.cityName]
+        location: [adv.city?.id?.stateCode, adv.city?.id?.cityName],
+        srcLogo : adv.srcLogo
     }
 }
 
@@ -126,7 +127,8 @@ export const advFromFront2API=(adv)=>{
             }
         },
         companyName:adv.CompanyName,
-        tags: [{id:1, title:'java', isSubscribed:false}]// adv.Tags
+        tags: [{id:1, title:'java', isSubscribed:false}],  // adv.Tags
+        srcLogo : adv.srcLogo
     }
 }
 
@@ -146,7 +148,8 @@ export const advFromFront2APIWithId=(adv, id, userId)=>{
         },
         companyName:adv.CompanyName,
         tags: [{id:1, title:'java'}] ,// adv.Tags
-        poster: { id: userId }
+        poster: { id: userId },
+        srcLogo : adv.srcLogo
     }
 }
 
