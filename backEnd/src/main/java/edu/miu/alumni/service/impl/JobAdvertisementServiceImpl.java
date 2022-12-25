@@ -130,15 +130,15 @@ public class JobAdvertisementServiceImpl
 
         List<Tag> tags=ja.getTags();
 
-        for(Tag t:tags){
-            try{
-                firebaseMessageService.sendNotificationToTopic("New Job Posted","A job is posted for your concerned tag: "+t.getTitle(),t.getTitle());
-            }
-            catch(FirebaseMessagingException ex){
+        // for(Tag t:tags){
+        //     try{
+        //         firebaseMessageService.sendNotificationToTopic("New Job Posted","A job is posted for your concerned tag: "+t.getTitle(),t.getTitle());
+        //     }
+        //     catch(FirebaseMessagingException ex){
 
-            }
+        //     }
             
-        }
+        // }
 
         return modelMapper.map(save,JobAdvertisementDto.class);
     }

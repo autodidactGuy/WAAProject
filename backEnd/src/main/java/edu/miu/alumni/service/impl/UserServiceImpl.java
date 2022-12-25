@@ -114,13 +114,15 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
                continue;
             }
             repository.subscribeTags(user.getId(), byTitleEquals.getId());
-            try{
-                List<String> registrationTokens = Arrays.asList(user.getFcm_token());
-                TopicManagementResponse response = FirebaseMessaging.getInstance().subscribeToTopic(registrationTokens, byTitleEquals.getTitle());
-            }
-            catch(FirebaseMessagingException ex){
 
-            }
+            //can implement AOP but dont have enough time for this
+            // try{
+            //     List<String> registrationTokens = Arrays.asList(user.getFcm_token());
+            //     TopicManagementResponse response = FirebaseMessaging.getInstance().subscribeToTopic(registrationTokens, byTitleEquals.getTitle());
+            // }
+            // catch(FirebaseMessagingException ex){
+            //     System.out.println(ex.getMessage());
+            // }
             
         }
     }
