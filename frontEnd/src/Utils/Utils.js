@@ -1,8 +1,14 @@
 import Moment from 'moment'
 import dayjs from 'dayjs';
-
+import utc from 'dayjs/plugin/utc';
+import timezone from "dayjs/plugin/timezone";
 export const dateToString = (date) => {
-   return dayjs(date).format("YYYY-MM-DD")
+  //  dayjs.extend(utc)
+//dayjs.extend(timezone)
+
+//console.log("new date in chicago",dayjs(date).tz("America/Chicago"));
+//console.log("new date in chicago",dayjs(date).tz("America/Toronto"));
+   return dayjs(date).add(1,'hour').format("YYYY-MM-DD")
 }
 
 export const stringToDate = (stringDate) => {
@@ -89,7 +95,8 @@ export const educListFromAPI2Front=(list)=>{
 }
 
 export const advFromAPI2Front=(adv)=>{
-    
+    //console.log("date : ",adv.publicationDate)
+    //console.log("date string : ",dateToString(adv.publicationDate))
     return {
         Id: adv.id,
         Title: adv.profile,
@@ -115,7 +122,7 @@ export const convertApiTagsToFront = (tags) => {
 
 export const advFromFront2API=(adv)=>{
     return {
-        publicationDate: dateToString(adv.PublicationDate),
+        publicationDate: dayjs(adv.PublicationDate),//dateToString(adv.PublicationDate),
         workload:adv.Workload,
         contract:adv.Contract,
         description:adv.Description,
@@ -135,7 +142,7 @@ export const advFromFront2API=(adv)=>{
 export const advFromFront2APIWithId=(adv, id, userId)=>{
     return {
         id:id,
-        publicationDate: dateToString(adv.PublicationDate),
+        publicationDate: dayjs(adv.PublicationDate),//dateToString(adv.PublicationDate),
         workload:adv.Workload,
         contract:adv.Contract,
         description:adv.Description,
