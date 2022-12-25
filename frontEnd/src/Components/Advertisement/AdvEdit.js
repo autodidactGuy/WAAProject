@@ -216,7 +216,7 @@ const AdvEdit = (props) => {
 
             <Form form={form} {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['adv', 'srcLogo']} label="Company logo" >
-                <ImgCrop rotate>
+                <ImgCrop rotate minZoom={0.3}>
                 <Upload
                       action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                       listType="picture-card"
