@@ -7,6 +7,7 @@ import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.model.echarts.AppliedJobPerMonth;
 import edu.miu.alumni.repository.*;
+import edu.miu.alumni.service.FirebaseMessageService;
 import edu.miu.alumni.service.JobExperienceService;
 import edu.miu.alumni.service.UserApplicationService;
 import edu.miu.alumni.service.UserService;
@@ -14,6 +15,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import com.google.firebase.messaging.FirebaseMessagingException;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -36,6 +39,10 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
 
     @Autowired
     private UserService<User, UserDto,Long> userService;
+
+    @Autowired
+    private FirebaseMessageService firebaseMessageService; 
+
     public UserApplicationServiceImpl(UserApplicationRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }
@@ -76,6 +83,15 @@ public class UserApplicationServiceImpl   extends BasicServiceImpl<UserApplicati
         userApplication.setJa(jobAdvertisement);
         userApplication.setApplicationDate(new Date());
         repository.save(userApplication);
+
+        //send notification to owner of job
+        String ownerFcmToken=jobAdvertisement.getPoster().getFcm_token();
+        try{
+            firebaseMessageService.sendNotification("New Job Application",userApplication.getStudent().getNickName()+" has applied to a job you posted.", ownerFcmToken);
+        }
+        catch(FirebaseMessagingException ex){
+
+        }
     }
 
     @Override

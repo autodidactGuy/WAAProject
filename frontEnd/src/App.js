@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import { Breadcrumb, Layout, Menu, message, theme } from 'antd';
 import { jobAdvertisements } from './Data/JobAdvertisements'
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
 import {getFCMToken,onMessageListener} from './services/firebase';
+import axios from 'axios';
+import { getAccessToken} from './redux/userReducer';
 
 
 import TenLastJobAdv from './Components/Dashboards/TenLastJobAdv'
@@ -24,6 +26,40 @@ const { Meta } = Card;
 
 
 const App = () => {
+
+    const [show, setShow] = useState(false);
+    const [notification, setNotification] = useState({title: '', body: ''});
+    const [fcmToken, setFcmToken] = useState(false);
+    
+    const baseurl = process.env.REACT_APP_API_URL;
+
+    axios.defaults.baseURL=baseurl;
+
+    axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
+
+    const sendTokenToServer = async(token) => {
+        setFcmToken(token);
+        if(getAccessToken()!=null){
+            const data={
+                "fmcToken": token
+            }
+            const response=await axios.post("/user/updateFcmToken",data);
+            console.log(response.data);
+        }
+        else{
+
+        }
+    }
+
+    useEffect(()=>{
+        getFCMToken(sendTokenToServer);
+    },[]);
+
+    onMessageListener().then(payload => {
+      setShow(true);
+      setNotification({title: payload.notification.title, body: payload.notification.body})
+      console.log(payload);
+    }).catch(err => console.log('failed: ', err));
      
     const {
         token: { colorBgContainer },
