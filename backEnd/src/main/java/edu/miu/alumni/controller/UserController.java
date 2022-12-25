@@ -65,10 +65,12 @@ public class UserController   extends BaseController<User, UserDto,Long> {
      * @param password
      * @param id
      */
+
+    //Do NOT REMOVE
     @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_ADMIN +"')")
     @PostMapping("/{id}/resetPassword")
-    public void  resetPassword(@RequestBody ResetPassword password,@PathVariable int id){
-         bs.resetPassword(password.getNewPassword(),id);
+    public void  resetPassword(@RequestBody String password,@PathVariable int id){
+         bs.resetPassword(password,id);
     }
 
     /**
