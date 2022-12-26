@@ -76,7 +76,9 @@ const App = () => {
             </Header>
 
 <Routes>
+        <Route path={"/"} element={<Home/>} /> 
         <Route path={"/home"} element={<Home/>} /> 
+        <Route path={"/statistics"} element={<div> statistics </div>} /> 
         <Route path={"/myprofile"} element={<MyProfile/>} /> 
         <Route path={"/mysubmittedadv"} element={<MySubmittedAdvertisements/>} />
         <Route path={"/myappliedjobs"} element={<MyAppliedJobs/>} /> 

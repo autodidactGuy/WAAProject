@@ -40,7 +40,7 @@ const SampleEchart =  (props) => {
   }
   else {
     return (
-      <ReactECharts
+      <ReactECharts 
       option={option}
       style={{ height: 400 }}
     />

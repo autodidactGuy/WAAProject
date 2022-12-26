@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Row } from 'antd';
+import { Col, Row, Spin } from 'antd';
 import { TenJobAdv } from '../../Data/TenJobAdv';
 import { getAccessToken} from '../../redux/userReducer';
 import axios from 'axios';
@@ -17,16 +17,28 @@ const TenLastJobAdvApplied = () => {
 
     axios.defaults.headers.common["Authorization"] = "Bearer "+getAccessToken();
 
-
+    const [top10jobs,setTop10Jobs] = useState([]);
+    const [isLoading,setIsloading] = useState(false);
 
     const getJobs = async()=>{
-        const response=await axios.get("/jobAdvertisement/top10AdvertisementApplied");
-        setTop10Jobs(response.data);
+
+
+
+        try {
+            setIsloading(true);
+
+            const response=await axios.get("/jobAdvertisement/top10AdvertisementApplied");
+            setTop10Jobs(response.data);
+          } catch (e) {
+            
+          } finally {
+            setIsloading(false);
+          }
+
     }
 
-    const [top10jobs,setTop10Jobs] = useState([]);
 
-    const [isLoggedIn,setIsLoggedIn] = useState(false);
+
 
     useEffect(()=>{
         getJobs();
@@ -35,9 +47,11 @@ const TenLastJobAdvApplied = () => {
         (loginstatus)?
         <>
             <h1 style={{margin:'15px'}}> Top 10 Applied Job Advertisements  </h1>
+            {isLoading ? <div> <Spin size="large" /> </div> :
             <Row>
                 {top10jobs.map(adv => <Col key={adv.id} xs={24} sm={24} md={24} lg={24} xl={24}> <Adv adv={adv} lockApply={true} /> </Col>)}
             </Row>
+            }
         </>
         :
         <>
