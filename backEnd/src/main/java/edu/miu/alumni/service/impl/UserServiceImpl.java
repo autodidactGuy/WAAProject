@@ -1,12 +1,12 @@
 package edu.miu.alumni.service.impl;
 
 import edu.miu.alumni.consts.Consts;
+import edu.miu.alumni.dto.StudentDto;
 import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.dto.UserDto;
-import edu.miu.alumni.entity.Role;
-import edu.miu.alumni.entity.Tag;
-import edu.miu.alumni.entity.User;
+import edu.miu.alumni.entity.*;
 import edu.miu.alumni.model.ResetPassword;
+import edu.miu.alumni.model.SignupRequest;
 import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
 import edu.miu.alumni.repository.TagRepository;
@@ -55,10 +55,24 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     }
 
     @Override
-    public UserDto getMyInfo() {
+    public StudentDto getMyInfo() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = repository.findUserByEmailEquals(name);
-        return modelMapper.map(userByEmailEquals,UserDto.class);
+        return modelMapper.map(userByEmailEquals,StudentDto.class);
+    }
+
+    @Override
+    public void setMyInfo(SignupRequest myInfoDto) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userByEmailEquals = repository.findUserByEmailEquals(name);
+
+        userByEmailEquals.setFirstName(myInfoDto.getFirstname());
+        userByEmailEquals.setLastName(myInfoDto.getLastname());
+        userByEmailEquals.setNickName(myInfoDto.getNickname());
+        userByEmailEquals.setBirthday(myInfoDto.getBirthday());
+        userByEmailEquals.setSrcLogo(myInfoDto.getSrcLogo());
+        //userByEmailEquals.setCity(new City());
+
     }
 
     @Override

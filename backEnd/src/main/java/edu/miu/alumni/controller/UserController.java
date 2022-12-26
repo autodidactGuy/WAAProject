@@ -1,6 +1,7 @@
 package edu.miu.alumni.controller;
 
 import edu.miu.alumni.consts.Consts;
+import edu.miu.alumni.dto.StudentDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
 import edu.miu.alumni.model.*;
@@ -67,8 +68,8 @@ public class UserController   extends BaseController<User, UserDto,Long> {
     }
 
     @PostMapping("/myInfo")
-    public ResponseEntity<?> setMyInfo(@RequestBody UserDto userDto){
-        return  ResponseEntity.ok(bs.getMyInfo());
+    public void setMyInfo(@RequestBody SignupRequest myInfoDto){
+        bs.setMyInfo(myInfoDto);
     }
 
     /**
