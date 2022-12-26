@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class ForgotPassword {
 
-    private String oldPassword;
+    private String token;
     private String newPassword;
 }

@@ -10,6 +10,7 @@ import axios from 'axios';
 
 
 function LoginForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const baseurl = process.env.REACT_APP_API_URL;
 
   axios.defaults.baseURL=baseurl;
@@ -17,11 +18,10 @@ function LoginForm() {
   const dispatch = useDispatch();
 
   async function forgotPasswordAxios (value)  {
-    //isLoading = true;
+    setIsLoading(true);
     //AXIOS
     try {
       const result=await axios.post(`/validate/sendValidationEmail`, value, {headers: {
-        //'Authorization': `Bearer ${token}` ,
         'Content-Type':'multipart/form-data' 
       
      }});
@@ -34,7 +34,7 @@ function LoginForm() {
     } catch (e) {
       message.error("error");
     } finally {
-      //isLoading = false;
+      setIsLoading(false);
     }
   };
 
@@ -58,7 +58,7 @@ function LoginForm() {
   return (
     
     <Row>
-    <Col span={12} offset={6}>
+    <Col span={20} offset={2}>
       
       
     {
@@ -124,7 +124,9 @@ function LoginForm() {
   {
         isforgotPassword &&
         <Form name="forgotpassword" onFinish={forgotPasswordAxios}>
-          <Form.Item name="email"
+          
+          <Input.Group compact>
+            <Form.Item name="email"
               rules={[
                 {
                   required: true,
@@ -134,11 +136,22 @@ function LoginForm() {
                   type: 'email',
                   message: 'The input is not valid E-mail!',
                 },
-              ]}>
+              ]}
+              
+              style={{
+                width: '70%',
+            }}>
               <Input placeholder='your email'  />
               
           </Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">Reset</Button>
+          <Form.Item
+              name="reset"
+              noStyle
+              >
+            <Button loading={isLoading} type="primary" htmlType="submit" className="login-form-button">Reset</Button>
+          </Form.Item>
+          
+          </Input.Group>
           </Form>
   }
 

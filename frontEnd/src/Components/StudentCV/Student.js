@@ -217,7 +217,7 @@ function Student (props)  {
                                         />
                                     </Form.Item>
                                     <Form.Item
-                                        name="reset"
+                                        name="addcomment"
                                         noStyle
                                     >
                                         <Button type="primary" htmlType="submit" className="login-form-button"> Add comment </Button>
