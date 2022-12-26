@@ -236,54 +236,76 @@ const getAppliedJobNumPerMonth = async()=>{
   return (
 
         <Row className='charts' >
-        <Col span={24}>
-            <SampleEchart isLoading={isLoadingjobsPerLocation} title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
-        </Col>
-        <Col span={24}>
-        <SampleEchart isLoading={isloadingstudentsPerState} title='Students per State' data={studentsPerState.map(val=>{return val.studentNumber; })} label={studentsPerState.map(val=>{return val.stateCode; })}/>
-        </Col>
+          {
+              jobsPerLocation.length > 0 &&
+              <Col span={24}>
+              <SampleEchart isLoading={isLoadingjobsPerLocation} title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
+              </Col>
+          }
+       
+       {
+          studentsPerState.length> 0 &&
+            <Col span={24}>
+            <SampleEchart isLoading={isloadingstudentsPerState} title='Students per State' data={studentsPerState.map(val=>{return val.studentNumber; })} label={studentsPerState.map(val=>{return val.stateCode; })}/>
+            </Col>
+       }
+       
+       {
+        studentsPerCity.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingstudentsPerCity} title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
         </Col>
+        } 
 
         {/* <Col span={24}>
           {console.log('adv',advertisementsPerTag)}
           <SampleEchart isLoading={isloadingadvertisementsPerTag} title='Advertisement per tag' data={advertisementsPerTag.map(val=>{return val.nomberOfAd; })} label={advertisementsPerTag.map(val=>{return val.tagName; })}/>
         </Col> */}
 
+        {
+          numberOfTagsPerLocation.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumberOfTagsPerLocation} title='Tags number per location' data={numberOfTagsPerLocation.map(val=>{return val.numberOfTags; })} label={numberOfTagsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
         </Col>
+        }
 
+        {
+          numberOfAdPerTag.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumberOfAdPerTag} title='Number of advertisement per tag' data={numberOfAdPerTag.map(val=>{return val.adCnt; })} label={numberOfAdPerTag.map(val=>{return val.tagName;})}/>
         </Col>
-
+        }
+        {
+          avgGapPerGpa.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingavgGapPerGpa} title='average gap timer per gpa_range' data={avgGapPerGpa.map(val=>{return val.averageGapTime; })} label={avgGapPerGpa.map(val=>{return val.gpaRange;})}/>
         </Col>
-
+        }
+        {
+          numOfAdsPerMonth.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumOfAdsPerMonth} title='Number of advertisement per month' data={numOfAdsPerMonth.map(val=>{return val.adCnt; })} label={numOfAdsPerMonth.map(val=>{return val.pubTime;})}/>
         </Col>
+        }
 
+        {
+          numOfStudentByGender.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumOfStudentByGender} title='Student per gender' data={numOfStudentByGender.map(val=>{return val.genderCnt; })} label={numOfStudentByGender.map(val=>{return val.gender;})}/>
         </Col>
+      }
 
-        <Col span={24}>
-          <SampleEchart isLoading={isloadingnumOfStudentByGender} title='Student per gender' data={numOfStudentByGender.map(val=>{return val.genderCnt; })} label={numOfStudentByGender.map(val=>{return val.gender;})}/>
-        </Col>
-
-
+        {numOfStuPerAge.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumOfStuPerAge} title='Student by age' data={numOfStuPerAge.map(val=>{return val.ageCnt; })} label={numOfStuPerAge.map(val=>{return val.age;})}/>
         </Col>
+      }
 
-
+      {appliedJobNumPerMonth.length > 0 &&
         <Col span={24}>
           <SampleEchart isLoading={isloadingappliedJobNumPerMonth} title='Number of applied job per month' data={appliedJobNumPerMonth.map(val=>{return val.appliedJobCnt; })} label={appliedJobNumPerMonth.map(val=>{return val.month;})}/>
         </Col>
+        }
 
 
         
