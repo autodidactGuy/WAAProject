@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { getLocations } from '../../redux/locationReducer';
 import { useDispatch, useSelector } from "react-redux";
+import ImgCrop from 'antd-img-crop';
+
 import Moment from 'moment'
 import {
   AutoComplete,
@@ -14,10 +16,22 @@ import {
   Row,
   Select,
   DatePicker,
-  Spin
+  Spin,
+  Upload,
+  Modal
 } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
+
+
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 const formItemLayout = {
     labelCol: {
@@ -51,7 +65,67 @@ const formItemLayout = {
   };
 
 function EditBasicInfoForm(props) {
+  const [srcLogo, setSrcLogo] = useState(props.adv?.srcLogo);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
 
+  const getFiles = () => 
+  {
+
+      if(props.user.srcLogo != null  && props.user.srcLogo!=='' )
+      {
+        return  [{
+          uid: '-1',
+          name: 'image.png',
+          status: 'done',
+          url: props.adv?.srcLogo,
+        }];
+      }
+      else 
+      {
+        return [];
+      }
+     
+  }
+
+  const [fileList, setFileList] = useState(getFiles());
+
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
+  const  handleChange = async ({ fileList: newFileList }) => 
+  {
+    setFileList(newFileList)
+    if(newFileList.length>0)
+    {
+      let currentFile = newFileList[0];
+      console.log('current file image: ',currentFile)
+      let blobLogo = await getBase64(currentFile.originFileObj);
+
+      setSrcLogo(blobLogo)
+      //thumbUrl
+    } 
+  };
+
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
   console.log('user info a modifié ', props.user)
 
 
@@ -102,7 +176,28 @@ function EditBasicInfoForm(props) {
       scrollToFirstError
     >
       
-    
+      <Form.Item name="srcLogo" label="Avatar" >
+                <ImgCrop rotate minZoom={0.3}>
+                <Upload
+                      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                      listType="picture-card"
+                      fileList={fileList}
+                      onPreview={handlePreview}
+                      onChange={handleChange}
+                    >
+                      {fileList.length >= 1 ? null : uploadButton}
+                  </Upload>
+                  </ImgCrop>
+                    <Modal open={previewOpen} title={previewTitle} footer={null} onCancel={handleCancel}>
+                      <img
+                        alt="example"
+                        style={{
+                          width: '100%',
+                        }}
+                        src={previewImage}
+                      />
+                    </Modal>
+                </Form.Item>
 
 
     <Form.Item
