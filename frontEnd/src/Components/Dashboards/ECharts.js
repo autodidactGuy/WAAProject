@@ -20,7 +20,9 @@ function ECharts() {
     const [studentsPerState,setStudentsPerState] = useState([]);
     const [studentsPerCity,setStudentsPerCity] = useState([]);
     const [advertisementsPerTag,setAvdertisementsPerTag] = useState([]);
+
     const [numberOfTagsPerLocation,setNumberOfTagsPerLocation] = useState([]);
+    
     const [numberOfAdPerTag,setNumberOfAdPerTag] = useState([]);
     const [avgGapPerGpa,setAvgGapPerGpa] = useState([]);
     const [numOfAdsPerMonth,setNumOfAdsPerMonth] = useState([]);
@@ -49,7 +51,10 @@ function ECharts() {
         getJobsPerLocation();
         getStudentsPerState();
         getStudentsPerCity();
+
+        //not working
         getAdertisementsPerTag();
+
         getNumberOfTagsPerLocation();
         getNumberOfAdPerTag();
         getAvgGapPerGpa();
@@ -237,8 +242,18 @@ const getAppliedJobNumPerMonth = async()=>{
         <SampleEchart isLoading={isloadingstudentsPerState} title='Students per State' data={studentsPerState.map(val=>{return val.studentNumber; })} label={studentsPerState.map(val=>{return val.stateCode; })}/>
         </Col>
         <Col span={24}>
-        <SampleEchart isLoading={isloadingstudentsPerCity} title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
+          <SampleEchart isLoading={isloadingstudentsPerCity} title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
         </Col>
+
+        {/* <Col span={24}>
+          {console.log('adv',advertisementsPerTag)}
+          <SampleEchart isLoading={isloadingadvertisementsPerTag} title='Advertisement per tag' data={advertisementsPerTag.map(val=>{return val.nomberOfAd; })} label={advertisementsPerTag.map(val=>{return val.tagName; })}/>
+        </Col> */}
+
+        <Col span={24}>
+          <SampleEchart isLoading={isloadingstudentsPerCity} title='Tags number per location' data={numberOfTagsPerLocation.map(val=>{return val.numberOfTags; })} label={numberOfTagsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
+        </Col>
+
         </Row>
     
     
