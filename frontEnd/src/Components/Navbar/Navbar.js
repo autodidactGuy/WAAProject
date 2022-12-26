@@ -38,14 +38,18 @@ function Navbar() {
         if(userInfo.role[0].name==="STUDENT"){
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
+                { label: <Link to="/lastjobs">Last jobs</Link>, key: "2" },
+                { label: <Link to="/lastappliedjobs">Last applied jobs</Link>, key: "3" },
+                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "4" },
                 { label: <UserButton/>, key: "6" },
             ];
         }else if(userInfo.role[0].name==="FACULTY"){
            return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchstudent">Find Students</Link>, key: "2" },
-                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "3" },
+                { label: <Link to="/lastjobs">Last jobs</Link>, key: "2" },
+                { label: <Link to="/lastappliedjobs">Last applied jobs</Link>, key: "3" },
+                { label: <Link to="/searchstudent">Find Students</Link>, key: "4" },
+                { label: <Link to="/searchJobs">Find Jobs</Link>, key: "5" },
                 { label: <UserButton/>, key: "6" },
             ]
         }else {

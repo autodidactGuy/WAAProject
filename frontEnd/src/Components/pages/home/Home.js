@@ -11,10 +11,7 @@ function Home() {
   return (
     <div>
       <Row>
-        <Col span={23} offset={1}>
-          <TenLastJobAdv />
-          <TenLastJobAdvApplied /> 
-          <br/>
+        <Col span={22} offset={1}>
           <ECharts/>
         </Col>
       </Row>

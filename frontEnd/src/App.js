@@ -21,6 +21,7 @@ import Home from './Components/pages/home/Home';
 import Searchjob from './Components/pages/searchjob/Searchjob';
 import Searchstudent from './Components/pages/searchstudent/Searchstudent';
 import ResetPassword from './Components/Connection/ResetPassword';
+import TenLastJobAdvApplied from './Components/Dashboards/TenLastJobAdvApplied';
 
 const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
@@ -78,6 +79,8 @@ const App = () => {
 <Routes>
         <Route path={"/"} element={<Home/>} /> 
         <Route path={"/home"} element={<Home/>} /> 
+        <Route path={"/lastjobs"} element={<TenLastJobAdv/>} /> 
+        <Route path={"/lastappliedjobs"} element={<TenLastJobAdvApplied/>} /> 
         <Route path={"/statistics"} element={<div> statistics </div>} /> 
         <Route path={"/myprofile"} element={<MyProfile/>} /> 
         <Route path={"/mysubmittedadv"} element={<MySubmittedAdvertisements/>} />
