@@ -20,7 +20,6 @@ function ECharts() {
     const [studentsPerState,setStudentsPerState] = useState([]);
     const [studentsPerCity,setStudentsPerCity] = useState([]);
     const [advertisementsPerTag,setAvdertisementsPerTag] = useState([]);
-
     const [numberOfTagsPerLocation,setNumberOfTagsPerLocation] = useState([]);
     
     const [numberOfAdPerTag,setNumberOfAdPerTag] = useState([]);
@@ -251,8 +250,13 @@ const getAppliedJobNumPerMonth = async()=>{
         </Col> */}
 
         <Col span={24}>
-          <SampleEchart isLoading={isloadingstudentsPerCity} title='Tags number per location' data={numberOfTagsPerLocation.map(val=>{return val.numberOfTags; })} label={numberOfTagsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
+          <SampleEchart isLoading={isloadingnumberOfTagsPerLocation} title='Tags number per location' data={numberOfTagsPerLocation.map(val=>{return val.numberOfTags; })} label={numberOfTagsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
         </Col>
+
+        <Col span={24}>
+          <SampleEchart isLoading={isloadingnumberOfAdPerTag} title='Number of advertisement per tag' data={numberOfAdPerTag.map(val=>{return val.adCnt; })} label={numberOfAdPerTag.map(val=>{return val.tagName;})}/>
+        </Col>
+
 
         </Row>
     
