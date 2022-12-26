@@ -266,9 +266,18 @@ const getAppliedJobNumPerMonth = async()=>{
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumOfAdsPerMonth} title='Number of advertisement per month' data={numOfAdsPerMonth.map(val=>{return val.adCnt; })} label={numOfAdsPerMonth.map(val=>{return val.pubTime;})}/>
         </Col>
-        
+
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumOfStudentByGender} title='Student per gender' data={numOfStudentByGender.map(val=>{return val.genderCnt; })} label={numOfStudentByGender.map(val=>{return val.gender;})}/>
+        </Col>
+
+        <Col span={24}>
+          <SampleEchart isLoading={isloadingnumOfStudentByGender} title='Student per gender' data={numOfStudentByGender.map(val=>{return val.genderCnt; })} label={numOfStudentByGender.map(val=>{return val.gender;})}/>
+        </Col>
+
+
+        <Col span={24}>
+          <SampleEchart isLoading={isloadingnumOfStuPerAge} title='Student by age' data={numOfStuPerAge.map(val=>{return val.ageCnt; })} label={numOfStuPerAge.map(val=>{return val.age;})}/>
         </Col>
 
         
