@@ -21,8 +21,8 @@ function ECharts() {
     const [studentsPerCity,setStudentsPerCity] = useState([]);
     const [advertisementsPerTag,setAvdertisementsPerTag] = useState([]);
     const [numberOfTagsPerLocation,setNumberOfTagsPerLocation] = useState([]);
-    
     const [numberOfAdPerTag,setNumberOfAdPerTag] = useState([]);
+
     const [avgGapPerGpa,setAvgGapPerGpa] = useState([]);
     const [numOfAdsPerMonth,setNumOfAdsPerMonth] = useState([]);
     const [numOfStudentByGender,setNumOfStudentByGender] = useState([]);
@@ -165,7 +165,7 @@ const getAvgGapPerGpa = async()=>{
                           } catch (e) {
                             
                           } finally {
-                            setisloadingAvgGapPerGpa(true)
+                            setisloadingAvgGapPerGpa(false)
                           }
 
 }
@@ -255,6 +255,10 @@ const getAppliedJobNumPerMonth = async()=>{
 
         <Col span={24}>
           <SampleEchart isLoading={isloadingnumberOfAdPerTag} title='Number of advertisement per tag' data={numberOfAdPerTag.map(val=>{return val.adCnt; })} label={numberOfAdPerTag.map(val=>{return val.tagName;})}/>
+        </Col>
+
+        <Col span={24}>
+          <SampleEchart isLoading={isloadingavgGapPerGpa} title='average gap timer per gpa_range' data={avgGapPerGpa.map(val=>{return val.averageGapTime; })} label={avgGapPerGpa.map(val=>{return val.gpaRange;})}/>
         </Col>
 
 
