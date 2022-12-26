@@ -72,7 +72,7 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         userByEmailEquals.setBirthday(myInfoDto.getBirthday());
         userByEmailEquals.setSrcLogo(myInfoDto.getSrcLogo());
         //userByEmailEquals.setCity(new City());
-
+        repository.save(userByEmailEquals);
     }
 
     @Override

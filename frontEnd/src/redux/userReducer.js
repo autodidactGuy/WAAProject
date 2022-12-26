@@ -67,9 +67,9 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user,{rejectW
 })
  
 
-export const editProfile = createAsyncThunk('user/editProfile', async (user) => {
+export const editProfile = createAsyncThunk('user/editProfile', async (myProfile) => {
 
-    const response = await axios.post(baseurl+'/user/edit',user); 
+    const response = await axios.post(baseurl+'/user/myInfo',myProfile); 
     
     return response.data;
 })

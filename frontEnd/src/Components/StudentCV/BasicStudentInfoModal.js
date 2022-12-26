@@ -8,22 +8,7 @@ import { stringToDate } from '../../Utils/Utils';
 const BasicStudentInfoModal = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
  
-//   const newuser =
-//   {
-//     major:values.major,
-//     firstname: values.firstname,
-//     lastname: values.lastname,
-//     email: values.email,
-//     password: values.password,
-//     nickname: values.nickname,
-//     phone: values.phone,
-//     gender: values.gender,
-//     role: values.role,
-//     birthday: Moment(values.birthday).format("YYYY-MM-DD"),
-//     stateCode:values.residence[0],
-//     cityCode: values.residence[1],
-//     srcLogo:srcLogo
-// }
+
  
   const showModal = () => {
     setIsModalOpen(true);

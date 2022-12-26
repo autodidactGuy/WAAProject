@@ -21,6 +21,7 @@ import {
   Modal
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import { editProfile } from '../../redux/userReducer';
 
 const { Option } = Select;
 
@@ -153,10 +154,22 @@ function EditBasicInfoForm(props) {
 },[]);
 
     const onFinish = (values) => {
-        
-        
-    
-      
+alert('onfinish')
+         const newuser =
+   {
+     major:values.major,
+     firstname: values.firstName,
+     lastname: values.lastName,
+     nickname: values.nickName,
+     phone: values.phoneNumber,
+     gender: values.gender,
+     birthday: Moment(values.birthday).format("YYYY-MM-DD"),
+     //stateCode:values.residence[0],
+     //cityCode: values.residence[1],
+     srcLogo:srcLogo
+ }
+
+      dispatch(editProfile(newuser));
         };
 
         
