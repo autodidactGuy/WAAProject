@@ -21,7 +21,21 @@ public interface UserRepository extends CrudRepository<User,Long> {
     @Transactional
     Integer  subscribeTags(Long userId,Long tagId);
 
-
+    @Query(value = "SELECT *  FROM users c WHERE " +
+            "(:major is null or c.major = :major) " +
+            "and (:cityName is null or c.city_name = :cityName)" +
+            "and (:id is null or c.id = :id)"+
+            "and (:stateCode is null or c.state_code = :stateCode)"+
+            "and (:searchName is null or (c.first_name||c.last_name) like CONCAT('%',:searchName,'%'))" +
+            "and (c.user_type='Student' or c.user_type='Faculty')",nativeQuery = true
+    )
+    public List<User> getStudentsFacultyByFirstNameOrLastNameContainsAndMarjorEqualsAndCity_IdAndCityStateAndIdEquals(
+            String major,
+            String cityName,
+            Long  id,
+            String stateCode,
+            String searchName
+    );
     @Modifying
     @Query(value = "DELETE FROM tag_intersted_in_users WHERE intersted_in_users_id = :userId",nativeQuery = true)
     @Transactional

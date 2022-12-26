@@ -80,7 +80,7 @@ function Navbar() {
         }else {
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchstudent">Find Students</Link>, key: "4" },
+                { label: <Link to="/searchstudentfaculty">Find Students faculty</Link>, key: "4" },
                 { label: <UserButton/>, key: "6" },
             ]
         }

@@ -61,6 +61,12 @@ public class UserController   extends BaseController<User, UserDto,Long> {
         return  ResponseEntity.ok(bs.getAllStudentAndFacultyByAdmin());
     }
 
+    @PostMapping("/filterStudentsFaculty")
+    @PreAuthorize("hasRole('ROLE_"+ Consts.ROLE_ADMIN +"')")
+    public List<StudentDto> findStudentFacultyByAdmin(@RequestBody SearchStudentRequest searchStudentRequest){
+        return bs.getStudentsFacultyByFirstNameOrLastNameContainsAndMarjorEqualsAndIdAndCity_IdAndCityState(searchStudentRequest);
+    }
+
     @GetMapping("/myInfo")
     public ResponseEntity<?> getMyInfo(){
 

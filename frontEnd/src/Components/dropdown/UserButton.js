@@ -1,17 +1,27 @@
 import { LogoutOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, message } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from '../../redux/userReducer';
+import { getProfile, logout } from '../../redux/userReducer';
 
 function UserButton() {
+
+
+
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const userInfo= useSelector((state)=>state.userReducer.userInfo)
   const myProfile= useSelector((state)=>state.userReducer.myProfile)
 
+  useEffect(() => {
+    dispatch(getProfile());
+  },[]);
+  
   const getItems=()=>{
+
+
+
 
       if(userInfo.role[0].name==="STUDENT")
       {

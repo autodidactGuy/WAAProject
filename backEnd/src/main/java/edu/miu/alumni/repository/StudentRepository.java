@@ -43,6 +43,8 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
             String searchName
     );
 
+
+
     /**
      * Number of student per state
      * @return

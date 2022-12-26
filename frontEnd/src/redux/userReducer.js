@@ -49,7 +49,7 @@ export const registerUser = createAsyncThunk('user/registerUser', async (user) =
     return response.data;
 })
 
-export const loginUser = createAsyncThunk('user/loginUser', async (user,{rejectWithValue}) => {
+export const loginUser = createAsyncThunk('user/loginUser', async (user,{rejectWithValue, dispatch}) => {
 
 
     try {
@@ -71,11 +71,11 @@ export const editProfile = createAsyncThunk('user/editProfile', async (myProfile
 
 
     const response = await axios.post(baseurl+'/user/myInfo',{...myProfile, stateCode: myProfile.location[0], cityCode: myProfile.location[1]}); 
-    dispatch(getProfile);
+    
     return response.data;
 })
 
-//TODO 
+
 export const getProfile = createAsyncThunk('user/getProfile', async (user) => {
 
 

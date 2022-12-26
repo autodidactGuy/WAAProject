@@ -5,6 +5,7 @@ import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.User;
 import edu.miu.alumni.model.ResetPassword;
+import edu.miu.alumni.model.SearchStudentRequest;
 import edu.miu.alumni.model.SignupRequest;
 import edu.miu.alumni.model.UserFmcToken;
 
@@ -17,6 +18,8 @@ public interface UserService <T,H,A> extends BasicService<T,H,A> {
     StudentDto getMyInfo();
 
     void setMyInfo(SignupRequest myInfoDto);
+
+    List<StudentDto> getStudentsFacultyByFirstNameOrLastNameContainsAndMarjorEqualsAndIdAndCity_IdAndCityState(SearchStudentRequest searchReq);
 
     void resetPassword(String password, long id);
 

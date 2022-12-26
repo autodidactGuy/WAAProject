@@ -168,7 +168,7 @@ public class LoginServiceImpl implements LoginService {
                                 encoder.encode(signUpRequest.getPassword()),
                                 signUpRequest.getFirstname(),signUpRequest.getLastname(),
                                 signUpRequest.getBirthday(),signUpRequest.getGender(),
-                                signUpRequest.getNickname(),signUpRequest.getPhone(),signUpRequest.getMarjor()
+                                signUpRequest.getNickname(),signUpRequest.getPhone(),signUpRequest.getMajor()
                         );
                         break;
 

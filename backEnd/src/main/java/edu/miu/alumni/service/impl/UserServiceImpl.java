@@ -6,6 +6,7 @@ import edu.miu.alumni.dto.TagDto;
 import edu.miu.alumni.dto.UserDto;
 import edu.miu.alumni.entity.*;
 import edu.miu.alumni.model.ResetPassword;
+import edu.miu.alumni.model.SearchStudentRequest;
 import edu.miu.alumni.model.SignupRequest;
 import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
@@ -19,13 +20,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.FirebaseMessagingException;
-import com.google.firebase.messaging.TopicManagementResponse;
-
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -114,6 +109,22 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         }
 
         repository.save(userByEmailEquals);
+    }
+
+    @Override
+    public List<StudentDto> getStudentsFacultyByFirstNameOrLastNameContainsAndMarjorEqualsAndIdAndCity_IdAndCityState(SearchStudentRequest searchReq) {
+
+
+        var res =   repository.getStudentsFacultyByFirstNameOrLastNameContainsAndMarjorEqualsAndCity_IdAndCityStateAndIdEquals(
+                searchReq.getMajor(),searchReq.getCity(),searchReq.getStudentId()==null?null: Long.parseLong(searchReq.getStudentId()),searchReq.getState(),searchReq.getName() );
+
+        List<StudentDto> collect = res.stream()
+                .filter(x->!x.isDeleted())
+                .map(x -> {
+                    return modelMapper.map(x, StudentDto.class);
+                }).collect(Collectors.toList());
+
+        return collect;
     }
 
     @Override
