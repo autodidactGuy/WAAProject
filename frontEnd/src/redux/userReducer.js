@@ -5,6 +5,9 @@ import axios from "axios";
 import { workExperienceData } from '../Data/WorkExperienceData'
 import { Moment } from 'moment';
 import { convertListAppliedJobApiToFront } from './../Utils/Utils';
+import { useNavigate } from "react-router-dom";
+
+
 
 //use command :  'npm run start:Dev'  instead of 'npm start'
 const baseurl = process.env.REACT_APP_API_URL;
@@ -142,6 +145,8 @@ const userSlice = createSlice({
             state.isLogged=isLogged()
             state.userInfo=getUserInfo();
             message.success("Login success! Welcome")
+
+
 
             
         });

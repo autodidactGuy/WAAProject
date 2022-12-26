@@ -29,8 +29,8 @@ function Navbar() {
         if (!isLogged){
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label:  <Login/>, key: "4" },
-                { label: <Register/>, key: "5" },
+                { label:  <Login/>, key: "7" },
+                { label: <Register/>, key: "8" },
                 
             ]
         }
@@ -55,7 +55,7 @@ function Navbar() {
         }else {
             return [
                 { label: <Link to="/home">Home</Link>, key: "1" },
-                { label: <Link to="/searchstudent">Find Students</Link>, key: "2" },
+                { label: <Link to="/searchstudent">Find Students</Link>, key: "4" },
                 { label: <UserButton/>, key: "6" },
             ]
         }
