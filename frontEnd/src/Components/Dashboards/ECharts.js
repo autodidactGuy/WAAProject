@@ -280,6 +280,13 @@ const getAppliedJobNumPerMonth = async()=>{
           <SampleEchart isLoading={isloadingnumOfStuPerAge} title='Student by age' data={numOfStuPerAge.map(val=>{return val.ageCnt; })} label={numOfStuPerAge.map(val=>{return val.age;})}/>
         </Col>
 
+
+        <Col span={24}>
+          <SampleEchart isLoading={isloadingappliedJobNumPerMonth} title='Number of applied job per month' data={appliedJobNumPerMonth.map(val=>{return val.appliedJobCnt; })} label={appliedJobNumPerMonth.map(val=>{return val.month;})}/>
+        </Col>
+
+
+        
         
         
 
