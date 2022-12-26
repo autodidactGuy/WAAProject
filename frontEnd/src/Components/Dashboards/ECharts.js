@@ -231,13 +231,13 @@ const getAppliedJobNumPerMonth = async()=>{
 
         <Row className='charts' >
         <Col span={24}>
-            <SampleEchart title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
+            <SampleEchart isLoading={isLoadingjobsPerLocation} title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
         </Col>
         <Col span={24}>
-        <SampleEchart title='Students per State' data={studentsPerState.map(val=>{return val.studentNumber; })} label={studentsPerState.map(val=>{return val.stateCode; })}/>
+        <SampleEchart isLoading={isloadingstudentsPerState} title='Students per State' data={studentsPerState.map(val=>{return val.studentNumber; })} label={studentsPerState.map(val=>{return val.stateCode; })}/>
         </Col>
         <Col span={24}>
-        <SampleEchart title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
+        <SampleEchart isLoading={isloadingstudentsPerCity} title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
         </Col>
         </Row>
     

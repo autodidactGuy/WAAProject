@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactECharts from 'echarts-for-react';
+import { Spin } from 'antd';
 
 const SampleEchart =  (props) => {
   const option = {
@@ -30,10 +31,23 @@ const SampleEchart =  (props) => {
     ]
   };
 
-  return <ReactECharts
-    option={option}
-    style={{ height: 400 }}
-  />;
+  if(props.isLoading){
+    return (
+      <>
+            <Spin size="large" />
+      </>
+    )
+  }
+  else {
+    return (
+      <ReactECharts
+      option={option}
+      style={{ height: 400 }}
+    />
+    )
+  }
+
+
 };
 
 export default SampleEchart;
