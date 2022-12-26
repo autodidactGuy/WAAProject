@@ -34,8 +34,9 @@ public class ValidateController  {
         User userByEmail = userService.getUserByEmail(email);
 
         String appUrl ="";
-        String scheme = request.getScheme();
-        if(scheme=="http")
+
+        String serverName = request.getServerName();
+        if(serverName=="localhost")
         {
             //Dev environment
             appUrl = request.getScheme() + "://" + request.getServerName()+":3000";
