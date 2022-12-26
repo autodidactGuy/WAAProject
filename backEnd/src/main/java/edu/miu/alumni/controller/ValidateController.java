@@ -36,7 +36,7 @@ public class ValidateController  {
         String appUrl ="";
 
         String serverName = request.getServerName();
-        if(serverName=="localhost")
+        if(serverName.equals("localhost"))
         {
             //Dev environment
             appUrl = request.getScheme() + "://" + request.getServerName()+":3000";
