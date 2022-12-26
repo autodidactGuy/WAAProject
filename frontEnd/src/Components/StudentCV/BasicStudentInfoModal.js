@@ -41,7 +41,7 @@ const BasicStudentInfoModal = (props) => {
         width='40%'
       >
         
-        <EditBasicInfoForm user={{...props.user, cityCode :props.user.city?.id?.cityName, stateCode : props.user.city?.id?.stateCode,  location:[[props.user.city?.id?.stateCode, props.user.city?.id?.cityName]], birthday: stringToDate(props.user.birthday)}}/>
+        <EditBasicInfoForm user={{...props.user, cityCode :props.user.city?.id?.cityName, stateCode : props.user.city?.id?.stateCode,  location:[props.user.city?.id?.stateCode, props.user.city?.id?.cityName], birthday: stringToDate(props.user.birthday)}}/>
       </Modal>
     </>
   );
