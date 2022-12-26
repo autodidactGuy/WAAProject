@@ -19,6 +19,29 @@ function ECharts() {
     const [jobsPerLocation,setJobsPerLocation] = useState([]);
     const [studentsPerState,setStudentsPerState] = useState([]);
     const [studentsPerCity,setStudentsPerCity] = useState([]);
+    const [advertisementsPerTag,setAvdertisementsPerTag] = useState([]);
+    const [numberOfTagsPerLocation,setNumberOfTagsPerLocation] = useState([]);
+    const [numberOfAdPerTag,setNumberOfAdPerTag] = useState([]);
+    const [avgGapPerGpa,setAvgGapPerGpa] = useState([]);
+    const [numOfAdsPerMonth,setNumOfAdsPerMonth] = useState([]);
+    const [numOfStudentByGender,setNumOfStudentByGender] = useState([]);
+    const [numOfStuPerAge,setNumOfStuPerAge] = useState([]);
+    const [appliedJobNumPerMonth,setAppliedJobNumPerMonth] = useState([]);
+
+
+
+    const [isLoadingjobsPerLocation,setisloadingJobsPerLocation] = useState(false);
+    const [isloadingstudentsPerState,setisloadingStudentsPerState] = useState(false);
+    const [isloadingstudentsPerCity,setisloadingStudentsPerCity] = useState(false);
+    const [isloadingadvertisementsPerTag,setisloadingAvdertisementsPerTag] = useState(false);
+    const [isloadingnumberOfTagsPerLocation,setisloadingNumberOfTagsPerLocation] = useState(false);
+    const [isloadingnumberOfAdPerTag,setisloadingNumberOfAdPerTag] = useState(false);
+    const [isloadingavgGapPerGpa,setisloadingAvgGapPerGpa] = useState(false);
+    const [isloadingnumOfAdsPerMonth,setisloadingNumOfAdsPerMonth] = useState(false);
+    const [isloadingnumOfStudentByGender,setisloadingNumOfStudentByGender] = useState(false);
+    const [isloadingnumOfStuPerAge,setisloadingNumOfStuPerAge] = useState(false);
+    const [isloadingappliedJobNumPerMonth,setisloadingAppliedJobNumPerMonth] = useState(false);
+    
 
     const [isLoggedIn,setIsLoggedIn] = useState(false);
 
@@ -26,6 +49,14 @@ function ECharts() {
         getJobsPerLocation();
         getStudentsPerState();
         getStudentsPerCity();
+        getAdertisementsPerTag();
+        getNumberOfTagsPerLocation();
+        getNumberOfAdPerTag();
+        getAvgGapPerGpa();
+        getNumOfAdsPerMonth();
+        getNumOfStudentByGender();
+        getNumOfStuPerAge();
+        getAppliedJobNumPerMonth();
     },[]);
 
 
@@ -43,6 +74,50 @@ function ECharts() {
         const response=await axios.get("/echart/getStudentsNumberPerCity?stateCode=PR");
         setStudentsPerCity(response.data);
     }
+
+    const getAdertisementsPerTag = async()=>{
+      const response=await axios.get("/echart/getAdertisementsPerTag");
+      setAvdertisementsPerTag(response.data);
+  }
+
+  const getNumberOfTagsPerLocation = async()=>{
+    const response=await axios.get("/echart/numberOfTagsPerLocation");
+    setNumberOfTagsPerLocation(response.data);
+}
+
+const getNumberOfAdPerTag = async()=>{
+  const response=await axios.get("/echart/numberOfAdPerTag");
+  setNumberOfAdPerTag(response.data);
+}
+  
+
+const getAvgGapPerGpa = async()=>{
+  const response=await axios.get("/echart/avgGapPerGpa");
+  setAvgGapPerGpa(response.data);
+}
+
+const getNumOfAdsPerMonth = async()=>{
+  const response=await axios.get("/echart/numOfAdsPerMonth");
+  setNumOfAdsPerMonth(response.data);
+}
+
+const getNumOfStudentByGender = async()=>{
+  const response=await axios.get("/echart/numOfStudentByGender");
+  setNumOfStudentByGender(response.data);
+}
+
+const getNumOfStuPerAge = async()=>{
+  const response=await axios.get("/echart/numOfStuPerAge");
+  setNumOfStuPerAge(response.data);
+}
+
+const getAppliedJobNumPerMonth = async()=>{
+  const response=await axios.get("/echart/getAppliedJobNumPerMonth");
+  setAppliedJobNumPerMonth(response.data);
+}
+
+
+
 
 
 
