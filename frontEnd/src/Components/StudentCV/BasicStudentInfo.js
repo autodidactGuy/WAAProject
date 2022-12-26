@@ -7,6 +7,7 @@ import Moment  from 'moment';
 import { message } from 'antd';
 import axios from 'axios';
 import { getAccessToken, getProfile } from '../../redux/userReducer';
+import { stringToDate } from '../../Utils/Utils';
 
 const formItemLayout = {
   labelCol: {
@@ -113,11 +114,11 @@ function BasicStudentInfo() {
 
   return (
     <div style={{textAlign:"center"}}>
-      <Avatar size={64} src={userInfo.srcLogo} icon={<UserOutlined />} />
-      <div> {userInfo.firstName}, {userInfo.lastName}  </div>
-      <div>age : {Moment().diff(userInfo.birthday, 'years')}</div>
-      <div><PhoneOutlined />phone number : {userInfo.phoneNumber} </div>
-      <div><MailOutlined />email : {userInfo.email}  </div>
+      <Avatar size={64} src={myProfile.srcLogo} icon={<UserOutlined />} />
+      <div> {myProfile.firstName}, {myProfile.nickName}  </div>
+      <div>age : {Moment().diff(Moment(myProfile.birthday,'YYYY-MM-DD'), 'years')}</div>
+      <div><PhoneOutlined />phone number : {myProfile.phoneNumber} </div>
+      <div><MailOutlined />email : {myProfile.email}  </div>
       
       <Space>
       <BasicStudentInfoModal user={myProfile}/>

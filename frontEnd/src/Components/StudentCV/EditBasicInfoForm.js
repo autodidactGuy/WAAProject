@@ -22,6 +22,8 @@ import {
 } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import { editProfile } from '../../redux/userReducer';
+import { stringToDate } from '../../Utils/Utils';
+import { dateToString } from './../../Utils/Utils';
 
 const { Option } = Select;
 
@@ -66,7 +68,7 @@ const formItemLayout = {
   };
 
 function EditBasicInfoForm(props) {
-  const [srcLogo, setSrcLogo] = useState(props.adv?.srcLogo);
+  const [srcLogo, setSrcLogo] = useState(props.user?.srcLogo);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [previewTitle, setPreviewTitle] = useState('');
@@ -80,7 +82,7 @@ function EditBasicInfoForm(props) {
           uid: '-1',
           name: 'image.png',
           status: 'done',
-          url: props.adv?.srcLogo,
+          url: props.user?.srcLogo,
         }];
       }
       else 
@@ -154,7 +156,6 @@ function EditBasicInfoForm(props) {
 },[]);
 
     const onFinish = (values) => {
-alert('onfinish')
          const newuser =
    {
      major:values.major,
@@ -163,7 +164,7 @@ alert('onfinish')
      nickname: values.nickName,
      phone: values.phoneNumber,
      gender: values.gender,
-     birthday: Moment(values.birthday).format("YYYY-MM-DD"),
+     birthday: dateToString(values.birthday),
      //stateCode:values.residence[0],
      //cityCode: values.residence[1],
      srcLogo:srcLogo
