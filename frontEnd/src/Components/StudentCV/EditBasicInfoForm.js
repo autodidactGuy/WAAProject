@@ -165,10 +165,12 @@ function EditBasicInfoForm(props) {
      phone: values.phoneNumber,
      gender: values.gender,
      birthday: dateToString(values.birthday),
-     //stateCode:values.residence[0],
-     //cityCode: values.residence[1],
-     srcLogo:srcLogo
+     stateCode:values.location?.length> 0  ? values.location[0] : values.location[0],
+     cityCode: values.location?.length> 0  ? values.location[1] : values.location[1],
+     srcLogo:srcLogo,
+     location: values.location
  }
+
 
       dispatch(editProfile(newuser));
         };
@@ -280,7 +282,7 @@ function EditBasicInfoForm(props) {
           },
         ]}
       >
-        <Cascader options={locations} placeholder="State / City"
+        <Cascader  options={locations} placeholder="State / City"
         
         showSearch={{
           filter,

@@ -46,6 +46,7 @@ export const addJobExperience = createAsyncThunk('jobExperience/addJobExperience
 export const updateJobExperience = createAsyncThunk('jobExperience/updateJobExperience', async (jobExperience,{dispatch}) => {
     
     const token = getAccessToken();
+    
     const response= {
             Id: jobExperience.Id,
 			UserId: jobExperience.UserId,

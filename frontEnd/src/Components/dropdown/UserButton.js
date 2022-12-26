@@ -9,7 +9,7 @@ function UserButton() {
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const userInfo= useSelector((state)=>state.userReducer.userInfo)
-
+  const myProfile= useSelector((state)=>state.userReducer.myProfile)
 
   const getItems=()=>{
 
@@ -51,7 +51,7 @@ function UserButton() {
       placement="bottomLeft"
       arrow
     >
-      <div > Welcome {userInfo.nickName} ! <Avatar src={userInfo.srcLogo} icon={<UserOutlined />} /></div>
+      <div > Welcome {myProfile.nickName} ! <Avatar src={myProfile.srcLogo} icon={<UserOutlined />} /></div>
     </Dropdown>
     </>
   )

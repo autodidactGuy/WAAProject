@@ -12,11 +12,11 @@ function UpdateEducationModal(props) {
     if(updateEducationtatus ==="success")
     {
       setIsModalOpen(false);
-      
     }
     
 
   },[updateEducationtatus])
+  
     const [isModalOpen, setIsModalOpen] = useState(false);
     const showModal = () => {
       setIsModalOpen(true);

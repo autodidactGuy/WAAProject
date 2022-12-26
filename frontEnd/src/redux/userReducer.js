@@ -67,10 +67,11 @@ export const loginUser = createAsyncThunk('user/loginUser', async (user,{rejectW
 })
  
 
-export const editProfile = createAsyncThunk('user/editProfile', async (myProfile) => {
+export const editProfile = createAsyncThunk('user/editProfile', async (myProfile,{dispatch}) => {
 
-    const response = await axios.post(baseurl+'/user/myInfo',myProfile); 
-    
+
+    const response = await axios.post(baseurl+'/user/myInfo',{...myProfile, stateCode: myProfile.location[0], cityCode: myProfile.location[1]}); 
+    dispatch(getProfile);
     return response.data;
 })
 
@@ -174,7 +175,8 @@ const userSlice = createSlice({
 
         builder.addCase(editProfile.fulfilled, (state, action) => {
             state.editprofilestatus = 'success';
-            message.success("Update success! Welcome")
+
+            message.success("Update success!")
 
             
         });

@@ -9,6 +9,7 @@ import edu.miu.alumni.model.ResetPassword;
 import edu.miu.alumni.model.SignupRequest;
 import edu.miu.alumni.model.UserFmcToken;
 import edu.miu.alumni.exceptions.InvalideUserOperationExceptions;
+import edu.miu.alumni.repository.StudentRepository;
 import edu.miu.alumni.repository.TagRepository;
 import edu.miu.alumni.repository.UserRepository;
 import edu.miu.alumni.service.UserService;
@@ -41,6 +42,9 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
 
     @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    private StudentRepository studentRepository;
+
     public UserServiceImpl(UserRepository repository, ModelMapper modelMapper) {
         super(repository, modelMapper);
     }
@@ -58,7 +62,22 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     public StudentDto getMyInfo() {
         String name = SecurityContextHolder.getContext().getAuthentication().getName();
         User userByEmailEquals = repository.findUserByEmailEquals(name);
-        return modelMapper.map(userByEmailEquals,StudentDto.class);
+
+        String major = "";
+        List<Role> roles =  userByEmailEquals.getRole();
+        if(roles.size() > 0)
+        {
+            Role userRole = roles.get(0);
+            if("STUDENT".equals(userRole.getName()))
+            {
+                Student student = studentRepository.findStudentByEmailEquals(name);
+                major = student.getMajor();
+            }
+        }
+
+        StudentDto result = modelMapper.map(userByEmailEquals,StudentDto.class);
+        result.setMajor(major);
+        return result;
     }
 
     @Override
@@ -71,7 +90,27 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
         userByEmailEquals.setNickName(myInfoDto.getNickname());
         userByEmailEquals.setBirthday(myInfoDto.getBirthday());
         userByEmailEquals.setSrcLogo(myInfoDto.getSrcLogo());
-        //userByEmailEquals.setCity(new City());
+
+        CityId cityId = new CityId();
+        cityId.setStateCode(myInfoDto.getStateCode());
+        cityId.setCityName(myInfoDto.getCityCode());
+        City cityToSet = new City();
+        cityToSet.setId(cityId);
+
+        userByEmailEquals.setCity(cityToSet);
+
+       List<Role> roles =  userByEmailEquals.getRole();
+        if(roles.size() > 0)
+        {
+            Role userRole = roles.get(0);
+            if("STUDENT".equals(userRole.getName()))
+            {
+                Student student = studentRepository.findStudentByEmailEquals(name);
+                student.setMajor(myInfoDto.getMarjor());
+                studentRepository.save(student);
+            }
+        }
+
         repository.save(userByEmailEquals);
     }
 

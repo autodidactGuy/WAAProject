@@ -7,8 +7,16 @@ import { stringToDate } from '../../Utils/Utils';
 
 const BasicStudentInfoModal = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
- 
+  const editprofilestatus = useSelector((state) => state.userReducer.editprofilestatus);
+  
+  useEffect(()=>{
+    if(editprofilestatus ==="success")
+    {
+      setIsModalOpen(false);
+    }
+    
 
+  },[editprofilestatus])
  
   const showModal = () => {
     setIsModalOpen(true);
@@ -33,7 +41,7 @@ const BasicStudentInfoModal = (props) => {
         width='40%'
       >
         
-        <EditBasicInfoForm user={{...props.user, location:[[props.user.city?.id?.stateCode, props.user.city?.id?.cityName]], birthday: stringToDate(props.user.birthday)}}/>
+        <EditBasicInfoForm user={{...props.user, cityCode :props.user.city?.id?.cityName, stateCode : props.user.city?.id?.stateCode,  location:[[props.user.city?.id?.stateCode, props.user.city?.id?.cityName]], birthday: stringToDate(props.user.birthday)}}/>
       </Modal>
     </>
   );
