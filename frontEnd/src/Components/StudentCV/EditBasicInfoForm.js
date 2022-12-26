@@ -51,52 +51,42 @@ const formItemLayout = {
   };
 
 function EditBasicInfoForm(props) {
+
+  console.log('user info a modifié ', props.user)
+
+
     const [form] = Form.useForm();
     const dispatch = useDispatch();
     const locations = useSelector((state)=>state.userReducer.locations)
     const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
-    // useEffect(()=>{
-    //     dispatch(getLocations());
-    
-    //   })
+
+
+
       const filter = (inputValue, path) =>
   path.some((option) => option.label.toLowerCase().indexOf(inputValue.toLowerCase()) > -1);
 
   const onFill = () => {
-    form.setFieldsValue({
-      note: 'Hello world!',
-      gender: 'male',
-    });
+    form.setFieldsValue(props.user);
   };
 
+  useEffect(()=>{
+    onFill();
+},[]);
+
     const onFinish = (values) => {
-        const newuser =
-        {
-          major:values.major,
-          firstname: values.firstname,
-          lastname: values.lastname,
-          email: values.email,
-          password: values.password,
-          nickname: values.nickname,
-          phone: values.phone,
-          gender: values.gender,
-          role: values.role,
-          birthday: Moment(values.birthday).format("YYYY-MM-DD"),
-          stateCode:values.residence[0],
-          cityCode: values.residence[1]
-      }
+        
         
     
       
         };
 
         
-        
   return (
     <div>
       <Row>
     <Col span={24} offset={0}>
-    <Form
+    <Form 
+
       {...formItemLayout}
       form={form}
       name="register"
@@ -107,24 +97,11 @@ function EditBasicInfoForm(props) {
       scrollToFirstError
     >
       
-      <Form.Item
-        name="major"
-        label="Major"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your major!',
-            whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
     
 
 
     <Form.Item
-        name="firstname"
+        name="firstName"
         label="First name"
         rules={[
           {
@@ -137,29 +114,13 @@ function EditBasicInfoForm(props) {
         <Input />
       </Form.Item>
       <Form.Item
-        name="lastname"
+        name="lastName"
         label="Last name"
         rules={[
           {
             required: true,
             message: 'Please input your last name!',
             whitespace: true,
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
           },
         ]}
       >
@@ -177,10 +138,10 @@ function EditBasicInfoForm(props) {
         <DatePicker style={{
             width: '100%',
           }}/>
-      </Form.Item>
+      </Form.Item> 
 
       <Form.Item
-        name="nickname"
+        name="nickName"
         label="Nickname"
         tooltip="What do you want others to call you?"
         rules={[
@@ -214,7 +175,7 @@ function EditBasicInfoForm(props) {
       </Form.Item>
 
       <Form.Item
-        name="phone"
+        name="phoneNumber"
         label="Phone Number"
         rules={[
           {

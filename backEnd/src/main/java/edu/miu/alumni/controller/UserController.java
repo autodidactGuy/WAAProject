@@ -60,6 +60,17 @@ public class UserController   extends BaseController<User, UserDto,Long> {
         return  ResponseEntity.ok(bs.getAllStudentAndFacultyByAdmin());
     }
 
+    @GetMapping("/myInfo")
+    public ResponseEntity<?> getMyInfo(){
+
+        return  ResponseEntity.ok(bs.getMyInfo());
+    }
+
+    @PostMapping("/myInfo")
+    public ResponseEntity<?> setMyInfo(@RequestBody UserDto userDto){
+        return  ResponseEntity.ok(bs.getMyInfo());
+    }
+
     /**
      * this function is for admin reset the password of user
      * @param password

@@ -55,6 +55,13 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
     }
 
     @Override
+    public UserDto getMyInfo() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userByEmailEquals = repository.findUserByEmailEquals(name);
+        return modelMapper.map(userByEmailEquals,UserDto.class);
+    }
+
+    @Override
     @Transactional
     public void resetPassword(String password, long id) {
         User user = repository.findById(id).get();

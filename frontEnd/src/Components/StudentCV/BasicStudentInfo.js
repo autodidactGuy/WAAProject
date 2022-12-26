@@ -1,12 +1,12 @@
 import { LockOutlined, MailOutlined, PhoneOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Form, Input, Modal, Space } from 'antd'
 import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import BasicStudentInfoModal from './BasicStudentInfoModal'
 import Moment  from 'moment';
 import { message } from 'antd';
 import axios from 'axios';
-import { getAccessToken } from '../../redux/userReducer';
+import { getAccessToken, getProfile } from '../../redux/userReducer';
 
 const formItemLayout = {
   labelCol: {
@@ -40,6 +40,8 @@ const tailFormItemLayout = {
 };
 
 function BasicStudentInfo() {
+
+  const dispatch = useDispatch();
 
   const baseurl = process.env.REACT_APP_API_URL;
 
@@ -101,9 +103,14 @@ function BasicStudentInfo() {
 
 
   const userInfo= useSelector((state)=>state.userReducer.userInfo)
+  const myProfile= useSelector((state)=>state.userReducer.myProfile)
+  
 
 
-  console.log("user in of : ",userInfo)
+  useEffect(() => {
+    dispatch(getProfile());
+  },[]);
+
   return (
     <div style={{textAlign:"center"}}>
       <Avatar size={64} src={userInfo.srcLogo} icon={<UserOutlined />} />
@@ -113,7 +120,7 @@ function BasicStudentInfo() {
       <div><MailOutlined />email : {userInfo.email}  </div>
       
       <Space>
-      <BasicStudentInfoModal/>
+      <BasicStudentInfoModal user={myProfile}/>
 
       <Button icon={<LockOutlined />} type="primary" onClick={showModal}>
         Reset Password

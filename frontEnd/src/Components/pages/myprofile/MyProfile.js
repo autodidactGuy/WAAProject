@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 function MyProfile() {
   const userInfo= useSelector((state)=>state.userReducer.userInfo)
-
+  const user = useSelector((state)=>state.userReducer.getProfile)
   return (
     <Row style={{marginTop:'10px'}}>
       <Col xs={{ span: 23, offset: 1 }} sm={{ span: 20, offset: 4 }} md={{ span: 18, offset: 6 }}  lg={{ span: 12, offset: 6 }} xl={{ span: 12, offset: 6 }}  xxl={{ span: 12, offset: 6 }} >

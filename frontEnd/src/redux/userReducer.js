@@ -74,6 +74,15 @@ export const editProfile = createAsyncThunk('user/editProfile', async (user) => 
     return response.data;
 })
 
+//TODO 
+export const getProfile = createAsyncThunk('user/getProfile', async (user) => {
+
+
+    const response = await axios.get(baseurl+'/user/myInfo'); 
+    
+    return response.data;
+})
+
 
 
 export const appliedJobs = createAsyncThunk('education/myAppliedJobs', async () => {
@@ -99,11 +108,13 @@ const userSlice = createSlice({
     registerstatus: 'idle', 
     loginstatus:'idle', 
     editprofilestatus:'idle',
+    getprofilestatus:'idle',
     appliedJobsstatus:'idle',
     userInfo:getUserInfo(),
     isLogged:isLogged(),
     myAppliedJobs:[],
-    isforgotPassword: false    
+    isforgotPassword: false,
+    myProfile:{},    
     },
     
     reducers:{
@@ -173,6 +184,20 @@ const userSlice = createSlice({
         builder.addCase(editProfile.rejected, (state, action) => {
             state.editprofilestatus = 'rejected'
             message.error("Update Error! Please try again")
+        });
+
+        //get profile
+        builder.addCase(getProfile.fulfilled, (state, action) => {
+            state.getprofilestatus = 'success';
+            state.myProfile = action.payload;
+        })
+        builder.addCase(getProfile.pending, (state, action) => {
+            state.getprofilestatus = 'pending'
+        });
+        builder.addCase(getProfile.rejected, (state, action) => {
+            state.getprofilestatus = 'rejected'
+            alert('error get profile')
+            message.error("Error")
         });
          
 

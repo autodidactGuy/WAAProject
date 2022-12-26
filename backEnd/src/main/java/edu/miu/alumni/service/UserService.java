@@ -12,6 +12,8 @@ public interface UserService <T,H,A> extends BasicService<T,H,A> {
 
     List<UserDto> getAllStudentAndFacultyByAdmin();
 
+    UserDto getMyInfo();
+
     void resetPassword(String password, long id);
 
     String resetPassword(ResetPassword password);

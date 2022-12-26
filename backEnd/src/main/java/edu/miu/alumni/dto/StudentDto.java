@@ -47,7 +47,7 @@ public class StudentDto {
 
     private String major;
 
-
+    private String srcLogo;
 //    private Profile profile;
 //
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Breadcrumb, Layout, Menu, theme } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
 import { Avatar, Card } from 'antd';
@@ -7,7 +7,7 @@ import RegisterModal from '../register/registerform/RegisterModal';
 import Login from '../Connection/Login';
 import Register from '../Connection/Register';
 import UserButton from '../dropdown/UserButton';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 
 import logo from '../../Images/logo.png'
@@ -22,7 +22,32 @@ const { Header, Content, Footer } = Layout;
 const { Meta } = Card;
 
 function Navbar() {
+    const [currentTab, setCurrentTab] = useState(1);
 
+    const location = useLocation();
+
+    
+
+    if(location.pathname === ''){
+        setCurrentTab(1)
+    }
+    else if(location.pathname === ''){
+        setCurrentTab(2)
+    }
+    else if(location.pathname === ''){
+        setCurrentTab(3)
+    }
+    else if(location.pathname === ''){
+        setCurrentTab(4)
+    }
+    else if(location.pathname === ''){
+        setCurrentTab(5)
+    }
+    else if(location.pathname === ''){
+        setCurrentTab(6)
+    }
+
+    
     const userInfo= useSelector((state)=>state.userReducer.userInfo)
     const isLogged= useSelector((state)=>state.userReducer.isLogged)
     const getItem=()=>{
