@@ -105,9 +105,11 @@ public class UserServiceImpl extends BasicServiceImpl<User, UserDto,Long, UserRe
             Role userRole = roles.get(0);
             if("STUDENT".equals(userRole.getName()))
             {
-                Student student = studentRepository.findStudentByEmailEquals(name);
-                student.setMajor(myInfoDto.getMarjor());
-                studentRepository.save(student);
+                String majorToset = myInfoDto.getMajor();
+                studentRepository.setMajor(majorToset,userByEmailEquals.getId());
+                //Student student = studentRepository.findStudentByEmailEquals(name);
+                //student.setMajor(myInfoDto.getMarjor());
+                //studentRepository.save(student);
             }
         }
 

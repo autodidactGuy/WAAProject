@@ -68,6 +68,8 @@ const formItemLayout = {
   };
 
 function EditBasicInfoForm(props) {
+  const userInfo= useSelector((state)=>state.userReducer.userInfo)
+
   const [srcLogo, setSrcLogo] = useState(props.user?.srcLogo);
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
@@ -324,6 +326,22 @@ function EditBasicInfoForm(props) {
           <Option value="female">Female</Option>
         </Select>
       </Form.Item>
+
+        {userInfo.role[0].name==="STUDENT" &&       
+        <Form.Item
+        name="major"
+        label="Major"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your major!',
+            whitespace: true,
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>}
+
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Save

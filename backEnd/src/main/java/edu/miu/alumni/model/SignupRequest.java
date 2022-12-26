@@ -32,5 +32,5 @@ public class SignupRequest {
     private String srcLogo;
 
     @Nullable
-    private String marjor;
+    private String major;
 }

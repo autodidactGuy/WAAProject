@@ -8,7 +8,8 @@ import { stringToDate } from '../../Utils/Utils';
 const BasicStudentInfoModal = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const editprofilestatus = useSelector((state) => state.userReducer.editprofilestatus);
-  
+
+
   useEffect(()=>{
     if(editprofilestatus ==="success")
     {

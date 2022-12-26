@@ -4,10 +4,13 @@ import edu.miu.alumni.entity.Faculty;
 import edu.miu.alumni.entity.Student;
 import edu.miu.alumni.model.echarts.StudentsNumberPerCity;
 import edu.miu.alumni.model.echarts.StudentsNumberPerState;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -60,6 +63,11 @@ public interface StudentRepository extends CrudRepository<Student,Long> {
             "GROUP BY  s.city.id.cityName"
     )
     List<StudentsNumberPerCity> getStudentsNumberPerCity(String stateCode);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE users  set major=?1 where id=?2", nativeQuery = true)
+    void setMajor(String major, Long iduser);
 
 
     Student findStudentByEmailEquals(String facultyEmail);
