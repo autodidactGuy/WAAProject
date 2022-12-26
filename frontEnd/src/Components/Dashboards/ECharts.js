@@ -61,59 +61,165 @@ function ECharts() {
 
 
   const getJobsPerLocation = async()=>{
-        const response=await axios.get("/echart/getJobAdvertisementsPerLocation");
-        setJobsPerLocation(response.data);
+    try {
+      setisloadingJobsPerLocation(true)
+      const response=await axios.get("/echart/getJobAdvertisementsPerLocation");
+      setJobsPerLocation(response.data);
+    } catch (e) {
+      
+    } finally {
+      setisloadingJobsPerLocation(false);
     }
+  };
+
+    
 
     const getStudentsPerState = async()=>{
-            const response=await axios.get("/echart/getStudentsNumberPerState");
-            setStudentsPerState(response.data);
+      try {
+        setisloadingStudentsPerState(true);
+        const response=await axios.get("/echart/getStudentsNumberPerState");
+        setStudentsPerState(response.data);
+      } catch (e) {
+        
+      } finally {
+        setisloadingStudentsPerState(false);
+      }
+ 
     }
 
     const getStudentsPerCity = async()=>{
-        const response=await axios.get("/echart/getStudentsNumberPerCity?stateCode=PR");
-        setStudentsPerCity(response.data);
+            
+            try {
+              setisloadingStudentsPerCity(true);
+              const response=await axios.get("/echart/getStudentsNumberPerCity?stateCode=PR");
+              setStudentsPerCity(response.data);
+            } catch (e) {
+              
+            } finally {
+              setisloadingStudentsPerCity(false);
+            }
     }
 
+
+
+
     const getAdertisementsPerTag = async()=>{
-      const response=await axios.get("/echart/getAdertisementsPerTag");
-      setAvdertisementsPerTag(response.data);
+
+                      
+                      try {
+                        setisloadingAvdertisementsPerTag(true);
+                        const response=await axios.get("/echart/getAdertisementsPerTag");
+                        setAvdertisementsPerTag(response.data);
+                      } catch (e) {
+                        
+                      } finally {
+                        setisloadingAvdertisementsPerTag(false);
+                      }
+
+
   }
 
   const getNumberOfTagsPerLocation = async()=>{
-    const response=await axios.get("/echart/numberOfTagsPerLocation");
-    setNumberOfTagsPerLocation(response.data);
+                      
+                      try {
+                        setisloadingNumberOfTagsPerLocation(true)
+                        const response=await axios.get("/echart/numberOfTagsPerLocation");
+                        setNumberOfTagsPerLocation(response.data);
+                      } catch (e) {
+                        
+                      } finally {
+                        setisloadingNumberOfTagsPerLocation(false)
+                      }
 }
 
 const getNumberOfAdPerTag = async()=>{
-  const response=await axios.get("/echart/numberOfAdPerTag");
-  setNumberOfAdPerTag(response.data);
+
+                        
+                        try {
+                          setisloadingNumberOfAdPerTag(true)
+                          const response=await axios.get("/echart/numberOfAdPerTag");
+                          setNumberOfAdPerTag(response.data);
+                        } catch (e) {
+                          
+                        } finally {
+                          setisloadingNumberOfAdPerTag(false)
+                        }
+
+
 }
   
 
+
+
+
 const getAvgGapPerGpa = async()=>{
-  const response=await axios.get("/echart/avgGapPerGpa");
-  setAvgGapPerGpa(response.data);
+                          
+                          try {
+                            setisloadingAvgGapPerGpa(true)
+                            const response=await axios.get("/echart/avgGapPerGpa");
+                            setAvgGapPerGpa(response.data);
+                          } catch (e) {
+                            
+                          } finally {
+                            setisloadingAvgGapPerGpa(true)
+                          }
+
 }
 
 const getNumOfAdsPerMonth = async()=>{
-  const response=await axios.get("/echart/numOfAdsPerMonth");
-  setNumOfAdsPerMonth(response.data);
+                          
+                          try {
+                            setisloadingNumOfAdsPerMonth(true)
+                            const response=await axios.get("/echart/numOfAdsPerMonth");
+                            setNumOfAdsPerMonth(response.data);
+                          } catch (e) {
+                            
+                          } finally {
+                            setisloadingNumOfAdsPerMonth(false)
+                          }
+
 }
 
 const getNumOfStudentByGender = async()=>{
-  const response=await axios.get("/echart/numOfStudentByGender");
-  setNumOfStudentByGender(response.data);
+                          
+                          try {
+                            setisloadingNumOfStudentByGender(true)
+                            const response=await axios.get("/echart/numOfStudentByGender");
+                            setNumOfStudentByGender(response.data);
+                          } catch (e) {
+                            
+                          } finally {
+                            setisloadingNumOfStudentByGender(false)
+                          }
+
 }
 
 const getNumOfStuPerAge = async()=>{
-  const response=await axios.get("/echart/numOfStuPerAge");
-  setNumOfStuPerAge(response.data);
+                          
+                          try {
+                            setisloadingNumOfStuPerAge(true)
+                            const response=await axios.get("/echart/numOfStuPerAge");
+                            setNumOfStuPerAge(response.data);
+                          } catch (e) {
+                            
+                          } finally {
+                            setisloadingNumOfStuPerAge(false)
+                          }
+
 }
 
 const getAppliedJobNumPerMonth = async()=>{
-  const response=await axios.get("/echart/getAppliedJobNumPerMonth");
-  setAppliedJobNumPerMonth(response.data);
+
+                          try {
+                            setisloadingAppliedJobNumPerMonth(true)
+                            const response=await axios.get("/echart/getAppliedJobNumPerMonth");
+                            setAppliedJobNumPerMonth(response.data);
+                          } catch (e) {
+                            
+                          } finally {
+                            setisloadingAppliedJobNumPerMonth(false)
+                          }
+
 }
 
 
@@ -124,13 +230,13 @@ const getAppliedJobNumPerMonth = async()=>{
   return (
 
         <Row className='charts' >
-        <Col span={11}>
+        <Col span={24}>
             <SampleEchart title='Jobs per Location' data={jobsPerLocation.map(val=>{return val.jobAdvertisementCount; })} label={jobsPerLocation.map(val=>{return val.cityName+', '+val.stateCode; })}/>
         </Col>
-        <Col span={11}>
+        <Col span={24}>
         <SampleEchart title='Students per State' data={studentsPerState.map(val=>{return val.studentNumber; })} label={studentsPerState.map(val=>{return val.stateCode; })}/>
         </Col>
-        <Col span={11}>
+        <Col span={24}>
         <SampleEchart title='Students per City' data={studentsPerCity.map(val=>{return val.numberOfStudent; })} label={studentsPerCity.map(val=>{return val.cityName; })}/>
         </Col>
         </Row>
