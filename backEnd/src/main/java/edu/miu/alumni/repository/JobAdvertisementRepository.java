@@ -38,6 +38,10 @@ public interface JobAdvertisementRepository extends CrudRepository<JobAdvertisem
     )
     public List<JobAdvertisement> findTop10JobAd();
 
+    @Query(value = "SELECT jadv.* FROM job_advertisements as jadv INNER JOIN user_application as uap on jadv.id = uap.id_job_advertisement WHERE jadv.is_deleted <> TRUE and  uap.is_deleted <> TRUE order by uap.application_date desc limit 10" ,nativeQuery = true
+    )
+    public List<JobAdvertisement> findTop10JobAdApplied();
+
 
     /**
      * Number of job advertisements per location.

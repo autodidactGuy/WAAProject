@@ -101,6 +101,15 @@ public class JobAdvertisementServiceImpl
     }
 
     @Override
+    public List<JobAdvertisementDto> getTop10LatestAdvertisementApplied() {
+        return repository.findTop10JobAdApplied().stream()
+                .filter(x->!x.isDeleted())
+                .map(x->
+                        modelMapper.map(x,JobAdvertisementDto.class)
+                ).collect(Collectors.toList());
+    }
+
+    @Override
     public List<JobAdvertisementsPerLocation> getJobAdvertisementPerLocation() {
         return repository.getJobAdvertisementPerLocation();
 

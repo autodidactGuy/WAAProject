@@ -15,6 +15,9 @@ public interface JobAdvertisementService <T,H,A> extends BasicService<T,H,A>{
 
     List<H> getTop10LatestAdvertisement();
 
+    List<H> getTop10LatestAdvertisementApplied();
+
+
     List<JobAdvertisementsPerLocation> getJobAdvertisementPerLocation();
 
     List<AdertisementsPerTag> getAdertisementsPerTag();
