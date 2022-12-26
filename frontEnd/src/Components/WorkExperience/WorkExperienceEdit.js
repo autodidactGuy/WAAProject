@@ -129,7 +129,7 @@ const WorkExperienceEdit = (props) => {
           },
         ]}
       >
-        <Cascader options={locations} 
+        <Cascader options={locations}  placeholder="State / City"
         
         showSearch={{
           filter,

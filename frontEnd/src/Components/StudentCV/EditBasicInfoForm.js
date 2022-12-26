@@ -57,7 +57,7 @@ function EditBasicInfoForm(props) {
 
     const [form] = Form.useForm();
     const dispatch = useDispatch();
-    const locations = useSelector((state)=>state.userReducer.locations)
+    const locations = useSelector((state)=>state.locationReducer.locations)
     const getLocationStatus = useSelector((state)=>state.locationReducer.getLocationStatus)
 
 
@@ -71,6 +71,11 @@ function EditBasicInfoForm(props) {
 
   useEffect(()=>{
     onFill();
+    if(locations.length === 0)
+    {
+      dispatch(getLocations());
+    }
+
 },[]);
 
     const onFinish = (values) => {
@@ -156,7 +161,7 @@ function EditBasicInfoForm(props) {
       </Form.Item>
 
       <Form.Item
-        name="residence"
+        name="location"
         label="Habitual Residence"
         rules={[
           {
@@ -166,7 +171,7 @@ function EditBasicInfoForm(props) {
           },
         ]}
       >
-        <Cascader options={locations} 
+        <Cascader options={locations} placeholder="State / City"
         
         showSearch={{
           filter,

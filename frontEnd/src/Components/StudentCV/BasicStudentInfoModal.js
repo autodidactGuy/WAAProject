@@ -3,6 +3,7 @@ import { Button, message, Modal } from 'antd';
 import { useSelector } from 'react-redux';
 import EditBasicInfoForm from './EditBasicInfoForm';
 import { EditOutlined } from '@ant-design/icons';
+import { stringToDate } from '../../Utils/Utils';
 
 const BasicStudentInfoModal = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +48,7 @@ const BasicStudentInfoModal = (props) => {
         width='40%'
       >
         
-        <EditBasicInfoForm user={{...props.user, residence:[props.user.city?.id?.sateCode, props.user.city?.id?.cityName]}}/>
+        <EditBasicInfoForm user={{...props.user, location:[[props.user.city?.id?.stateCode, props.user.city?.id?.cityName]], birthday: stringToDate(props.user.birthday)}}/>
       </Modal>
     </>
   );
